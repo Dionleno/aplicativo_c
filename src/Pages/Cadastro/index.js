@@ -2,7 +2,7 @@
  *  Pagina para selecionar o patrocinador
  */
  import React, { Component } from 'react';
- import { Platform ,Image, Alert ,ScrollView ,TextInput,FlatList,TouchableOpacity,Picker,StyleSheet } from 'react-native';
+ import { Platform ,Image, Alert ,ScrollView ,TextInput,FlatList,TouchableOpacity,Picker,StyleSheet,Animated } from 'react-native';
  import { View,Text ,Container,CheckBox,Content,Card,CardItem, Row,Form , Item,H3, Right,Radio,Input, Label,Button,Grid,Col ,Spinner,List,ListItem,Left,Thumbnail,Body} from 'native-base';
  /*REDUX*/
  import { connect } from 'react-redux'
@@ -10,7 +10,7 @@
 
  import Icon from 'react-native-vector-icons/MaterialIcons'
  import HeaderExterno from '../../Static/HeaderExterno'
-
+ import PopupDialog ,{DialogTitle , SlideAnimation,DialogButton } from 'react-native-popup-dialog';
  /*Componentes*/
  import ErrorForm from '../../Helpers/ErrorForm'
  import {handlerSubmit} from './Actions' 
@@ -20,6 +20,14 @@
  import Endereco from './Components/Endereco'
  import OpcoesEntrega from './Components/OpcoesEntrega'
  import TermosDeUso from './Components/TermosDeUso'
+
+
+
+const AnimatedTI = Animated.createAnimatedComponent(Item);
+
+const slideAnimation = new SlideAnimation({
+  slideFrom: 'bottom',
+});
 
  /*Helpers*/
 import {RequestGet,RequestPost,RequestPOSTAuth} from '../../Helpers/Http'
@@ -34,14 +42,28 @@ render() {
   return ( 
    <Container>
    <HeaderExterno item={this.props} title="Cadastro" />
-
+    
+    <PopupDialog
+          dialogTitle={<DialogTitle title="Termos de uso" />}
+          ref={(popupDialog) => { this.popupDialog = popupDialog; }}
+          dialogAnimation={slideAnimation}
+          animationDuration={500}
+          width={0.9}
+          height={0.9}
+          containerStyle={{ zIndex: 10, elevation: 10}}
+          actions={[<DialogButton text="Fechar" key='xptop' align="center" onPress={() => this.popupDialog.dismiss()}/>]}
+        >
+          <Content>
+              <Text>Texto de termos de uso</Text>
+          </Content>
+     </PopupDialog>
    <Content >
      
       <DadosPessoais />
       <DadosDeAcesso />
       <Endereco />
       <OpcoesEntrega />
-      <TermosDeUso />
+      <TermosDeUso _props={this}/>
 
         <View style={{paddingRight:15,paddingLeft:15}}>
              <Button block style={{backgroundColor: "#000000", marginTop:10, marginBottom:20}} onPress={() => this.props.handlerSubmit(this.props)}>

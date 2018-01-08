@@ -16,6 +16,8 @@ import Cadastro from './Pages/Cadastro';
 import Kits from './Pages/Kits';
 import KitDatails from './Pages/Kits/Details'
 import Confirmacao from './Pages/CadastroConfirmacao'
+import Login from './Pages/Login';
+
 //Paginas internas
 import Interna from './Pages/Interna';
 
@@ -50,6 +52,7 @@ export const DrawerNav =  DrawerNavigator({
 const NavigatorRouter = StackNavigator({
     Drawer : {screen: DrawerNav},
     Home: {screen: Home},
+    Login: {screen:Login},
     Patrocinador: {screen: Patrocinador},
     Cadastro: {screen:Cadastro} ,
     Kits: {screen:Kits} ,
@@ -57,7 +60,7 @@ const NavigatorRouter = StackNavigator({
     Confirmacao:{screen:Confirmacao}
  },{
     headerMode: 'none',
-    initialRouteName: 'Home',
+    initialRouteName: 'Login',
     navigationOptions : {}
 });
 

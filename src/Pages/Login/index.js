@@ -11,16 +11,15 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 /*NATIVE E NATIVE BASE*/
-import { Platform, View, Image, Dimensions, Content, ImageBackground, StyleSheet, NetInfo} from 'react-native';
-import { StyleProvider, Container, Button,Text,Header} from 'native-base';
+import { Alert ,ImageBackground,View,Dimensions,StyleSheet} from 'react-native';
+import {Container, Content, Form, Item, Input, Button, Text, Label, Spinner } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './Style'
+import HeaderExterno from '../../Static/HeaderExterno'
+import IF from '../../Helpers/if'
 
-const dimensions = Dimensions.get('window');
-const imageHeight = Math.round(dimensions.width  * 9 / 16);
-const imageWidth = dimensions.width;
 
-export class Home extends Component {
+export class Login extends Component {
     
   render() {
 
@@ -37,20 +36,22 @@ export class Home extends Component {
                  </View>
              
              </ImageBackground>
-					{this.loading()}
-				
 
+						<IF visible={this.props.loading}>
+								<Spinner color='#000000' />
+						</IF>
+ 
 					<Form style={{margin:20,backgroundColor:'#FFFFFF'}}>
 		            	<Item floatingLabel>
 		            		<Label>Login</Label>
-		              		<Input value={this.state.form.login} onChangeText={(value) => {this.setState({form: {...this.state.form, login: value}})}} />
+		              		<Input  />
 		            	</Item>
 		            	<Item floatingLabel last>
 		            		<Label>Senha</Label>
-		              		<Input secureTextEntry={true}  value={this.state.form.senha} onChangeText={(value) => {this.setState({form: {...this.state.form, senha: value}})}} />
+		              		<Input secureTextEntry={true}  />
 		            	</Item>
 
-	            		<Button block style={[styles.btnPrimary,{marginTop:20}]} onPress={() => {this.doLogin()}}>
+	            		<Button block style={[styles.btnPrimary,{marginTop:20}]}>
 	            			<Text>Entrar</Text>
 	            		</Button>
 		          	</Form>
@@ -63,4 +64,4 @@ export class Home extends Component {
 
 
 const mapStateToProps = state => (state.home)
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps)(Login)

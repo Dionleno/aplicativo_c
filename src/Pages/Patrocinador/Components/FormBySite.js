@@ -15,8 +15,8 @@ import StyleInput from '../../../StyleSheet/Input';
 
 export const PatrocionadorBySite = props => {
     return (
-		<View style={{margin:10}}>  
-			<Item style={[StyleInput.boxinput,,{marginBottom:10}]}> 
+		<View>  
+			<Item style={[StyleInput.boxinput,{marginBottom:10, backgroundColor:'#f1f1f1'}]}> 
 				<TextInput underlineColorAndroid='transparent'  style={StyleInput.inputText} placeholder='Minisite do seu patrocionador' value={props.findtext} onChangeText={(value) => props.onChangeField(value,'findtext')}/>
 			</Item>
 

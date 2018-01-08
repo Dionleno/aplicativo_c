@@ -15,8 +15,8 @@ import StyleInput from '../../../StyleSheet/Input';
 
 export const PatrocionadorByCep  = props => {
     return (
-		<View style={{margin:10}}>  
-			<Item style={[StyleInput.boxinput,{marginBottom:10}]}>
+		<View>  
+			<Item style={[StyleInput.boxinput,{marginBottom:10, backgroundColor:'#f1f1f1'}]}>
 				<TextInputMask 
 				style={StyleInput.inputText}
 				type={'zip-code'}
