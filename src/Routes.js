@@ -11,7 +11,11 @@ import {DrawerNavigator, StackNavigator} from 'react-navigation';
 
 //Paginas externas
 import Home from './Pages/Home';
-
+import Patrocinador from './Pages/Patrocinador';
+import Cadastro from './Pages/Cadastro';
+import Kits from './Pages/Kits';
+import KitDatails from './Pages/Kits/Details'
+import Confirmacao from './Pages/CadastroConfirmacao'
 //Paginas internas
 import Interna from './Pages/Interna';
 
@@ -45,7 +49,12 @@ export const DrawerNav =  DrawerNavigator({
 */
 const NavigatorRouter = StackNavigator({
     Drawer : {screen: DrawerNav},
-    Home: {screen: Home} 
+    Home: {screen: Home},
+    Patrocinador: {screen: Patrocinador},
+    Cadastro: {screen:Cadastro} ,
+    Kits: {screen:Kits} ,
+    KitDatails:{screen:KitDatails},
+    Confirmacao:{screen:Confirmacao}
  },{
     headerMode: 'none',
     initialRouteName: 'Home',
