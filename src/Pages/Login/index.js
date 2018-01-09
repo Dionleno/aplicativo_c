@@ -9,18 +9,24 @@ import React, { Component } from 'react';
 /*REDUX*/
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import {handlerLogin,onChangeField} from './Actions' 
 
 /*NATIVE E NATIVE BASE*/
-import { Alert ,ImageBackground,View,Dimensions,StyleSheet} from 'react-native';
+import { Alert ,ImageBackground,View,Dimensions,StyleSheet,TextInput} from 'react-native';
 import {Container, Content, Form, Item, Input, Button, Text, Label, Spinner } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './Style'
 import HeaderExterno from '../../Static/HeaderExterno'
-import IF from '../../Helpers/if'
 
+ /*Helpers*/
+import IF from '../../Helpers/if'
+import StyleInput from '../../StyleSheet/Input';
 
 export class Login extends Component {
-    
+    constructor(props) {
+     super(props);
+    } 
+ 
   render() {
 
     return (
@@ -41,20 +47,29 @@ export class Login extends Component {
 								<Spinner color='#000000' />
 						</IF>
  
-					<Form style={{margin:20,backgroundColor:'#FFFFFF'}}>
-		            	<Item floatingLabel>
-		            		<Label>Login</Label>
-		              		<Input  />
-		            	</Item>
-		            	<Item floatingLabel last>
-		            		<Label>Senha</Label>
-		              		<Input secureTextEntry={true}  />
-		            	</Item>
+					<View style={{padding:20,backgroundColor:'#FFFFFF'}}>
 
-	            		<Button block style={[styles.btnPrimary,{marginTop:20}]}>
+					  <Item style={[StyleInput.boxinput,{marginBottom:10, backgroundColor:'#f1f1f1'}]}> 
+							<TextInput underlineColorAndroid='transparent'  
+							           style={StyleInput.inputText} 
+							           placeholder='Login' 
+							           value={this.props.form.login} 
+							           onChangeText={(value) => this.props.onChangeField(value,'login')}/>
+						</Item>
+
+            <Item style={[StyleInput.boxinput,{marginBottom:10, backgroundColor:'#f1f1f1'}]}> 
+							<TextInput underlineColorAndroid='transparent'  
+							           style={StyleInput.inputText} 
+							           placeholder='Senha' 
+							           secureTextEntry={true} 
+							           value={this.props.form.senha} 
+							           onChangeText={(value) => this.props.onChangeField(value,'senha')}/>
+						</Item>
+ 
+	            		<Button block style={[styles.btnPrimary,{marginTop:20}]} onPress={() => {this.props.handlerLogin(this.props)}}>
 	            			<Text>Entrar</Text>
 	            		</Button>
-		          	</Form>
+		     </View>
 				</Content>
 			</Container>
 
@@ -63,5 +78,8 @@ export class Login extends Component {
 }
 
 
-const mapStateToProps = state => (state.home)
-export default connect(mapStateToProps)(Login)
+const mapStateToProps = state => (state.login)
+const mapDispatchToProps = dispatch => bindActionCreators({handlerLogin,onChangeField},dispatch)
+export default connect(mapStateToProps,mapDispatchToProps)(Login)
+
+ 

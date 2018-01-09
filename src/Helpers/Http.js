@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Platform, AsyncStorage } from 'react-native';
+import { Platform, AsyncStorage ,Alert} from 'react-native';
 
 
 export const URL_API = 'https://magic-store-api-dev.contem1gmagic.com.br/';
@@ -83,8 +83,7 @@ export const doLogin = (_username,_password) =>{
 
       if(!username){
         Alert.alert('Atenção', 'Digite o seu login');
-        return false;
-      }
+       }
 
       if(!password){
         Alert.alert('Atenção', 'Digite sua senha');
@@ -110,6 +109,10 @@ export const doLogin = (_username,_password) =>{
       .then(resp => {
         if(resp.error != null && resp.error == 'invalid_credentials'){
             Alert.alert('Atenção', 'Login ou senha inválido');
+              let error = new Error('Login ou senha inválido');
+              error.response = response.errors;
+             
+              throw error;
           }else{
             let auth = {
               token_type: resp.token_type,
@@ -123,8 +126,10 @@ export const doLogin = (_username,_password) =>{
       })
       .then(resp => {
          RequestGetAuth('users',res => AsyncStorage.setItem('@Userinfo',JSON.stringify(res.data)))
+       })
+      .catch(error => {
+         return false;
       })
-      .catch(error => console.log(error))
     }   
     
    
