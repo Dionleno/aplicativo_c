@@ -1,21 +1,9 @@
 
 import React, { Component } from 'react';
 import { Platform, AsyncStorage ,Alert} from 'react-native';
+import { URL_API, headers, LOGIN, USER_TOKEN, USER_INFO } from './Constants';
 
-
-export const URL_API = 'https://magic-store-api-dev.contem1gmagic.com.br/';
- 
-export const headers = { Accept: 'application/json', 'Content-Type': 'application/json'};
-
-export const LOGIN = {
-  grant_type: 'password',
-  client_secret: '1MwSGy9Ai8rhXS8zAd6iOmaCADzCwtrFOUy385z7',
-  client_id: '2',
-  scope: '*'
-}; 
-
-
-export function ApiStatusCode(response){  
+export function ApiStatusCode(response){
    
     if (response.errors != undefined) {
      let error = new Error(response.message);
@@ -49,7 +37,7 @@ export const RequestPost = (_url,_body) => {
 
 
 export const RequestGetAuth = async(_url) => {
-    const TOKEN = await AsyncStorage.getItem('@usertoken')
+    const TOKEN = await AsyncStorage.getItem(USER_TOKEN)
     
     return fetch(URL_API+_url, {
       method: 'GET',
@@ -63,9 +51,9 @@ export const RequestGetAuth = async(_url) => {
 
 
 export const RequestPostAuth = async(_url,_body) => {
-    const TOKEN = await AsyncStorage.getItem('@usertoken')
+    const TOKEN = await AsyncStorage.getItem(USER_TOKEN)
     
-     return fetch(URL_API+_url, {
+    return fetch(URL_API+_url, {
        method: 'POST',
        headers: {
           Accept: "application/json",
@@ -120,12 +108,12 @@ export const doLogin = (_username,_password) =>{
             };
                  
                  console.log(auth)
-            AsyncStorage.setItem('@usertoken', resp.access_token)
+            AsyncStorage.setItem(USER_TOKEN, resp.access_token)
              
           }
       })
       .then(resp => {
-         RequestGetAuth('users',res => AsyncStorage.setItem('@Userinfo',JSON.stringify(res.data)))
+         RequestGetAuth('users',res => AsyncStorage.setItem(USER_INFO, JSON.stringify(res.data)))
        })
       .catch(error => {
          return false;
@@ -133,4 +121,35 @@ export const doLogin = (_username,_password) =>{
     }   
     
    
+}
+
+/**
+ * Requisições HTTP autenticadas
+ */
+export const RequestAuth = async(url, metodo, _body = {}) => {
+  const TOKEN = await AsyncStorage.getItem(USER_TOKEN);
+  let URL = URL_API + url;
+  let http = null;
+  let body = JSON.stringify(_body) || null;
+
+  let headers = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+    Authorization: 'Bearer '+ TOKEN
+  }
+
+  if(metodo === 'GET' || metodo === 'HEAD'){
+		http = fetch(URL, {
+			method: metodo,
+			headers
+		});
+	} else {
+		http = fetch(URL, {
+			method: metodo,
+			headers,
+			body
+		});
+	}
+
+  return http;
 }

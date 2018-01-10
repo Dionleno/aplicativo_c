@@ -17,6 +17,7 @@ import Kits from './Pages/Kits';
 import KitDatails from './Pages/Kits/Details'
 import Confirmacao from './Pages/CadastroConfirmacao'
 import Login from './Pages/Login';
+import Carrinho from './Pages/Carrinho';
 
 //Paginas internas
 import Interna from './Pages/Interna';
@@ -57,10 +58,11 @@ const NavigatorRouter = StackNavigator({
     Cadastro: {screen:Cadastro} ,
     Kits: {screen:Kits} ,
     KitDatails:{screen:KitDatails},
-    Confirmacao:{screen:Confirmacao}
+    Confirmacao:{screen:Confirmacao},
+    Carrinho: {screen: Carrinho}
  },{
     headerMode: 'none',
-    initialRouteName: 'Login',
+    initialRouteName: 'Carrinho',
     navigationOptions : {}
 });
 

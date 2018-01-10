@@ -11,14 +11,16 @@ import cadastroReducers from './Pages/Cadastro/Reducers'
 import kitsReducers from './Pages/Kits/Reducers'
 import confirmeReducers from './Pages/CadastroConfirmacao/Reducers'
 import loginReducers from './Pages/Login/Reducers'
+import carrinhoReducers from './Pages/Carrinho/Reducers'
 
 const rootReducer = combineReducers({
 	home: homeReducers,
-	login:loginReducers,
+	login: loginReducers,
 	patrocionador: patrocionadorReducers,
 	cadastro: cadastroReducers,
 	kits: kitsReducers,
-	confirmacao: confirmeReducers
+	confirmacao: confirmeReducers,
+	carrinho: carrinhoReducers 
 })
 
 export default rootReducer

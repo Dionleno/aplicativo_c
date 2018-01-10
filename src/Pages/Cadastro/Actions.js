@@ -17,7 +17,7 @@ export const handlerSubmit = async(_props) =>{
 	    const patrocinador = JSON.parse(value);
  
     return dispatch => 
-	{
+		{
        /*
 	   * @Montar o array com os dados necessario para registro do usuario 
 	   */
