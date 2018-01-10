@@ -60,7 +60,7 @@ export const handlerLogin = async(_props) =>{
 			.then(resp => {
 				if(resp != false){
 					RequestGetAuth('users', res => AsyncStorage.setItem(USER_INFO, JSON.stringify(res.data)))
-					_props.navigation.navigate('Home');
+					_props.navigation.navigate('Drawer');
 				}
 				dispatch(changeLoading(false))
 			})
