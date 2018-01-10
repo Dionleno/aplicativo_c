@@ -17,6 +17,8 @@ import Kits from './Pages/Kits';
 import KitDatails from './Pages/Kits/Details'
 import Confirmacao from './Pages/CadastroConfirmacao'
 import Login from './Pages/Login';
+import Produto from './Pages/Produto';
+import ProdutoDetails from './Pages/Produto/Details';
 
 //Paginas internas
 import Interna from './Pages/Interna';
@@ -30,12 +32,12 @@ import SideBar from './Static/SideBar'
 */
 export const DrawerNav =  DrawerNavigator({
     
-   Interna: {
-    screen: Interna,
+   Produto: {
+    screen: Produto,
     navigationOptions : {
-      drawerLabel : 'Interna' 
+      drawerLabel : 'Produtos' 
     }
-  }  
+  }    
  
 }, {
   contentComponent: SideBar,
@@ -57,10 +59,11 @@ const NavigatorRouter = StackNavigator({
     Cadastro: {screen:Cadastro} ,
     Kits: {screen:Kits} ,
     KitDatails:{screen:KitDatails},
-    Confirmacao:{screen:Confirmacao}
+    Confirmacao:{screen:Confirmacao},
+    ProdutoDetails:{screen:ProdutoDetails}
  },{
     headerMode: 'none',
-    initialRouteName: 'Login',
+    initialRouteName: 'Home',
     navigationOptions : {}
 });
 

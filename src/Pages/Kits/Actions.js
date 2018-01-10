@@ -11,16 +11,15 @@ import {RequestPostAuth,ApiStatusCode,RequestGetAuth,RequestGet,RequestPost,doLo
 export const fetchGetKit = async() => {
          
        return dispatch => 
-		{  
-			 RequestGet('/kits')
-		      .then(resp => resp.json())
-		      .then(resp => {
-		      	console.log(resp)
-		      	dispatch({ type:'CHANGE_FIELD',objectItem: 'kits', payload: resp.data})
-              
-              })
+						{  
+							 RequestGet('/kits')
+						      .then(resp => resp.json())
+						      .then(resp => {
+						      	console.log(resp)
+						         	dispatch({ type:'CHANGE_FIELD',objectItem: 'kits', payload: resp.data})
+				            })
 
-		}
+						}
        
 } 
 export const onSetKit = async(kit,_props) => {

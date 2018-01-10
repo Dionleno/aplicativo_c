@@ -51,14 +51,14 @@ import {RequestPostAuth,ApiStatusCode,RequestGetAuth,RequestGet,RequestPost,LOGI
 				                 
 				                 console.log(auth)
 				                AsyncStorage.setItem('@usertoken', resp.access_token)
-				                return resp.json()
+				                return resp
 				          }
 				      })
 				      .then(resp => {
 				      	 
 				      	if(resp != false){
 				      		RequestGetAuth('users',res => AsyncStorage.setItem('@Userinfo',JSON.stringify(res.data)))
-                  _props.navigation.navigate('Home');
+                  _props.navigation.navigate('Drawer');
 				      	}
 				          dispatch(changeLoading(false))
 				       })
