@@ -8,6 +8,7 @@ const INITIAL_STATE = {
       centers_state_id:'',
       states: [],
       errors: [],
+      coupon: '',
       address:{
        street:'',
        number:'',

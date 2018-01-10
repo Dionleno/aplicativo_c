@@ -20,7 +20,8 @@ import Login from './Pages/Login';
 import Carrinho from './Pages/Carrinho';
 import Produto from './Pages/Produto';
 import ProdutoDetails from './Pages/Produto/Details';
-
+import CupomAtivacao from './Pages/CupomAtivacao'
+import CupomAgradecimento from './Pages/Agradecimentos/Cupom'
 //Paginas internas
 import Interna from './Pages/Interna';
 
@@ -62,6 +63,10 @@ const NavigatorRouter = StackNavigator({
     KitDatails:{screen:KitDatails},
     Confirmacao:{screen:Confirmacao},
     Carrinho: {screen: Carrinho}
+    ProdutoDetails:{screen:ProdutoDetails},
+    CupomAtivacao: {screen:CupomAtivacao} ,
+    CupomAgradecimento:{screen:CupomAgradecimento}
+ 
  },{
     headerMode: 'none',
     initialRouteName: 'Home',

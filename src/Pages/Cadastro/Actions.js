@@ -13,7 +13,7 @@ export const handlerSubmit = async(_props) =>{
 	   * @buscar o patrocinador armazenado em variavel local
 	   */
 	    const value = await AsyncStorage.getItem('@UIPatrocinador');
-	   
+	    const coupon = await AsyncStorage.getItem('@InfoCupom');
 	    const patrocinador = JSON.parse(value);
  
     return dispatch => 
@@ -22,6 +22,11 @@ export const handlerSubmit = async(_props) =>{
 	   * @Montar o array com os dados necessario para registro do usuario 
 	   */
 	  let form = {user: {..._props.user, email_confirmation:_props.user.email,password_confirmation:_props.user.password,address: _props.address ,telephones:_props.telephones} ,sponsor:{id:patrocinador.id}  ,terms:_props.checked}
+       
+     //verificar se existe coupon  
+     if(coupon != '' && coupon != null){   
+        form['coupon'] = coupon
+     }
        console.log(form)
        /*
 	   * @Fazer o envio para cadastrar o usuario
@@ -36,23 +41,33 @@ export const handlerSubmit = async(_props) =>{
                 	dispatch({ type:'CHANGE_FIELD',objectItem: 'errors', payload: resp.errors })
                 	Alert.alert('Erro ao validar formulario', 'Verifique os campos e tente novamente');
 
+                }else if(coupon != '' && coupon != null){
+                   /*
+								   * @Fazer o login com o usuario cadastrado
+								   */
+                   dispatch(doLogin(_props.user.login,_props.user.password))
+                    AsyncStorage.removeItem('@UIPatrocinador')
+                    AsyncStorage.removeItem('@InfoCupom')
+
+                    _props.navigation.navigate('CupomAgradecimento');     
                 }else{
 
                    /*
-				   * @Fazer o login com o usuario cadastrado
-				   */
+								   * @Fazer o login com o usuario cadastrado
+								   */
                    dispatch(doLogin(_props.user.login,_props.user.password))
 
                   /*
-				   * @Verificar se o usuario selecionou a retirada dos produtos em algum centro de distribuição
-				   */
+							   * @Verificar se o usuario selecionou a retirada dos produtos em algum centro de distribuição
+							   */
+							    console.log(_props.user.distribution_center_id)
                    if(_props.user.distribution_center_id != ''){
-                        AsyncStorage.setItem('@distributionID', _props.user.distribution_center_id) 
-				   }else{
-				       AsyncStorage.setItem('@distributionID','')
-				   }
+                        AsyncStorage.setItem('@distributionID', JSON.stringify(_props.user.distribution_center_id)) 
+									   }else{
+									       AsyncStorage.setItem('@distributionID','')
+									   }
 
-				   _props.navigation.navigate('Kits');
+				            _props.navigation.navigate('Kits');
                 }
 
 

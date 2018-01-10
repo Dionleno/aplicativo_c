@@ -1,5 +1,6 @@
-const verdeClaro = '#20CDA6';
-const branco = '#FFFFFF';
+export const verdeClaro = '#20CDA6';
+export const verdeInativo = '#CEF6D8';
+export const branco = '#FFFFFF';
 
 export default {
   btnPrimary: {

@@ -6,9 +6,9 @@ import React, { Component } from 'react';
 /*REDUX*/
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import {BuscarPatrocinador,onSelectedTypeSearch,onChangeField} from './Actions'
+import {BuscarPatrocinador,onSelectedTypeSearch,onChangeField,requestCupom,} from './Actions'
 
-import { Platform , Alert, Content ,ScrollView ,FlatList,TouchableOpacity,TextInput } from 'react-native';
+import { Platform , Alert, Content ,ScrollView ,FlatList,TouchableOpacity,TextInput,AsyncStorage } from 'react-native';
 import { View,Text ,Container, Form , Item,H3, Right,Radio,Input, Label,Button,Grid,Col ,Spinner,List,ListItem,Left,Thumbnail,Body} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import HeaderExterno from '../../Static/HeaderExterno'
@@ -19,29 +19,31 @@ import PatrocionadorBySite from './Components/FormBySite'
 import PatrocionadorByCep from './Components/FormByCep'  
 import PatrocionadorByCupom from './Components/FormCupom'  
 import ListPatrocinador from './Components/Lists'  
+import stylesButtons,{verdeClaro,verdeInativo} from '../../StyleSheet/Buttons';
 
 export class Patrocionador extends Component{
 	constructor(props) {
 	super(props);
 	}
-
-	render() {
  
+	render() {
+		   
+      const { navigate } = this.props.navigation;
 			return ( 
 				<ScrollView style={{paddingBottom:20}}>
 						<HeaderExterno item={this.props} title="Patrocinador" />
 
-						<PatrocionadorByCupom />
+						<PatrocionadorByCupom _obj={this.props}/>
 
 						<View style={{margin:10,backgroundColor:'#FFFFFF',padding:15,borderRadius:5}}>  
-							<Text style={{marginBottom:15 }}>
+							<Text style={{marginBottom:15,color:'#888888' }}>
 									Já tem um patrocionador? 
 							</Text>
 
-							<Grid >
+							<Grid style={{marginBottom:20}}>
 								<Col style={{ height: 40 }}>
-										<Button block small  
-												style={{marginRight:10 , backgroundColor: this.props.typeForm ? "#000000" : "#999999" }} 
+										<Button block  
+												style={{marginRight:10 , backgroundColor: this.props.typeForm ? verdeClaro : verdeInativo}} 
 												onPress={() => this.props.onSelectedTypeSearch(true)}
 												>
 													<Icon name='thumb-up' style={{fontSize:20,color:'#FFFFFF'}} />       
@@ -49,8 +51,8 @@ export class Patrocionador extends Component{
 										</Button>
 								</Col>
 								<Col style={{ height: 40 }}>
-										<Button block small 
-												style={{marginLeft:10 , backgroundColor: this.props.typeForm ? "#999999" : this.props.typeForm == null ? "#999999" : "#000000"}} 
+										<Button block 
+												style={{marginLeft:10 , backgroundColor: this.props.typeForm ? verdeInativo : this.props.typeForm == null ? verdeInativo : verdeClaro}} 
 												onPress={() => this.props.onSelectedTypeSearch(false)}
 												>
 														<Icon name='thumb-down' style={{fontSize:20,color:'#FFFFFF'}} />    
@@ -91,5 +93,5 @@ export class Patrocionador extends Component{
 }
 
 const mapStateToProps = state => (state.patrocionador)
-const mapDispatchToProps = dispatch => bindActionCreators({BuscarPatrocinador,onSelectedTypeSearch,onChangeField},dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({BuscarPatrocinador,onSelectedTypeSearch,onChangeField,requestCupom},dispatch)
 export default connect(mapStateToProps,mapDispatchToProps)(Patrocionador)
