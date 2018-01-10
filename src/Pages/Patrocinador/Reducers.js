@@ -4,7 +4,8 @@ const INITIAL_STATE = {
            typeForm:true,
            findtext: '',
            findtextcep: '',
-           user: []
+           user: [],
+           coupon: '',
 	 }
 
 export default (state = INITIAL_STATE, action) => {

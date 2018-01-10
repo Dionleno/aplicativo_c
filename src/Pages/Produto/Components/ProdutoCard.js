@@ -10,7 +10,7 @@ export const ProdutoCard  = props => {
     let img = details.medias[0].url;
 
     return (
-    <Row style={styles.row} onPress={ () => {props.propriedades.navigation.navigate('ProdutoDetails', {produto:item}) }}>
+    <Row style={styles.row} onPress={ () => {props.propriedades.navigation.navigate('ProdutoDetalhes', {produto:item}) }}>
         <Col style={styles.viewImage}>
              <Image source={{ uri: img }} style={styles.imageProduct} />
         </Col>

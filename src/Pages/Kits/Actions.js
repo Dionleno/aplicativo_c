@@ -43,7 +43,7 @@ export const onSetKit = async(kit,_props) => {
 
 export const addProduto = async(kitID, _props) => {
      
-      const ItemDistribution = AsyncStorage.getItem('@distributionID');
+      const ItemDistribution = await AsyncStorage.getItem('@distributionID');
 	    
      
       var data = {
@@ -51,13 +51,14 @@ export const addProduto = async(kitID, _props) => {
         amount: 1
       };
     
+     console.log(ItemDistribution)
      
 		 	RequestPostAuth('carts',{distribution_center_id: ItemDistribution})
 		 	 .then(resp => resp.json())
 		     .then(resp => {
 		     	     
-                      RequestPostAuth('carts/products',data)
-                       .then(respp => respp.json())
+                  RequestPostAuth('carts/products',data)
+                   .then(respp => respp.json())
 		               .then(respp => {
 		               	console.log(respp)
 		               })

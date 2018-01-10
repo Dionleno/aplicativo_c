@@ -2,7 +2,7 @@
  *  Pagina para selecionar o patrocinador
  */
  import React, { Component } from 'react';
- import { Platform ,Image, Alert ,ScrollView ,TextInput,FlatList,TouchableOpacity,Picker,StyleSheet,Animated } from 'react-native';
+ import { Platform ,Image, Alert ,ScrollView ,TextInput,FlatList,TouchableOpacity,Picker,StyleSheet,Animated,AsyncStorage } from 'react-native';
  import { View,Text ,Container,CheckBox,Content,Card,CardItem, Row,Form , Item,H3, Right,Radio,Input, Label,Button,Grid,Col ,Spinner,List,ListItem,Left,Thumbnail,Body} from 'native-base';
  /*REDUX*/
  import { connect } from 'react-redux'
@@ -36,7 +36,10 @@ import {RequestGet,RequestPost,RequestPOSTAuth} from '../../Helpers/Http'
    constructor(props) {
      super(props);
     } 
-
+  componentDidMount = async() =>{
+     const value = await AsyncStorage.getItem('@UIPatrocinador');
+     console.log(value)
+  }
 render() {
    
   return ( 

@@ -50,7 +50,8 @@ export const RequestPost = (_url,_body) => {
 
 export const RequestGetAuth = async(_url) => {
     const TOKEN = await AsyncStorage.getItem('@usertoken')
-    
+    console.log('token')
+    console.log(TOKEN)
     return fetch(URL_API+_url, {
       method: 'GET',
       headers: {

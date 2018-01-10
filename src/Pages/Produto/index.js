@@ -31,6 +31,8 @@ const AnimatedTI = Animated.createAnimatedComponent(Item);
   } 
   componentDidMount = async() =>{
      await this.props.listarProdutos()
+      const Userinfo = await AsyncStorage.getItem('@Userinfo');
+      console.log(Userinfo)
   }
 
   loading = () => {
@@ -103,8 +105,8 @@ const AnimatedTI = Animated.createAnimatedComponent(Item);
                               keyboardType='web-search'
                               returnKeyType="search"
                               underlineColorAndroid='transparent' 
-                              placeholder="Buscar..." 
                               onSubmitEditing={() =>this.props.searchRequestItem(this.props) }
+                              placeholder="Buscar..." 
                               onChangeText={(value) => this.props.changeItem('search', value) }
                           />
                           <Icon active name='search' style={{fontSize:24,color:'#888888'}} onPress={() => this.props.searchRequestItem(this.props)} />         

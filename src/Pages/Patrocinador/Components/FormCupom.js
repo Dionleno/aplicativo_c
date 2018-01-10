@@ -8,24 +8,37 @@ import { View, Item, Input, Text, Button, Right, ListItem, Left, Thumbnail, Body
 /*REDUX*/
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import {BuscarPatrocinadorCep,onSelectedTypeSearch,onChangeField} from '../Actions'  
+import {BuscarPatrocinadorCep,onSelectedTypeSearch,onChangeField,requestCupom} from '../Actions'  
 import Icon from 'react-native-vector-icons/MaterialIcons'
  
 import StyleInput from '../../../StyleSheet/Input';
+import stylesButtons from '../../../StyleSheet/Buttons';
 
 export const PatrocionadorByCupom  = props => {
     return (
 
-    	<View style={{margin:10,backgroundColor:'#FFFFFF',padding:15,paddingVertical:8, borderRadius:5}}>  
-							<Text>
-									Possui um cupom de ativação?
-							</Text>
+    	<View style={{margin:10,flexDirection: 'row', flex: 1,}}>  
 							 
-						</View>
+							 <Item style={[StyleInput.boxinput,{ backgroundColor:'#FFFFFF',flex: 4,height:46}]}> 
+									<TextInput style={[StyleInput.inputText,{height:46}]} 
+									           placeholder='Cupom de ativação?' 
+									           value={props.coupon} 
+									           returnKeyType="search"
+									           keyboardType='numeric'
+	                           underlineColorAndroid='transparent' 
+	                           onSubmitEditing={() => props.requestCupom(props._obj) }
+									           onChangeText={(value) => props.onChangeField(value,'coupon')}/>
+								</Item>
+
+								<Button style={[stylesButtons.btnPrimary,{width:50, borderRadius: 0,paddingHorizontal: 0,justifyContent: 'center'}]}
+								        onPress={() => props.requestCupom(props._obj)}>
+										<Icon name='arrow-forward' style={{fontSize:25,color:'#FFFFFF', justifyContent: 'center'}} />
+								</Button>
+			 </View>
  
     )
 }
 
 const mapStateToProps = state => (state.patrocionador)
-const mapDispatchToProps = dispatch => bindActionCreators({BuscarPatrocinadorCep,onSelectedTypeSearch,onChangeField},dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({BuscarPatrocinadorCep,onSelectedTypeSearch,onChangeField,requestCupom},dispatch)
 export default connect(mapStateToProps,mapDispatchToProps)(PatrocionadorByCupom)
