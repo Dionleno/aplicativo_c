@@ -28,7 +28,7 @@ export class Kits extends Component {
      constructor(props) {
          super(props)
      } 
-
+ 
   componentDidMount = async() =>{
       await this.props.fetchGetKit();
   }
@@ -40,7 +40,7 @@ export class Kits extends Component {
     return (
         <Container style={styles.ContainerMain} >
           <Content>
-  
+     
              <ImageBackground style={{backgroundColor:'#000000',height:100}}
                      source={require('../../Images/banner2.jpg')}>
                

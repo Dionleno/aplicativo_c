@@ -65,11 +65,12 @@ render() {
       <OpcoesEntrega />
       <TermosDeUso _props={this}/>
 
-        <View style={{paddingRight:15,paddingLeft:15}}>
-             <Button block style={{backgroundColor: "#000000", marginTop:10, marginBottom:20}} onPress={() => this.props.handlerSubmit(this.props)}>
-                <Text>Avançar</Text>
-             </Button>
-         </View>
+
+      <View style={{paddingRight:15,paddingLeft:15}}>
+           <Button block style={{backgroundColor: "#000000", marginTop:10, marginBottom:20}} onPress={() => this.props.handlerSubmit(this.props)}>
+              <Text>Avançar</Text>
+           </Button>
+      </View>
  
    </Content>
 

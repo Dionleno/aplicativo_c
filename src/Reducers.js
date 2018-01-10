@@ -12,6 +12,7 @@ import kitsReducers from './Pages/Kits/Reducers'
 import confirmeReducers from './Pages/CadastroConfirmacao/Reducers'
 import loginReducers from './Pages/Login/Reducers'
 import carrinhoReducers from './Pages/Carrinho/Reducers'
+import produtoReducers from './Pages/Produto/Reducers'
 
 const rootReducer = combineReducers({
 	home: homeReducers,
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
 	cadastro: cadastroReducers,
 	kits: kitsReducers,
 	confirmacao: confirmeReducers,
-	carrinho: carrinhoReducers 
+	carrinho: carrinhoReducers,
+	produto:produtoReducers
 })
 
 export default rootReducer
