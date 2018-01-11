@@ -9,9 +9,15 @@ import {RequestPostAuth,ApiStatusCode,RequestGetAuth,RequestGet} from '../../Hel
 })
 
  export const BuscarPatrocinador = (_minisite) => {
-   
+  
 	return dispatch => {
 		  dispatch(changeLoading(true))
+
+		   if(_minisite == null || _minisite == ''){
+   	       Alert.alert('Atenção', 'Campo minisite obrigatório!');
+				   dispatch(changeLoading(false))
+					 return false;
+		   }
 		  RequestGet('get-sponsor/minisite/'+ _minisite)
 		  .then(resp => resp.json())
 		  .then(resp => dispatch({ type:'SET_PATROCINADORES',  payload: resp.data, }))
@@ -24,6 +30,11 @@ export const BuscarPatrocinadorCep = (_cep) => {
    
 	return dispatch => {
 		  dispatch(changeLoading(true))
+		  if(_cep == null || _cep == ''){
+   	       Alert.alert('Atenção', 'Campo CEP obrigatório!');
+				   dispatch(changeLoading(false))
+					 return false;
+		   }
 		  RequestGet('get-sponsor/zip/'+ _cep)
 		  .then(resp => resp.json())
 		  .then(resp => {
@@ -68,6 +79,12 @@ export const requestCupom = (_props) =>{
 	return (dispatch,getState) => 
 		 {
         const state = getState().patrocionador;
+       
+       if(state.coupon == null || state.coupon == ''){
+   	       Alert.alert('Atenção', 'Campo cupom obrigatório!');
+				    return false;
+		   }
+
 	     	RequestGet('coupon/'+ state.coupon)
 				  .then(resp => resp.json())
 				  .then(resp => {
