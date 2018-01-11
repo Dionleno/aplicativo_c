@@ -103,7 +103,7 @@ export const onselectStateDistribution = async(item) => {
 		}
 }
 
-export const changeStateBindCity = async(itemValue, itemIndex) =>{
+export const changeStateBindCity = async(itemValue, itemIndex) => {
   if(itemValue != '' && itemValue > 0)
   {
    	return dispatch => 

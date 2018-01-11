@@ -20,8 +20,10 @@ import Login from './Pages/Login';
 import Carrinho from './Pages/Carrinho';
 import Produto from './Pages/Produto';
 import ProdutoDetails from './Pages/Produto/Details';
-import CupomAtivacao from './Pages/CupomAtivacao'
-import CupomAgradecimento from './Pages/Agradecimentos/Cupom'
+import CupomAtivacao from './Pages/CupomAtivacao';
+import CupomAgradecimento from './Pages/Agradecimentos/Cupom';
+import Checkout from './Pages/Checkout';
+
 //Paginas internas
 import Interna from './Pages/Interna';
 
@@ -55,7 +57,6 @@ export const DrawerNav =  DrawerNavigator({
   drawerToggleRoute: 'DrawerToggle'
 });
 
-
 /*
 * @Rotas sem sidebar (Offline,Externas)
 */
@@ -71,8 +72,8 @@ const NavigatorRouter = StackNavigator({
     Carrinho: {screen: Carrinho},
     ProdutoDetails:{screen:ProdutoDetails},
     CupomAtivacao: {screen:CupomAtivacao} ,
-    CupomAgradecimento:{screen:CupomAgradecimento}
- 
+    CupomAgradecimento:{screen:CupomAgradecimento},
+    Checkout: {screen: Checkout}
  },{
     headerMode: 'none',
     initialRouteName: 'Home',
