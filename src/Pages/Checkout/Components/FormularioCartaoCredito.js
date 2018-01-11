@@ -44,7 +44,7 @@ export class FormularioCartaoCredito extends Component {
           <Text style={styles.formLabel}>Nome do titular do cartão</Text>
           
           <TextInput
-            style={styleInput.boxinput}
+            style={[styleInput.boxinput, {backgroundColor: '#f1f1f1'}]}
             underlineColorAndroid='transparent'
             onChangeText={value => this.props.cartaoTitular(value)}
             value={this.props.cartao.titular}
@@ -54,7 +54,7 @@ export class FormularioCartaoCredito extends Component {
         <View style={styles.viewForm}>
           <Text style={styles.formLabel}>Número do cartão</Text>
           <TextInputMask
-            style={styleInput.boxinput}
+            style={[styleInput.boxinput, {backgroundColor: '#f1f1f1'}]}
             options={{
               format: '9999 9999 9999 9999'
             }}
@@ -71,7 +71,7 @@ export class FormularioCartaoCredito extends Component {
           <View style={[styles.viewForm, {flex: 2}]}>
             <Text style={styles.formLabel}>Código de segurança</Text>
             <TextInputMask
-              style={styleInput.boxinput}
+              style={[styleInput.boxinput, {backgroundColor: '#f1f1f1'}]}
               type={'only-numbers'}
               underlineColorAndroid='transparent'
               keyboardType='numeric'
@@ -100,7 +100,7 @@ export class FormularioCartaoCredito extends Component {
         <View style={styles.viewForm}>
           <Text style={styles.formLabel}>Parcelas</Text>
           
-          <View style={styleInput.boxinput}>
+          <View style={[styleInput.boxinput, {backgroundColor: '#f1f1f1'}]}>
             <Picker
               selectedValue={this.props.installment_id}
               onValueChange={value => this.props.setInstallmentId(value)}

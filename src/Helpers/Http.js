@@ -113,7 +113,7 @@ export const doLogin = (_username,_password) =>{
           }
       })
       .then(resp => {
-         RequestGetAuth('users',res => AsyncStorage.setItem(USER_INFO, JSON.stringify(res.data)))
+        dispatch(setUserCurrent());
        })
       .catch(error => {
          return false;
@@ -121,6 +121,20 @@ export const doLogin = (_username,_password) =>{
     }   
     
    
+}
+
+export const setUserCurrent = async() => {
+  return dispatch => {
+      
+       RequestGetAuth('users')
+       .then(resp => resp.json())
+       .then(res => {
+        AsyncStorage.setItem(USER_INFO, JSON.stringify(res.data))
+        console.log(res.data)
+        
+       })  
+      
+  }
 }
 
 /**

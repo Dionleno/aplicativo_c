@@ -30,10 +30,13 @@ export const setAddressId = value => {
 // Lista as formas de entrega de acordo com o endereço escolhido
 export const listarFormasEntrega = cep => {
   return dispatch => {
+    dispatch(loadFormasEntrega(1));
+    
     RequestAuth('carts', 'PATCH', {zip_code: cep})
       .then(response => response.json())
       .then(response => {
         dispatch({ type: 'FORMAS_ENTREGA', payload: response.data.shipments });
+        dispatch(loadFormasEntrega(-1));
       })
       .catch(error => console.log(error));
   };
@@ -48,6 +51,7 @@ export const getCart = () => {
         const total = response.data.total;
 
         dispatch({type: 'PRODUTOS', payload: products});
+        dispatch({type: 'FACTORY', payload: response.data.distribution_center.factory});
         dispatch({type: 'TOTAL', payload: total});
         dispatch(setKit(products));
 
@@ -201,14 +205,19 @@ export const loadFinalizarCadastro = value => {
   }
 }
 
-export const finalizarCadastro = () => {
+export const loadFormasEntrega = value => {
+  return {
+    type: 'LOAD_FORMAS_ENTREGA',
+    payload: value
+  };
+}
+
+export const finalizarCadastro = _this => {
 
   return (dispatch, getState) => {
     const checkout = getState().checkout;
-    
-    dispatch(loadFinalizarCadastro(true));
 
-    if(checkout.factory == 1){
+    if(checkout.factory == '1'){
 
       if(!checkout.address_id){
         Alert.alert('Atenção', 'Escolha um endereço para entrega');
@@ -225,7 +234,8 @@ export const finalizarCadastro = () => {
       }
 
       if(checkout.forma_pagamento == '1'){
-        dispatch(enviarCadastroParaApi());
+        dispatch(loadFinalizarCadastro(true));
+        dispatch(enviarCadastroParaApi(_this));
       }
 
       if(checkout.forma_pagamento == '2'){
@@ -249,7 +259,9 @@ export const finalizarCadastro = () => {
             type: 'CADASTRO_ERRO'
           }
         }
-
+        
+        dispatch(loadFinalizarCadastro(true));
+        
         AdyenCse.generateCSE(
           ADYEN_KEY,
           checkout.cartao.titular.toString(),
@@ -258,15 +270,16 @@ export const finalizarCadastro = () => {
           checkout.cartao.mes.toString(),
           checkout.cartao.ano.toString()
         )
-        .then(encrypt => dispatch(enviarCadastroParaApi(encrypt)))
+        .then(encrypt => dispatch(enviarCadastroParaApi(_this, encrypt)))
         .catch(error => {
           Alert.alert('Atenção', 'Verifique os dados do seu cartão de crédito')
-          dispatch(loadFinalizarCadastro(true));
+          dispatch(loadFinalizarCadastro(false));
         });
       }
       
     }else{
-      dispatch(enviarCadastroParaApi());
+      dispatch(loadFinalizarCadastro(true));
+      dispatch(enviarCadastroParaApi(_this));
     }
     
   };
@@ -278,7 +291,7 @@ export const finalizarCadastro = () => {
  * payment_method_id = 1 para Boleto ou 2 para Cartão de Crédito
  * Se o pagamento for com o cartão, enviar um array com os valores ['string_adyen', 'valor', 'installments_id'] -> O installment_id é o retorno do GET 'carts/installments/{value}'
  */
-export const enviarCadastroParaApi = (encrypt = '') => {
+export const enviarCadastroParaApi = (_this, encrypt = '') => {
   let data = {};
 
   return (dispatch, getState) => {
@@ -299,18 +312,18 @@ export const enviarCadastroParaApi = (encrypt = '') => {
         }];
       }
     }
-
+    
     RequestAuth('carts/checkout', 'POST', data)
       .then(response => response.json())
       .then(response => {
         if(response.error){
           Alert.alert('Atenção', response.error.message);
+          console.log(response);
           dispatch(loadFinalizarCadastro(false));
         }
-
+        
         if(response.data.id){
-          console.log('CADASTRO SUCESSO', response.data.id);
-          //_this.navigation.navigate('Agradecimento', {codigo: response.data.id});
+          _this.navigation.navigate('CadastroAgradecimento', {codigo: response.data.id});
         }
 
         dispatch(loadFinalizarCadastro(false));
@@ -318,6 +331,7 @@ export const enviarCadastroParaApi = (encrypt = '') => {
       .catch(error => {
         Alert.alert('Ocorreu um erro ao gerar o pedido. Tente novamente mais tarde');
         dispatch(loadFinalizarCadastro(false));
+        console.log(error);
       });
   }
 

@@ -76,7 +76,7 @@ export class ConfirmacaoCadastro extends Component {
               </View>
 
               <View style={{alignItems: 'center',padding:15}}>
-                  <Text>Parabéns fulano, você está próximo de </Text>
+                  <Text>Parabéns, você está próximo de </Text>
                    <Text>se tornar um revendedor</Text>
                    <Text>Contem 1g Magic.</Text>
                   <Text  style={{paddingTop:15}}>Aguarde o email com mais informações.</Text>

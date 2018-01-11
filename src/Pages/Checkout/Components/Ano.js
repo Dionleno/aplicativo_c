@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Picker, View, Text } from 'react-native';
-import inputStyle from '../../../StyleSheet/Input';
+import styleInput from '../../../StyleSheet/Input';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {cartaoAno} from '../Actions';
@@ -27,7 +27,7 @@ class Ano extends Component {
 
   render() {
     return (
-      <View style={inputStyle.boxinput}>
+      <View style={[styleInput.boxinput, {backgroundColor: '#f1f1f1'}]}>
         <Picker
           selectedValue={this.props.cartao.ano}
           onValueChange={value => this.props.cartaoAno(value)}

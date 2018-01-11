@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Picker, View, Text } from 'react-native';
-import inputStyle from '../../../StyleSheet/Input';
+import styleInput from '../../../StyleSheet/Input';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {cartaoMes} from '../Actions';
@@ -32,7 +32,7 @@ class Mes extends Component {
 
   render() {
     return (
-      <View style={inputStyle.boxinput}>
+      <View style={[styleInput.boxinput, {backgroundColor: '#f1f1f1'}]}>
         <Picker
           selectedValue={this.props.cartao.mes}
           onValueChange={value => this.props.cartaoMes(value)}

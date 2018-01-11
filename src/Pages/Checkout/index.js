@@ -7,7 +7,8 @@ import FormularioEntrega from './Components/FormularioEntrega';
 import FormularioPagamento from './Components/FormularioPagamento';
 import ResumoPedido from './Components/ResumoPedido';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { finalizarCadastro, getCart } from './Actions';
+import HeaderCheckout from '../../Static/HeaderCheckout';
+import { getCart } from './Actions';
 import styles from './Styles';
 import stylesGlobal from '../../StyleSheet/Buttons';
 
@@ -18,15 +19,22 @@ export class Checkout extends Component {
     
   }
 
-  btnFinalizarCadastro(){
-    if(this.props.loading.btnFinalizarCadastro){
+  verificaEntregaCd(){
+    if(this.props.factory == '1'){
+      return (
+        <View>
+          <FormularioEntrega />
+          <FormularioPagamento />
+        </View>
+      );
+    }
+  }
+
+  carregarPedido(){
+    if(this.props.factory == -1){
       return (<Spinner color='black' />);
     }else{
-      return (
-        <Button block style={stylesGlobal.btnPrimary} onPress={() => {this.props.finalizarCadastro(this.props)}}>
-          <Text style={stylesGlobal.btnPrimaryText} >Finalizar Cadastro</Text>
-        </Button>
-      );
+      return (<ResumoPedido navigation={this.props.navigation} />);
     }
   }
 
@@ -37,20 +45,13 @@ export class Checkout extends Component {
   render(){
     return (
       <Container>
-        <Content>
-          <FormularioEntrega />
-          <FormularioPagamento />
-          <ResumoPedido />
+        <HeaderCheckout navigation={this.props.navigation} />
 
-          <View>
-            <View style={styles.bottom}>
-              {this.btnFinalizarCadastro()}
+        <Content style={{backgroundColor: '#FFFFFF'}}>
 
-              <Button block style={[stylesGlobal.btnPrimaryOutline, {marginTop: 15}]} onPress={() => {this.props.navigation.goBack()}} >
-                <Text style={stylesGlobal.btnPrimaryOutlineText} >Voltar</Text>
-              </Button>
-            </View>
-          </View>
+          {this.verificaEntregaCd()}
+
+          {this.carregarPedido()}
 
         </Content>
       </Container>
@@ -59,5 +60,5 @@ export class Checkout extends Component {
 }
 
 const mapStateToProps = state => (state.checkout);
-const mapDispatchToProps = dispatch => bindActionCreators({ finalizarCadastro, getCart }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getCart }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

@@ -58,8 +58,7 @@ export class FormularioEntrega extends Component {
     entrega[index] = true;
     
 		this.setState({ checked: {...this.state.checked, entrega} }, () => {
-      console.log(entrega);
-			// this.props.selecionarFrete(index);
+      this.props.selecionarFrete(index);
 		});
 	}
 
@@ -93,11 +92,31 @@ export class FormularioEntrega extends Component {
 			<Text style={styles.radioText}>{(item.type).toUpperCase()} - R$ {item.price}</Text>
 		</ListItem>
 	)
-    
+  
+  loadingItemEnderecos() {
+    if(this.props.enderecos.length == 0){
+      return (<Spinner color='black' />);
+    }
+  }
+
+  infoItemFormaEntrega(){
+    if(this.props.loading.formasEntrega == 0){
+      return (
+        <Text style={[styles.radioText, {textAlign: 'center', marginLeft: 15, marginRight: 15, marginBottom: 10}]}>Selecione o endereço acima para listar as formas de entrega</Text>
+      );
+    }
+
+    if(this.props.loading.formasEntrega == 1){
+      return (
+        <Spinner color='black' />
+      );
+    }
+  }
+
   componentWillMount() {
     this.props.listarEnderecosEntrega();
   }
-  
+
   render() {
     return (
       <View>
@@ -108,6 +127,8 @@ export class FormularioEntrega extends Component {
           </Row>
         </View>
         
+        {this.loadingItemEnderecos()}
+
         <FlatList 
           keyExtractor={(item, index) => index}
           renderItem={this._renderItemEnderecos}
@@ -121,6 +142,8 @@ export class FormularioEntrega extends Component {
             <Icon style={styles.titleIconArrowDown} name='keyboard-arrow-down' />
           </Row>
         </View>
+
+        {this.infoItemFormaEntrega()}
 
         <FlatList
           data={this.props.formas_entrega}

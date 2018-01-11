@@ -1,13 +1,31 @@
 import React, {Component} from 'react';
 import { View, Image, FlatList } from 'react-native';
-import { Row, Text, ListItem } from 'native-base';
+import { Row, Text, ListItem, Button, Spinner } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styles from '../Styles';
+import { finalizarCadastro } from '../Actions';
+import stylesGlobal from '../../../StyleSheet/Buttons';
 
 class ResumoPedido extends Component {
   
+  constructor(props){
+    super(props);
+  }
+
+  btnFinalizarCadastro(){
+    if(this.props.loading.btnFinalizarCadastro){
+      return (<Spinner color='black' />);
+    }else{
+      return (
+        <Button block style={stylesGlobal.btnPrimary} onPress={() => {this.props.finalizarCadastro(this.props)}}>
+          <Text style={stylesGlobal.btnPrimaryText} >Finalizar Cadastro</Text>
+        </Button>
+      );
+    }
+  }
+
   // Renderiza o Flatlist de produtos
   renderListProdutos = ({item}) => {
     // Renderiza somente produtos sem o kit
@@ -56,11 +74,17 @@ class ResumoPedido extends Component {
             <Text style={styles.resumoTexto}>Valor do Pedido: R$ {this.props.total}</Text>
           </View>
         </View>
+
+        <View>
+          <View style={styles.bottom}>
+            {this.btnFinalizarCadastro()}
+          </View>
+        </View>
       </View>
     );
   }
 }
 
 const mapStateToProps = state => (state.checkout);
-const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ finalizarCadastro }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(ResumoPedido);

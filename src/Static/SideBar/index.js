@@ -10,20 +10,22 @@ import styles from "./Style";
 import {Content,Text,List,ListItem,Icon,Container,Left,Right,Button,View,Thumbnail, Body} from 'native-base';
 import {SafeAreaView, DrawerItems} from 'react-navigation';
 import { USER_INFO } from '../../Helpers/Constants';
- 
+  
 
 
 class SideBar extends Component {
-    constructor(props) {
+  
+  constructor(props) {
     super(props);
     this.state = {
-      Userinfo: { }
+      Userinfo: {name: 'Cliente' }
     }
   }
 
-  componentDidMount = async() => {
+  componentWillMount = async() => {
     const Userinfo = await AsyncStorage.getItem(USER_INFO);
-     console.log(Userinfo)
+    console.log('USER', Userinfo);
+    
     this.setState({
       Userinfo: JSON.parse(Userinfo)
     })

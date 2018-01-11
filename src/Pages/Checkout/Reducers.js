@@ -12,7 +12,7 @@ const INITIAL_STATE = {
   produtos: [],
   parcelas: [{key: 0, label: 'Aguarde...'}],
   total: 0,
-  factory: 1,
+  factory: -1,
   kit: {
     titulo: '',
     descricao: '',
@@ -21,15 +21,15 @@ const INITIAL_STATE = {
     pontos: ''
   },
   cartao: {
-    titular: 'Diego Galdino Jaldim',
-    numero: '4111111111111111',
-    cvv: '737',
-    // mes: ((new Date().getMonth())+1),
-    mes: '8',
+    titular: '',
+    numero: '',
+    cvv: '',
+    mes: ((new Date().getMonth())+1),
     ano: (new Date().getFullYear())
   },
   loading: {
-    btnFinalizarCadastro: false
+    btnFinalizarCadastro: false,
+    formasEntrega: 0
   }
 };
 
@@ -84,6 +84,12 @@ export default (state = INITIAL_STATE, action) => {
 
     case 'LOAD_FINALIZAR_CADASTRO':
       return {...state, loading: {...state.loading, btnFinalizarCadastro: action.payload }};
+
+    case 'FACTORY':
+      return {...state, factory: action.payload};
+    
+    case 'LOAD_FORMAS_ENTREGA':
+      return {...state, loading: {...state.loading, formasEntrega: action.payload }};
 
     default:
       return state;
