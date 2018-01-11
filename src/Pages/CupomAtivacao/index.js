@@ -37,6 +37,7 @@ export default class ProdutoDetalhes extends Component {
  
     return (
 			  <Container>
+         <HeaderExterno item={this.props} title="Ativação" />
         <Content bounces={false} style={{ flex: 1, backgroundColor: "#fff", top: -1 }}>
           <View style={styles.drawerCover} >
 

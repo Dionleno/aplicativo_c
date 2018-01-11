@@ -39,6 +39,12 @@ export const DrawerNav =  DrawerNavigator({
     navigationOptions : {
       drawerLabel : 'Produtos' 
     }
+  },
+  Logout: {
+    screen: Home,
+    navigationOptions : {
+      drawerLabel : 'Sair' 
+    }
   }    
  
 }, {
@@ -62,7 +68,7 @@ const NavigatorRouter = StackNavigator({
     Kits: {screen:Kits} ,
     KitDatails:{screen:KitDatails},
     Confirmacao:{screen:Confirmacao},
-    Carrinho: {screen: Carrinho}
+    Carrinho: {screen: Carrinho},
     ProdutoDetails:{screen:ProdutoDetails},
     CupomAtivacao: {screen:CupomAtivacao} ,
     CupomAgradecimento:{screen:CupomAgradecimento}

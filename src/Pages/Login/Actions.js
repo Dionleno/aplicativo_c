@@ -58,9 +58,10 @@ export const handlerLogin = async(_props) =>{
 				}
 			})
 			.then(resp => {
+				
 				if(resp != false){
-					RequestGetAuth('users', res => AsyncStorage.setItem(USER_INFO, JSON.stringify(res.data)))
-					_props.navigation.navigate('Drawer');
+					console.log(resp)
+				  dispatch(setUserCurrent(_props))
 				}
 				dispatch(changeLoading(false))
 			})
@@ -70,6 +71,20 @@ export const handlerLogin = async(_props) =>{
 			})
 	}
 
+}
+
+export const setUserCurrent = async(_props) => {
+   return dispatch =>{
+     	
+   	   RequestGetAuth('users')
+   	   .then(resp => resp.json())
+   		 .then(res => {
+   			AsyncStorage.setItem(USER_INFO, JSON.stringify(res.data))
+   		  console.log(res.data)
+   		  _props.navigation.navigate('Drawer');
+   	   })  
+   		
+   }
 }
 
 export const onChangeField = (_value,_obj) => ({

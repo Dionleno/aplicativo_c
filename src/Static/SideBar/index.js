@@ -2,20 +2,31 @@
 import React, { Component } from 'react';
 import {
   Platform,
-   AppRegistry, Image, ImageBackground ,ScrollView,StyleSheet
+   AppRegistry, Image, ImageBackground ,ScrollView,StyleSheet,AsyncStorage
 } from 'react-native';
 
 import styles from "./Style";
 
 import {Content,Text,List,ListItem,Icon,Container,Left,Right,Button,View,Thumbnail, Body} from 'native-base';
 import {SafeAreaView, DrawerItems} from 'react-navigation';
-
+import { USER_INFO } from '../../Helpers/Constants';
  
 
 
 class SideBar extends Component {
     constructor(props) {
     super(props);
+    this.state = {
+      Userinfo: { }
+    }
+  }
+
+  componentDidMount = async() => {
+    const Userinfo = await AsyncStorage.getItem(USER_INFO);
+     console.log(Userinfo)
+    this.setState({
+      Userinfo: JSON.parse(Userinfo)
+    })
   }
      
 
@@ -36,7 +47,7 @@ class SideBar extends Component {
               }} large />
             </View>
             <View>
-              <Text style={styles.avatarName}>Dionleno</Text>
+              <Text style={styles.avatarName}>{this.state.Userinfo.name}</Text>
             </View>
           </ImageBackground>
 
@@ -44,6 +55,7 @@ class SideBar extends Component {
             <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
               <DrawerItems {...this.props} />
             </SafeAreaView>
+            
           </ScrollView>
 
         </Content>
