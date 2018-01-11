@@ -20,6 +20,7 @@ import Login from './Pages/Login';
 import Carrinho from './Pages/Carrinho';
 import Produto from './Pages/Produto';
 import ProdutoDetails from './Pages/Produto/Details';
+import Checkout from './Pages/Checkout';
 
 //Paginas internas
 import Interna from './Pages/Interna';
@@ -48,7 +49,6 @@ export const DrawerNav =  DrawerNavigator({
   drawerToggleRoute: 'DrawerToggle'
 });
 
-
 /*
 * @Rotas sem sidebar (Offline,Externas)
 */
@@ -61,7 +61,8 @@ const NavigatorRouter = StackNavigator({
     Kits: {screen:Kits} ,
     KitDatails:{screen:KitDatails},
     Confirmacao:{screen:Confirmacao},
-    Carrinho: {screen: Carrinho}
+    Carrinho: {screen: Carrinho},
+    Checkout: {screen: Checkout}
  },{
     headerMode: 'none',
     initialRouteName: 'Home',

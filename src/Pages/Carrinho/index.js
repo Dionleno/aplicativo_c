@@ -39,7 +39,7 @@ export class Carrinho extends Component {
             renderItem={({item, index}) => this.renderCarrinhoItem({item, index})}
           />
 
-          <Button block style={[styleButton.btnPrimary, {marginRight: 5, marginLeft: 5, marginTop: 5, marginBottom: 5}]} >
+          <Button block onPress={() => this.props.navigation.navigate('Checkout')} style={[styleButton.btnPrimary, {marginRight: 5, marginLeft: 5, marginTop: 5, marginBottom: 5}]} >
             <Text style={styleButton.btnPrimaryText} >Checkout</Text>
           </Button>
         </Content>
