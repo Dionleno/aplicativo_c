@@ -31,7 +31,7 @@ export const listarProdutos = () => {
 	   	 /*
 	   * @Listar produtos
 	   */       
-       RequestGet(URL)
+       RequestGetAuth(URL)
 		  .then(resp => resp.json())
 		  .then(resp => {
          
