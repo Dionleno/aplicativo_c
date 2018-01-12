@@ -200,7 +200,7 @@ export const setInstallmentId = value => {
 
 export const loadFinalizarCadastro = value => {
   return {
-    type: 'LOAD_FINALIZAR_CADASTRO',
+    type: 'LOAD_OVERLAY',
     payload: value
   }
 }
@@ -260,8 +260,6 @@ export const finalizarCadastro = _this => {
           }
         }
         
-        dispatch(loadFinalizarCadastro(true));
-        
         AdyenCse.generateCSE(
           ADYEN_KEY,
           checkout.cartao.titular.toString(),
@@ -270,10 +268,12 @@ export const finalizarCadastro = _this => {
           checkout.cartao.mes.toString(),
           checkout.cartao.ano.toString()
         )
-        .then(encrypt => dispatch(enviarCadastroParaApi(_this, encrypt)))
+        .then(encrypt => {
+          dispatch(loadFinalizarCadastro(true));
+          dispatch(enviarCadastroParaApi(_this, encrypt));
+        })
         .catch(error => {
-          Alert.alert('Atenção', 'Verifique os dados do seu cartão de crédito')
-          dispatch(loadFinalizarCadastro(false));
+          Alert.alert('Atenção', 'Verifique os dados do seu cartão de crédito');
         });
       }
       
@@ -323,10 +323,13 @@ export const enviarCadastroParaApi = (_this, encrypt = '') => {
         }
         
         if(response.data.id){
+          dispatch(loadFinalizarCadastro(false));
           _this.navigation.navigate('CadastroAgradecimento', {codigo: response.data.id});
         }
 
         dispatch(loadFinalizarCadastro(false));
+
+        console.log('SUCESSO', response);
       })
       .catch(error => {
         Alert.alert('Ocorreu um erro ao gerar o pedido. Tente novamente mais tarde');
@@ -334,5 +337,4 @@ export const enviarCadastroParaApi = (_this, encrypt = '') => {
         console.log(error);
       });
   }
-
 }

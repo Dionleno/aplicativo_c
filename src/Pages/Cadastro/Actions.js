@@ -3,97 +3,107 @@ import { Platform, AsyncStorage,Alert } from 'react-native';
 
 import {RequestPostAuth,ApiStatusCode,RequestGetAuth,RequestGet,RequestPost,doLogin} from '../../Helpers/Http' 
 
+export const spinnerOverlay = value => {
+	return {
+		type: 'SPINNER_OVERLAY',
+		payload: value
+	};
+}
+
  export const changeLoading = (_value) => ({
 		 type:'CHANGE_LOADING',
 		 payload: _value
 })
- 
+
 export const handlerSubmit = async(_props) =>{
-       /*
-	   * @buscar o patrocinador armazenado em variavel local
-	   */
-	    const value = await AsyncStorage.getItem('@UIPatrocinador');
-	    const coupon = await AsyncStorage.getItem('@InfoCupom');
-	    const patrocinador = JSON.parse(value);
+	/*
+	* @buscar o patrocinador armazenado em variavel local
+	*/
+	const value = await AsyncStorage.getItem('@UIPatrocinador');
+	const coupon = await AsyncStorage.getItem('@InfoCupom');
+	const patrocinador = JSON.parse(value);
  
-    return dispatch => 
-		{
-       /*
+  return dispatch => {
+    /*
 	   * @Montar o array com os dados necessario para registro do usuario 
 	   */
 	  let form = {user: {..._props.user, email_confirmation:_props.user.email,password_confirmation:_props.user.password,address: _props.address ,telephones:_props.telephones} ,sponsor:{id:patrocinador.id}  ,terms:_props.checked}
        
-     //verificar se existe coupon  
-     if(coupon != '' && coupon != null){   
-        form['coupon'] = coupon
-     }
-       console.log('coupon')
-       console.log(coupon)
+    //verificar se existe coupon  
+    if(coupon != '' && coupon != null){   
+    	form['coupon'] = coupon
+		}
+		
+		console.log('coupon')
+		console.log(coupon)
 
+		/*
+		* @Fazer o envio para cadastrar o usuario
+		*/
+		dispatch(spinnerOverlay(true));
+		
+		RequestPost('register',form)
+		.then(resp => resp.json())
+		.then(resp => {
+			console.log(resp)
+			//Verificar se retornou algum erro
+			if(resp.errors){
+				console.log(resp.errors)
+				dispatch({ type:'CHANGE_FIELD',objectItem: 'errors', payload: resp.errors })
+				dispatch(spinnerOverlay(false));
+				Alert.alert('Erro ao validar formulario', 'Verifique os campos e tente novamente');
+			}else if(coupon != '' && coupon != null){
+				/*
+				* @Fazer o login com o usuario cadastrado
+				*/
+				dispatch(doLogin(_props.user.login,_props.user.password))
+				dispatch(spinnerOverlay(false));
+				AsyncStorage.removeItem('@UIPatrocinador')
+				AsyncStorage.removeItem('@InfoCupom')
 
-       /*
-	   * @Fazer o envio para cadastrar o usuario
-	   */       
-       RequestPost('register',form)
-		  .then(resp => resp.json())
-		  .then(resp => {
-                  console.log(resp)
-		  	    //Verificar se retornou algum erro
-                if(resp.errors){
-                	console.log(resp.errors)
-                	dispatch({ type:'CHANGE_FIELD',objectItem: 'errors', payload: resp.errors })
-                	Alert.alert('Erro ao validar formulario', 'Verifique os campos e tente novamente');
+				_props.navigation.navigate('CupomAgradecimento');     
+			}else{
+				dispatch(spinnerOverlay(false));
 
-                }else if(coupon != '' && coupon != null){
-                   /*
-								   * @Fazer o login com o usuario cadastrado
-								   */
-                   dispatch(doLogin(_props.user.login,_props.user.password))
-                    AsyncStorage.removeItem('@UIPatrocinador')
-                    AsyncStorage.removeItem('@InfoCupom')
+				/*
+				* @Fazer o login com o usuario cadastrado
+				*/
+				dispatch(doLogin(_props.user.login,_props.user.password))
 
-                    _props.navigation.navigate('CupomAgradecimento');     
-                }else{
+				/*
+				* @Verificar se o usuario selecionou a retirada dos produtos em algum centro de distribuição
+				*/
+				console.log(_props.user.distribution_center_id)
+				if(_props.user.distribution_center_id != ''){
+					AsyncStorage.setItem('@distributionID', JSON.stringify(_props.user.distribution_center_id)) 
+				}else{
+					AsyncStorage.setItem('@distributionID','')
+				}
 
-                   /*
-								   * @Fazer o login com o usuario cadastrado
-								   */
-                   dispatch(doLogin(_props.user.login,_props.user.password))
-
-                  /*
-							   * @Verificar se o usuario selecionou a retirada dos produtos em algum centro de distribuição
-							   */
-							    console.log(_props.user.distribution_center_id)
-                   if(_props.user.distribution_center_id != ''){
-                        AsyncStorage.setItem('@distributionID', JSON.stringify(_props.user.distribution_center_id)) 
-									   }else{
-									       AsyncStorage.setItem('@distributionID','')
-									   }
-
-				            _props.navigation.navigate('Kits');
-                }
-
-
+				_props.navigation.navigate('Kits');
+			}
 					   
-		   })
-		  .catch((error) => console.log(error));
+		})
+		.catch((error) => console.log(error));
 	}
-   
+
 }
 
 export const onGetAddressByCep = async(cep) => {
-  return dispatch => 
-   	{
-   		 RequestGet('/general/zip/'+cep)
-	      .then(resp => resp.json())
-	      .then(resp => {
-	      	dispatch(changeStateBindCity(resp.data.city.state.id, 0))	 
-	        dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'street', payload: resp.data.data.logradouro +', '+ resp.data.data.bairro })
-	        dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'city_id', payload: resp.data.city.id, })
-	      })
-
-   	}
+	return dispatch => {
+		dispatch(spinnerOverlay(true));
+		
+		RequestGet('/general/zip/'+cep)
+			.then(resp => resp.json())
+			.then(resp => {
+				dispatch(changeStateBindCity(resp.data.city.state.id, 0))	 
+				dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'street', payload: resp.data.data.logradouro +', '+ resp.data.data.bairro })
+				dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'city_id', payload: resp.data.city.id, })
+				
+		});
+	}
 }
+
 export const onselectStateDistribution = async(item) => {
   console.log(item)
        return dispatch => 
@@ -114,7 +124,10 @@ export const changeStateBindCity = async(itemValue, itemIndex) => {
 	  RequestGet('general/'+itemValue+'/cities')
 	  .then(resp => resp.json())
 	  .then(resp => dispatch({ type:'CHANGE_FIELD',objectItem: 'cities', payload: resp.data, }))
-	  .then(resp => dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'district', payload: itemValue, }))
+		.then(resp => {
+			dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'district', payload: itemValue, });
+			dispatch(spinnerOverlay(false));
+		})
 	  .catch((error) => console.log(error));
 	}
   }

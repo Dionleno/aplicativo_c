@@ -13,12 +13,21 @@ import {
 	FlatList,ScrollView,Alert,StatusBar
 } from 'react-native';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { loadFinalizarCadastro } from '../Checkout/Actions';
+
 import { Content, Text, Container, Item, Input, Thumbnail, H3, Label, Separator, Row, Button, Col, Grid, Left, Card, CheckBox, List, ListItem, Body, CardItem } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import stylesTemplate from '../../StyleSheet/Buttons';
 
-export default class Cadastro extends Component {
+class Cadastro extends Component {
 
+	constructor(props){
+		super(props);
+
+	}
+	
 	render() {
 
 		return (
@@ -103,3 +112,7 @@ const styles = StyleSheet.create({
 		borderColor: '#20CDA6'
 	}
 });
+
+const mapStateToProps = state => (state.checkout);
+const mapDispatchToProps = dispatch => bindActionCreators({ loadFinalizarCadastro }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(Cadastro);

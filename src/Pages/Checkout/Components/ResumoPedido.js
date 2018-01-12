@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { View, Image, FlatList } from 'react-native';
-import { Row, Text, ListItem, Button, Spinner } from 'native-base';
+import { Row, Text, ListItem, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -12,18 +12,6 @@ class ResumoPedido extends Component {
   
   constructor(props){
     super(props);
-  }
-
-  btnFinalizarCadastro(){
-    if(this.props.loading.btnFinalizarCadastro){
-      return (<Spinner color='black' />);
-    }else{
-      return (
-        <Button block style={stylesGlobal.btnPrimary} onPress={() => {this.props.finalizarCadastro(this.props)}}>
-          <Text style={stylesGlobal.btnPrimaryText} >Finalizar Cadastro</Text>
-        </Button>
-      );
-    }
   }
 
   // Renderiza o Flatlist de produtos
@@ -77,7 +65,9 @@ class ResumoPedido extends Component {
 
         <View>
           <View style={styles.bottom}>
-            {this.btnFinalizarCadastro()}
+            <Button block style={stylesGlobal.btnPrimary} onPress={() => {this.props.finalizarCadastro(this.props)}}>
+              <Text style={stylesGlobal.btnPrimaryText} >Finalizar Cadastro</Text>
+            </Button>
           </View>
         </View>
       </View>

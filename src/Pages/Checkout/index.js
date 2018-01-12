@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, FlatList, Image } from 'react-native';
 import { Container, Content, Button, Text, Row, ListItem, Spinner } from 'native-base';
+import SpinnerOverlay from 'react-native-loading-spinner-overlay';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FormularioEntrega from './Components/FormularioEntrega';
@@ -46,14 +47,11 @@ export class Checkout extends Component {
     return (
       <Container>
         <HeaderCheckout navigation={this.props.navigation} />
-
         <Content style={{backgroundColor: '#FFFFFF'}}>
-
           {this.verificaEntregaCd()}
-
           {this.carregarPedido()}
-
         </Content>
+        <SpinnerOverlay visible={this.props.overlay} textContent={"Aguarde..."} textStyle={{color: '#FFF'}} />
       </Container>
     );
   }

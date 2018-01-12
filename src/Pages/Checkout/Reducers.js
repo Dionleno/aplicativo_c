@@ -13,6 +13,7 @@ const INITIAL_STATE = {
   parcelas: [{key: 0, label: 'Aguarde...'}],
   total: 0,
   factory: -1,
+  overlay: false,
   kit: {
     titulo: '',
     descricao: '',
@@ -90,6 +91,9 @@ export default (state = INITIAL_STATE, action) => {
     
     case 'LOAD_FORMAS_ENTREGA':
       return {...state, loading: {...state.loading, formasEntrega: action.payload }};
+
+    case 'LOAD_OVERLAY':
+      return {...state, overlay: action.payload};
 
     default:
       return state;

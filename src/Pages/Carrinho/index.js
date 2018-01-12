@@ -20,8 +20,14 @@ export class Carrinho extends Component {
   }
 
   loading(){
-    if(this.props.produtos.length == 0){
+    if(this.props.loading.carrinho){
       return (<Spinner color='black' />);
+    }
+  }
+
+  informacao(){
+    if(this.props.info != ''){
+      return (<Text style={{backgroundColor: '#FFFFFF', textAlign: 'center', padding: 15}}>{this.props.info}</Text>);
     }
   }
 
@@ -51,6 +57,8 @@ export class Carrinho extends Component {
         <Content>
 
           {this.loading()}
+
+          {this.informacao()}
 
           <FlatList
             data={this.props.produtos}

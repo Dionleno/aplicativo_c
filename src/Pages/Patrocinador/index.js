@@ -23,12 +23,12 @@ import stylesButtons,{verdeClaro,verdeInativo} from '../../StyleSheet/Buttons';
 
 export class Patrocionador extends Component{
 	constructor(props) {
-	super(props);
+		super(props);
 	}
- 
+	
 	render() {
 		   
-      const { navigate } = this.props.navigation;
+    const { navigate } = this.props.navigation;
 			return ( 
 				<ScrollView style={{paddingBottom:20}}>
 						<HeaderExterno item={this.props} title="Patrocinador" />

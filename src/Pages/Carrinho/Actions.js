@@ -7,11 +7,47 @@ import { USER_INFO } from '../../Helpers/Constants';
 import { RequestAuth } from '../../Helpers/Http';
 
 export const carregarCarrinho = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    
+    dispatch(loadCarrinho(true));
+    dispatch({ type: 'CARREGAR_CARRINHO', payload: [] });
+    dispatch(informacao(''));
+
     RequestAuth('carts', 'GET')
       .then(response => response.json())
-      .then(response => dispatch({ type: 'CARREGAR_CARRINHO', payload: response.data.products }))
-      .catch(error => console.log(error));
+      .then(response => {
+        try {
+          dispatch(informacao(response.error.message));
+        } catch (e) {
+
+        }
+
+        try {
+          dispatch({ type: 'CARREGAR_CARRINHO', payload: response.data.products });
+        } catch (e) {
+
+        }
+        
+        dispatch(loadCarrinho(false));
+      })
+      .catch(error => {
+        console.log(error);
+        disatch(loadCarrinho(false));
+      });
+  }
+}
+
+export const informacao = value => {
+  return {
+    type: 'INFORMACAO',
+    payload: value
+  }
+}
+
+export const loadCarrinho = value => {
+  return {
+    type: 'LOAD_CARRINHO',
+    payload: value
   }
 }
 
@@ -65,4 +101,8 @@ export const excluir = () => {
 			Alert.alert('Atenção', 'Escolha pelo menos um produto');
     }
   }
+}
+
+export const reset = () => {
+
 }
