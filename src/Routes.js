@@ -75,7 +75,7 @@ const NavigatorRouter = StackNavigator({
  
  },{
     headerMode: 'none',
-    initialRouteName: 'Home',
+    initialRouteName: 'Drawer',
     navigationOptions : {}
 });
 

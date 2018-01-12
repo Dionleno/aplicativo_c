@@ -27,7 +27,10 @@ export const handlerSubmit = async(_props) =>{
      if(coupon != '' && coupon != null){   
         form['coupon'] = coupon
      }
-       console.log(form)
+       console.log('coupon')
+       console.log(coupon)
+
+
        /*
 	   * @Fazer o envio para cadastrar o usuario
 	   */       
