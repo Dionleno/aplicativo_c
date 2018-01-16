@@ -44,7 +44,7 @@
  			</Row>
 
  			<ListItem style={{backgroundColor:'transparent',paddingLeft:0}}>
-	 			<CheckBox checked={this.props.shipping_method} 
+	 			<CheckBox color='black' checked={this.props.shipping_method} 
 	 			          onPress={() => this.props.onChangeField(!this.props.shipping_method,'shipping_method') } />
  			<Body>
  			 		<Text style={{fontSize:12}}>Retirar no CD ?</Text>
