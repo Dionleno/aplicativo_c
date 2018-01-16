@@ -24,7 +24,7 @@
  			<View>
  
 			   <ListItem style={{backgroundColor:'transparent'}}>
-				   <CheckBox checked={this.props.checked} onPress={() => this.props.onChangeField(!this.props.checked,'checked')} />
+				   <CheckBox color='black' checked={this.props.checked} onPress={() => this.props.onChangeField(!this.props.checked,'checked')} />
 				   <Body>
 				      <Text style={{fontSize:12}} onPress={() => { this.props._props.popupDialog.show(); }}>
 				          Li e concordo com os Termos e Condições de Credenciamento do Consultor

@@ -35,5 +35,11 @@ export default {
   },
   NoBorderCard:{ 
    margin:20
-  } 
+  },
+  viewPicker: {
+    backgroundColor: '#FFFFFF', 
+    height:50, 
+    flex: 1, 
+    marginBottom: 15
+  }
 };

@@ -2,24 +2,29 @@
  *  Pagina para selecionar o patrocinador
  */
 import React, { Component } from 'react';
-import { Platform ,Image, Alert ,ScrollView ,TextInput,FlatList,TouchableOpacity,Picker,StyleSheet,Animated,AsyncStorage } from 'react-native';
-import { View,Text ,Container,CheckBox,Content,Card,CardItem, Row,Form , Item,H3, Right,Radio,Input, Label,Button,Grid,Col ,Spinner,List,ListItem,Left,Thumbnail,Body} from 'native-base';
+import { View, Animated, AsyncStorage } from 'react-native';
+import { Text, Container, CheckBox, Content, Item, Button } from 'native-base';
+import SpinnerOverlay from 'react-native-loading-spinner-overlay';
+
 /*REDUX*/
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import HeaderExterno from '../../Static/HeaderExterno'
-import PopupDialog ,{DialogTitle , SlideAnimation,DialogButton } from 'react-native-popup-dialog';
+import PopupDialog, {DialogTitle, SlideAnimation, DialogButton } from 'react-native-popup-dialog';
+import styleButtons from '../../StyleSheet/Buttons';
+
 /*Componentes*/
 import ErrorForm from '../../Helpers/ErrorForm'
 import {handlerSubmit} from './Actions' 
-import {TextInputMask} from 'react-native-masked-text';
-import DadosPessoais from './Components/DadosPessoais'
-import DadosDeAcesso from './Components/DadosDeAcesso'
-import Endereco from './Components/Endereco'
-import OpcoesEntrega from './Components/OpcoesEntrega'
-import TermosDeUso from './Components/TermosDeUso'
+import DadosPessoais from './Components/DadosPessoais';
+import DadosDeAcesso from './Components/DadosDeAcesso';
+import DadosContato from './Components/DadosContato';
+import Endereco from './Components/Endereco';
+import OpcoesEntrega from './Components/OpcoesEntrega';
+import TermosDeUso from './Components/TermosDeUso';
+import FormularioContato from './Components/FormularioContato';
 
 const AnimatedTI = Animated.createAnimatedComponent(Item);
 
@@ -54,29 +59,41 @@ export class Cadastro extends Component{
           width={0.9}
           height={0.9}
           containerStyle={{ zIndex: 10, elevation: 10}}
-          actions={[<DialogButton text="Fechar" key='xptop' align="center" onPress={() => this.popupDialog.dismiss()}/>]}
-        >
+          actions={[<DialogButton text="Fechar" key='xptop' align="center" onPress={() => this.popupDialog.dismiss()}/>]}>
           <Content>
               <Text>Texto de termos de uso</Text>
           </Content>
         </PopupDialog>
-        
-        <Content>
 
+        <PopupDialog
+          dialogTitle={<DialogTitle title="Cadastrar contato" />}
+          ref={(popupDialogContato) => { this.popupDialogContato = popupDialogContato }}
+          animationDuration={500}
+          width={0.9}
+          height={0.9}
+          containerStyle={{ zIndex: 10, elevation: 10}}
+          actions={[<DialogButton text="Fechar" key='xptop' align="center" onPress={() => this.popupDialogContato.dismiss()}/>]}>
+          <FormularioContato popupDialogContato={this.popupDialogContato} />
+        </PopupDialog>
+        
+        <Content style={{backgroundColor: '#FFFFFF'}}>
           <DadosPessoais />
           <DadosDeAcesso />
+          <DadosContato popupDialogContato={this.popupDialogContato} />
           <Endereco />
           <OpcoesEntrega />
           <TermosDeUso _props={this}/>
 
-          <View style={{paddingRight:15,paddingLeft:15}}>
-            <Button block style={{backgroundColor: "#000000", marginTop:10, marginBottom:20}} onPress={() => this.props.handlerSubmit(this.props)}>
+          <View style={{paddingRight:15, paddingLeft:15, marginBottom: 15}}>
+            <Button block style={styleButtons.btnPrimary} onPress={() => this.props.handlerSubmit(this.props)}>
               <Text>Avançar</Text>
             </Button>
           </View>
  
         </Content>
 
+        <SpinnerOverlay visible={this.props.overlay} textContent={"Aguarde..."} textStyle={{color: '#FFF'}} />
+        
       </Container>
     )
   } 

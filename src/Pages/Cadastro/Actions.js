@@ -3,17 +3,134 @@ import { Platform, AsyncStorage,Alert } from 'react-native';
 
 import {RequestPostAuth,ApiStatusCode,RequestGetAuth,RequestGet,RequestPost,doLogin} from '../../Helpers/Http' 
 
+export const cadastrarContato = popupDialogContato => {
+	return (dispatch, getState) => {
+		const {phone_number, phone_types, phone_companies} = getState().cadastro;
+		
+		if(!phone_number){
+			Alert.alert('Atenção', 'Digite o número do telefone');
+			return;
+		}
+
+		if(!phone_companies.selected || phone_companies.selected == '' || phone_companies.selected == '0'){
+			Alert.alert('Atenção', 'Escolha a operadora');
+			return;
+		}
+
+		if(!phone_types.selected || phone_types.selected == '' || phone_types.selected == '0'){
+			Alert.alert('Atenção', 'Escolha o tipo do telefone de contato');
+			return;
+		}
+
+		let phone_type_label = '';
+
+		for(let i=0; i<phone_types.data.length; i++){
+			if(phone_types.data[i].id == phone_types.selected){
+				phone_type_label = phone_types.data[i].description;
+				break;
+			}
+		}
+
+		dispatch(
+			{
+				type: 'ADD_PHONE', 
+				payload: {
+					number: phone_number, 
+					phone_company_id: phone_companies.selected, 
+					phone_type_id: phone_types.selected,
+					phone_type_label,
+					whatsapp: 0
+				}
+			}
+		);
+
+		dispatch({type: 'CHANGE_PHONE_NUMBER', payload: ''});
+		dispatch({type: 'CHANGE_PHONE_COMPANY', payload: ''});
+		dispatch({type: 'CHANGE_PHONE_TYPE', payload: ''});
+		dispatch({type: 'CHANGE_PHONE_TYPE_LABEL', payload: ''});
+
+		popupDialogContato.dismiss();
+	}
+}
+
+export const changePhoneNumber = value => {
+	return {
+		type: 'CHANGE_PHONE_NUMBER',
+		payload: value
+	};
+}
+
+export const changePhoneCompany = value => {
+	return {
+		type: 'CHANGE_PHONE_COMPANY',
+		payload: value
+	};
+}
+
+export const changePhoneType = value => {
+	return {
+		type: 'CHANGE_PHONE_TYPE',
+		payload: value
+	};
+}
+
+export const loadPhoneCompanies = () => {
+	return dispatch => {
+		RequestGet('general/phone_companies')
+    .then(response => response.json())
+    .then(response => dispatch({type: 'DATA_PHONE_COMPANY', payload: response.data}))
+    .catch(error => console.log(error));
+	}
+};
+
+export const loadPhoneTypes = () => {
+	return dispatch => {
+		RequestGet('general/phone_types')
+    .then(response => response.json())
+    .then(response => dispatch({type: 'DATA_PHONE_TYPES', payload: response.data}))
+    .catch(error => console.log(error));
+	}
+}
+
 export const spinnerOverlay = value => {
 	return {
 		type: 'SPINNER_OVERLAY',
 		payload: value
 	};
+};
+
+export const changeLoading = (_value) => ({
+	type:'CHANGE_LOADING',
+	payload: _value
+});
+
+export const verificarEmail = () => {
+	return (dispatch, getState) => {
+		let user = getState().cadastro.user;
+		if(user.email != user.email_confirmation){
+			Alert.alert('Atenção', 'Os e-mails não conferem');
+		}
+	}
 }
 
- export const changeLoading = (_value) => ({
-		 type:'CHANGE_LOADING',
-		 payload: _value
-})
+export const verificarSenha = () => {
+	return (dispatch, getState) => {
+		let user = getState().cadastro.user;
+
+		if(user.password != user.password_confirmation){
+			Alert.alert('Atenção', 'As senhas não conferem');	
+		}
+	};
+};
+
+export const phoneCompanies = () => {
+	return dispatch => {
+		RequestGet('general/phone_types')
+    .then(response => response.json())
+    .then(response => dispatch(onChangeField(response.data, 'phone_types')))
+    .catch(error => console.log(error));
+	}
+};
 
 export const handlerSubmit = async(_props) =>{
 	/*
@@ -27,16 +144,25 @@ export const handlerSubmit = async(_props) =>{
     /*
 	   * @Montar o array com os dados necessario para registro do usuario 
 	   */
-	  let form = {user: {..._props.user, email_confirmation:_props.user.email,password_confirmation:_props.user.password,address: _props.address ,telephones:_props.telephones} ,sponsor:{id:patrocinador.id}  ,terms:_props.checked}
-       
-    //verificar se existe coupon  
+	  let form = {
+			user: {
+				..._props.user, 
+				email_confirmation: _props.user.email,
+				password_confirmation: _props.user.password,
+				address: _props.address,
+				telephones: _props.telephones
+			},
+			sponsor: {
+				id:patrocinador.id
+			},
+			terms: _props.checked
+		};
+		
+		//verificar se existe coupon  
     if(coupon != '' && coupon != null){   
     	form['coupon'] = coupon
 		}
 		
-		console.log('coupon')
-		console.log(coupon)
-
 		/*
 		* @Fazer o envio para cadastrar o usuario
 		*/
@@ -51,7 +177,7 @@ export const handlerSubmit = async(_props) =>{
 				console.log(resp.errors)
 				dispatch({ type:'CHANGE_FIELD',objectItem: 'errors', payload: resp.errors })
 				dispatch(spinnerOverlay(false));
-				Alert.alert('Erro ao validar formulario', 'Verifique os campos e tente novamente');
+				Alert.alert('Erro ao validar formulário', 'Verifique os campos e tente novamente');
 			}else if(coupon != '' && coupon != null){
 				/*
 				* @Fazer o login com o usuario cadastrado
@@ -90,17 +216,28 @@ export const handlerSubmit = async(_props) =>{
 }
 
 export const onGetAddressByCep = async(cep) => {
-	return dispatch => {
-		dispatch(spinnerOverlay(true));
-		
-		RequestGet('/general/zip/'+cep)
+	return (dispatch, getState) => {
+		if(cep != '' && cep.length == 9){
+
+			dispatch(spinnerOverlay(true));
+			
+			RequestGet('/general/zip/'+cep)
 			.then(resp => resp.json())
 			.then(resp => {
-				dispatch(changeStateBindCity(resp.data.city.state.id, 0))	 
-				dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'street', payload: resp.data.data.logradouro +', '+ resp.data.data.bairro })
-				dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'city_id', payload: resp.data.city.id, })
-				
-		});
+				try{
+					console.log('CEP', resp.data);
+					
+					dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'street', payload: resp.data.data.logradouro });
+					dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'district', payload: resp.data.data.bairro });
+					dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'city_id', payload: resp.data.city.id });
+					dispatch(changeStateBindCity(resp.data.city.state.id, 0));
+				}catch(e){
+					Alert.alert('Atenção', 'Não foi possível buscar o endereço através deste CEP');
+					dispatch(spinnerOverlay(false));
+				}
+			})
+			.catch(error => console.log('ERRO', error));
+		}
 	}
 }
 
@@ -116,24 +253,21 @@ export const onselectStateDistribution = async(item) => {
 		}
 }
 
-export const changeStateBindCity = async(itemValue, itemIndex) => {
-  if(itemValue != '' && itemValue > 0)
-  {
-   	return dispatch => 
-   	{
-	  RequestGet('general/'+itemValue+'/cities')
-	  .then(resp => resp.json())
-	  .then(resp => dispatch({ type:'CHANGE_FIELD',objectItem: 'cities', payload: resp.data, }))
-		.then(resp => {
-			dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'district', payload: itemValue, });
-			dispatch(spinnerOverlay(false));
-		})
-	  .catch((error) => console.log(error));
-	}
+export const changeStateBindCity = (itemValue, itemIndex) => {
+  if(itemValue != '' && itemValue > 0) {
+   	return dispatch => {
+			RequestGet('general/'+itemValue+'/cities')
+			.then(resp => resp.json())
+			.then(resp => {
+				dispatch({ type:'CHANGE_FIELD', objectItem: 'cities', payload: resp.data });
+				dispatch({ type:'CHANGE_FIELD_ADDRESS', objectItem: 'state_id', payload: itemValue });
+				dispatch(spinnerOverlay(false));
+			})
+			.catch((error) => console.log(error));
+		}
   }
 }
 
- 
 export const onChangeField = (_value,_obj) => ({
 		 type:'CHANGE_FIELD',
 		 payload: _value,
