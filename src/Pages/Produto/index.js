@@ -8,7 +8,7 @@ import React, { Component } from 'react';
  /*REDUX*/
  import { connect } from 'react-redux'
  import { bindActionCreators } from 'redux'
- import {listarProdutos,changeItem,_onOpenInputSearch,_onClosedInputSearch,searchRequestItem} from './Actions'  
+ import {listarProdutos,changeItem,_onOpenInputSearch,_onClosedInputSearch,searchRequestItem,listarProdutosCategoria} from './Actions'  
  import { AppRegistry, View, Image, FlatList, StyleSheet, AsyncStorage, Alert,TextInput ,Dimensions,Animated,LayoutAnimation} from 'react-native';
  import { StyleProvider, Container, Button, Text, Header, Spinner, Card, CardItem, Item, Input,List,ListItem, Body, Left,
   Right, Content,Grid,Row,Col} from 'native-base';
@@ -29,11 +29,39 @@ const AnimatedTI = Animated.createAnimatedComponent(Item);
   constructor(props) {
     super(props); 
   } 
-  componentDidMount = async() =>{
-     await this.props.listarProdutos()
-      const Userinfo = await AsyncStorage.getItem('@Userinfo');
-      console.log(Userinfo)
+  componentWillReceiveProps = (nextProps) =>{
+       const categoria = nextProps.navigation.state.params
+                         ? nextProps.navigation.state.params.categoria
+                         : false
+        
+       if(categoria){
+
+         if(this.props._slug !== categoria.slug){
+               console.log('ok')
+               this.props.changeItem('_slug', categoria.slug)
+               this.props.changeItem('actualPage', 1)
+               this.props.changeItem('produtos', [])
+               this.props.changeItem('lastPage', 0)
+               
+               this.props.listarProdutosCategoria()
+         }
+
+       }
   }
+ 
+  componentDidMount = async() => {
+    
+    
+    if(this.getNavigationParams()){
+      const categoria  = this.props.navigation.state.params.categoria
+      this.props.changeItem('_slug', categoria.slug)
+      await this.props.listarProdutosCategoria()
+    } 
+      
+      const Userinfo = await AsyncStorage.getItem('@Userinfo');
+      
+  }
+
 
   loading = () => {
     if(this.props.loading){
@@ -42,7 +70,9 @@ const AnimatedTI = Animated.createAnimatedComponent(Item);
       return null
     }
   }
-
+getNavigationParams() {
+    return this.props.navigation.state.params || false
+  }
   renderProducts = ({item, id, index}) => {
     var productDetails = item.product_details[0];
     
@@ -59,14 +89,18 @@ const AnimatedTI = Animated.createAnimatedComponent(Item);
 
       </View>
     );
-  }
-  render() {
-   
+  } 
+  render() { 
+        const categoria = this.getNavigationParams()
+                          ? this.props.navigation.state.params.categoria
+                          : {name: 'Produtos'}
+        console.log(categoria)
+
     return (
       <Container>
           <HeaderProdutos
           item={this.props}
-          title="Produtos" />
+          title={categoria.name} />
 
         <Grid>
             <IF visible={!this.props.opensearch}>
@@ -134,7 +168,7 @@ const AnimatedTI = Animated.createAnimatedComponent(Item);
                     
                        if(!this.props.showButtonLoading) return;
                             setTimeout(() => {
-                               this.props.listarProdutos()
+                               this.props.listarProdutosCategoria()
                             }, 1000)
                           
                       }}
@@ -150,5 +184,5 @@ const AnimatedTI = Animated.createAnimatedComponent(Item);
 
 
  const mapStateToProps = state => (state.produto)
- const mapDispatchToProps = dispatch => bindActionCreators({listarProdutos,changeItem,_onOpenInputSearch,_onClosedInputSearch,searchRequestItem},dispatch)
+ const mapDispatchToProps = dispatch => bindActionCreators({listarProdutos,changeItem,_onOpenInputSearch,_onClosedInputSearch,searchRequestItem,listarProdutosCategoria},dispatch)
  export default connect(mapStateToProps,mapDispatchToProps)(Produtos)  

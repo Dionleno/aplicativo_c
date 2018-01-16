@@ -10,6 +10,7 @@ const INITIAL_STATE = {
         slideAnim: new Animated.Value(0),
         opensearch: false,
         search: '',
+        _slug:'',
         activeSearch:false,
         details:{
           imagemDestaque: 'https://contem1gbeauty.com.br/img/produtos/002677_3_g.jpg',

@@ -36,7 +36,7 @@ import SideBar from './Static/SideBar'
 * @Rotas com sidebar (Auth, internas)
 */
 export const DrawerNav =  DrawerNavigator({
-    
+ 
    Produto: {
     screen: Produto,
     navigationOptions : {

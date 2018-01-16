@@ -7,25 +7,45 @@ import {
 
 import styles from "./Style";
 
-import {Content,Text,List,ListItem,Icon,Container,Left,Right,Button,View,Thumbnail, Body} from 'native-base';
+import {Content,Text,List,ListItem,Container,Left,Right,Button,View,Thumbnail, Body,FlatList} from 'native-base';
 import {SafeAreaView, DrawerItems} from 'react-navigation';
-import { USER_INFO } from '../../Helpers/Constants';
-  
-
+import { USER_INFO ,URL_API } from '../../Helpers/Constants';
+import { RequestGet } from '../../Helpers/Http';  
+import IF from '../../Helpers/if'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import LinkMenu from './Components/LinkMenu'
+import DropdownMenu from './Components/DropdownMenu'
 
 class SideBar extends Component {
   
   constructor(props) {
     super(props);
     this.state = {
-      Userinfo: {name: 'Cliente' }
+      Userinfo: {name: 'Cliente' },
+      RouteMenu: []
     }
+  }
+
+  getCategories = async() =>{
+
+  
+      RequestGet('categories/')
+      .then(resp => resp.json())
+      .then(resp => {
+           
+             this.setState({
+                RouteMenu: resp.data
+              })
+      })
+      .catch(error => console.log(error))
   }
 
   componentWillMount = async() => {
     const Userinfo = await AsyncStorage.getItem(USER_INFO);
     console.log('USER', Userinfo);
     
+    await this.getCategories() 
+
     this.setState({
       Userinfo: JSON.parse(Userinfo)
     })
@@ -33,6 +53,7 @@ class SideBar extends Component {
      
 
   render() { 
+ 
     return (
 
 
@@ -54,12 +75,37 @@ class SideBar extends Component {
           </ImageBackground>
 
           <ScrollView>
-            <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
-              <DrawerItems {...this.props} />
-            </SafeAreaView>
             
-          </ScrollView>
+            <List
+            dataArray={this.state.RouteMenu}
+            renderRow={data => {   
+              return (
 
+                 <View>
+                  
+                      <IF visible={data.children.length > 0}>
+                          <DropdownMenu menu={data} />
+                      </IF>   
+                      
+                      <IF visible={data.children.length === 0}>
+                         <LinkMenu name={data} />
+                      </IF>
+
+                   
+                  </View>
+
+
+                 
+                
+              );
+            }}
+          />
+
+         {/* <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
+              <DrawerItems {...this.props} />
+            </SafeAreaView>*/}
+          </ScrollView>
+          
         </Content>
       </Container>
 

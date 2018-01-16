@@ -8,12 +8,67 @@ import {RequestPostAuth,ApiStatusCode,RequestGetAuth,RequestGet,RequestPost,URL_
 		 payload: _value
 })
 
+
 export const changeItem = (_object, _value) => ({
 		 type:'CHANGE_FIELD_PRODUTO',
 		 objectItem: _object,
 		 payload: _value
 })
 
+export const listarProdutosCategoria = () => {
+  
+	
+		 return (dispatch,getState) => 
+	   {
+	   	 const state = getState().produto
+	   	 
+           const URL = state._slug != '' 
+                      ? '/categories/'+ state._slug +'/products?page=' + state.actualPage 
+                      : 'products?search='+state.search+'&page=' + state.actualPage;
+	   	  
+   console.log('url')
+       
+       console.log(URL)
+
+	   	if(!state.loading){
+      	dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'loading', payload: true })
+       }
+	  
+	   	 /*
+	   * @Listar produtos
+	   */       
+       RequestGetAuth(URL)
+		  .then(resp => resp.json())
+		  .then(resp => {
+         console.log(resp)
+			    dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'lastPage', payload: resp.meta.last_page })
+	        const stateUpdated = getState().produto;   
+	        
+	        dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'showButtonLoading', payload: true })
+	        if(stateUpdated.actualPage <= stateUpdated.lastPage){
+	          let nextPage = stateUpdated.actualPage + 1;
+	          
+	          var a = stateUpdated.produtos;
+	          
+	          var novos = a.concat(resp.data)
+
+            console.log(novos)
+	          dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'produtos', payload: novos })
+	          dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'actualPage', payload: nextPage })
+	        
+	         }else{
+
+	           console.log('fim')
+	           dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'showButtonLoading', payload: false })
+	            
+	        }
+             dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'loading', payload: false })
+          
+	      
+		  })
+	   }
+
+}
 
 export const listarProdutos = () => {
   
