@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { TextInputMask } from 'react-native-masked-text';
 import styles from '../Style';
 import styleButtons from '../../../StyleSheet/Buttons';
+import styleInput from '../../../StyleSheet/Input';
 import { onChangeFieldPhone, loadPhoneCompanies, loadPhoneTypes, changePhoneNumber, changePhoneCompany, changePhoneType, cadastrarContato } from '../Actions';
 
 class FormularioContato extends Component {
@@ -35,20 +36,21 @@ class FormularioContato extends Component {
   render() {
     return(
       <Content style={{paddingHorizontal: 15, paddingVertical: 15}}>
-        <Item regular style={{backgroundColor:'#FFFFFF',height:50}}>
-          <TextInputMask
-            style={styles.StyleInputText}
-            type={'cel-phone'}
-            options={{ format: '(99) 99999-9999' }}
-            underlineColorAndroid='transparent'  
-            placeholder="Telefone" 
-            value={this.props.phone_number}
-            onChangeText={value => {this.props.changePhoneNumber(value)}}
-          />
-        </Item>
+       
+        <TextInputMask
+          style={styleInput.inputText}
+          type={'cel-phone'}
+          options={{ format: '(99) 99999-9999' }}
+          underlineColorAndroid='transparent'  
+          placeholder="Telefone" 
+          returnKeyType={'next'}
+          value={this.props.phone_number}
+          onChangeText={value => {this.props.changePhoneNumber(value)}}
+        />
 
-        <View style={{ backgroundColor: '#FFFFFF', height:50, marginLeft: 2 }}>
+        <View style={[styleInput.picker, {marginVertical: 15}]}>
           <Picker
+            returnKeyType={'next'}
             selectedValue={this.props.phone_companies.selected}
             onValueChange={value => {this.props.changePhoneCompany(value)}}>
             <Picker.Item key="0" value="0" label="Operadora" />
@@ -56,8 +58,9 @@ class FormularioContato extends Component {
           </Picker>
         </View>
 
-        <View style={{backgroundColor: '#FFFFFF', height:50, marginLeft: 2}}>
+        <View style={styleInput.picker}>
           <Picker
+            returnKeyType={'next'}
             selectedValue={this.props.phone_types.selected}
             onValueChange={value => {this.props.changePhoneType(value)}}>
             <Picker.Item key="0" value="0" label="Tipo" />

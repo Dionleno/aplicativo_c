@@ -32,7 +32,7 @@ class Mes extends Component {
 
   render() {
     return (
-      <View style={[styleInput.boxinput, {backgroundColor: '#f1f1f1'}]}>
+      <View style={styleInput.picker}>
         <Picker
           selectedValue={this.props.cartao.mes}
           onValueChange={value => this.props.cartaoMes(value)}

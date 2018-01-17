@@ -47,7 +47,7 @@ export class Patrocionador extends Component{
 												onPress={() => this.props.onSelectedTypeSearch(true)}
 												>
 													<Icon name='thumb-up' style={{fontSize:20,color:'#FFFFFF'}} />       
-													<Text>Sim, tenho.</Text>
+													<Text>Sim, tenho</Text>
 										</Button>
 								</Col>
 								<Col style={{ height: 40 }}>
@@ -56,17 +56,17 @@ export class Patrocionador extends Component{
 												onPress={() => this.props.onSelectedTypeSearch(false)}
 												>
 														<Icon name='thumb-down' style={{fontSize:20,color:'#FFFFFF'}} />    
-														<Text>Não, tenho.</Text>
+														<Text>Não tenho</Text>
 										</Button>
 								</Col>
 							</Grid>
  
 							<IF visible={this.props.typeForm}>
-									<PatrocionadorBySite />
+								<PatrocionadorBySite />
 							</IF>
 
 							<IF visible={!this.props.typeForm}>
-									<PatrocionadorByCep />
+								<PatrocionadorByCep />
 							</IF>
 						</View>
 

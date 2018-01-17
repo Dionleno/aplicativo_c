@@ -13,19 +13,40 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import { TextInputMask } from 'react-native-masked-text';
 import StyleInput from '../../../StyleSheet/Input';
 
-export const PatrocionadorBySite = props => {
-    return (
-		<View>  
-			<Item style={[StyleInput.boxinput,{marginBottom:10, backgroundColor:'#f1f1f1'}]}> 
-				<TextInput underlineColorAndroid='transparent'  style={StyleInput.inputText} placeholder='Minisite do seu patrocionador' value={props.findtext} onChangeText={(value) => props.onChangeField(value,'findtext')}/>
-			</Item>
+class PatrocionadorBySite extends Component {
 
-			<Button full style={{backgroundColor: "#000000"}} onPress={() => props.BuscarPatrocinador(props.findtext)}>
-				<Icon name='search' style={{fontSize:25,color:'#FFFFFF'}} />
-				<Text>Buscar Patrocionador</Text>
-			</Button>
-		</View>
-    )
+	constructor(props){
+		super(props);
+	}
+
+	render(){
+		return (
+			<View> 
+				<View style={{ flexDirection: 'row', marginBottom: 15, borderColor: '#d2d6e0', borderWidth: 1, borderRadius: 4 }}>
+					<View style={{flex: 0.60, justifyContent: 'center', paddingLeft: 15}} > 
+						<Text onPress={() => this.refs.inputPatrocinador.focus()} style={{fontSize: 14, color: '#888888'}}>www.contem1gmagic.com/</Text>
+					</View>
+	
+					<View style={{flex: 0.40}}>
+						<TextInput
+							ref='inputPatrocinador'
+							underlineColorAndroid='transparent' 
+							style={{backgroundColor: '#ffffff', paddingRight: 15, color: '#888888'}}
+							placeholder='patrocionador' 
+							value={this.props.findtext} 
+							onChangeText={(value) => this.props.onChangeField(value,'findtext')}
+						/>
+					</View>
+				</View>
+	
+				<Button full style={{backgroundColor: "#000000"}} onPress={() => this.props.BuscarPatrocinador(this.props.findtext)}>
+					<Icon name='search' style={{fontSize:25,color:'#FFFFFF'}} />
+					<Text>Buscar Patrocionador</Text>
+				</Button>
+			</View>
+		)
+	}
+
 }
 
 const mapStateToProps = state => (state.patrocionador)

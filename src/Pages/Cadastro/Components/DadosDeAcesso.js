@@ -11,8 +11,7 @@ import {onChangeFieldUser, onChangeFieldPhone, onChangeField, verificarSenha, ve
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from '../Style';
 import ErrorForm from '../../../Helpers/ErrorForm';
-import {TextInputMask} from 'react-native-masked-text';
-import {RequestGet} from '../../../Helpers/Http';
+import styleInput from '../../../StyleSheet/Input';
 
 export class DadosDeAcesso extends Component {
 	
@@ -30,79 +29,71 @@ export class DadosDeAcesso extends Component {
 	 			</Row>
 
 				<View style={{paddingRight:15,paddingLeft:15,paddingVertical:20}}>
-					<Grid>
-						<Col style={{marginRight:3}}>
-							<Item regular style={{backgroundColor:'#FFFFFF',height:50}}>
-								<TextInput 
-									style={styles.StyleInputText}
-									underlineColorAndroid='transparent' 
-									placeholder="Login"
-									returnKeyType={'next'}
-									onChangeText={(value) => this.props.onChangeFieldUser(value,'login')  }
-								/>
-							</Item>
-							<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.login']}/>
-						</Col>
-					</Grid>
-
-					<Item regular style={{backgroundColor:'#FFFFFF', height:50}}>
-						<TextInput 
-							style={styles.StyleInputText}
-							underlineColorAndroid='transparent' 
-							placeholder="E-mail"
-							keyboardType='email-address'
-							returnKeyType={'next'}
-							onChangeText={(value) => this.props.onChangeFieldUser(value, 'email')}
-						/>
-					</Item>
-					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.email']}/>
 					
-					<Item regular style={{backgroundColor:'#FFFFFF', height:50}}>
-						<TextInput 
-							style={styles.StyleInputText}
-							underlineColorAndroid='transparent' 
-							placeholder="Confirmar e-mail" 
-							keyboardType='email-address'
-							returnKeyType={'next'}
-							onBlur={() => this.props.verificarEmail()}
-							onChangeText={(value) => this.props.onChangeFieldUser(value,'email_confirmation')}
-						/>
-					</Item>
+					<TextInput 
+						style={styleInput.inputText}
+						underlineColorAndroid='transparent' 
+						placeholder="Login"
+						returnKeyType={'next'}
+						onChangeText={(value) => this.props.onChangeFieldUser(value,'login')  }
+					/>
+
+					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.login']}/>
+
+					<TextInput 
+						style={styleInput.inputText}
+						underlineColorAndroid='transparent' 
+						placeholder="E-mail"
+						keyboardType='email-address'
+						returnKeyType={'next'}
+						onChangeText={(value) => this.props.onChangeFieldUser(value, 'email')}
+					/>
+						
+					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.email']}/>
+						
+					<TextInput 
+						style={styleInput.inputText}
+						underlineColorAndroid='transparent' 
+						placeholder="Confirmar e-mail" 
+						keyboardType='email-address'
+						returnKeyType={'next'}
+						onBlur={() => this.props.verificarEmail()}
+						onChangeText={(value) => this.props.onChangeFieldUser(value,'email_confirmation')}
+					/>
+						
 					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.email_confirmation']}/>
 
-					<Item regular style={{backgroundColor:'#FFFFFF', height:50}}> 
-						<TextInput 
-							style={styles.StyleInputText}
-							underlineColorAndroid='transparent' 
-							secureTextEntry={true} 
-							placeholder="Senha"
-							returnKeyType={'next'}
-							onChangeText={(value) => this.props.onChangeFieldUser(value,'password')}
-						/>
-					</Item>
+					<TextInput 
+						style={styleInput.inputText}
+						underlineColorAndroid='transparent' 
+						secureTextEntry={true} 
+						placeholder="Senha"
+						returnKeyType={'next'}
+						onChangeText={(value) => this.props.onChangeFieldUser(value,'password')}
+					/>
+					
 					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.password']}/>
 
-					<Item regular style={{backgroundColor:'#FFFFFF', height:50, marginBottom: 10}}> 
-						<TextInput 
-							style={styles.StyleInputText}
-							underlineColorAndroid='transparent' 
-							secureTextEntry={true} 
-							placeholder="Repetir senha"
-							returnKeyType={'next'}
-							onBlur={() => this.props.verificarSenha()}
-							onChangeText={(value) => this.props.onChangeFieldUser(value,'password_confirmation')}
-						/>
-					</Item>
+					<TextInput 
+						style={styleInput.inputText}
+						underlineColorAndroid='transparent' 
+						secureTextEntry={true} 
+						placeholder="Repetir senha"
+						returnKeyType={'next'}
+						onBlur={() => this.props.verificarSenha()}
+						onChangeText={(value) => this.props.onChangeFieldUser(value,'password_confirmation')}
+					/>
+					
+					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.password']}/>
 
-					<Item regular style={{backgroundColor:'#FFFFFF',marginBottom:8,height:50}}>
-						<TextInput 
-							style={styles.StyleInputText}
-							underlineColorAndroid='transparent' 
-							placeholder="Minisite"
-							returnKeyType={'next'}
-							onChangeText={(value) => this.props.onChangeFieldUser(value,'minisite')}
-						/>
-					</Item>
+					<TextInput 
+						style={styleInput.inputText}
+						underlineColorAndroid='transparent' 
+						placeholder="Minisite"
+						returnKeyType={'next'}
+						onChangeText={(value) => this.props.onChangeFieldUser(value,'minisite')}
+					/>
+					
 					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.minisite']}/>
 					
 				</View>
