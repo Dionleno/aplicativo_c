@@ -3,14 +3,15 @@
  */
 import React, { Component } from 'react';
 import { Platform ,TextInput} from 'react-native';
-import { View, Item, Input, Text, Button, Right, ListItem, Row,Left, Thumbnail, Body} from 'native-base';
+import { View, Item, Input, Text, Button, Row} from 'native-base';
 /*REDUX*/
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import {onChangeFieldUser} from '../Actions'  
-import Icon from 'react-native-vector-icons/MaterialIcons'
-import styles from '../Style'
-import ErrorForm from '../../../Helpers/ErrorForm'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {onChangeFieldUser} from '../Actions'  ;
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import styles from '../Style';
+import styleInput from '../../../StyleSheet/Input';
+import ErrorForm from '../../../Helpers/ErrorForm';
 import {TextInputMask} from 'react-native-masked-text';
 
 export class DadosPessoais extends Component {
@@ -26,21 +27,19 @@ export class DadosPessoais extends Component {
 					<Icon style={styles.titleIconArrowDown} name='keyboard-arrow-down' />
 				</Row>
 
-				<View style={{paddingRight:15, paddingLeft:15, paddingVertical:20}}>        
-
-				<Item regular style={{backgroundColor:'#FFFFFF',height:50}}>
-					<TextInput style={styles.StyleInputText} 
+				<View style={{paddingRight:15, paddingLeft:15, paddingVertical:20}}> 
+				
+					<TextInput style={styleInput.inputText} 
 						underlineColorAndroid='transparent' 
 						placeholder="Nome Completo"
 						returnKeyType={'next'}
 						value={this.props.user.name} 
 						onChangeText={(value) => this.props.onChangeFieldUser(value,'name')  }
 					/>
-				</Item>
-				<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.name']}/>
-
-				<Item regular style={{backgroundColor:'#FFFFFF',height:50}}>
-					<TextInputMask style={styles.StyleInputText} 
+					
+					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.name']}/>
+			
+					<TextInputMask style={styleInput.inputText} 
 						underlineColorAndroid='transparent' 
 						type={'cpf'} 
 						options={{ format: '999.999.999-99' }} 
@@ -51,21 +50,21 @@ export class DadosPessoais extends Component {
 						value={this.props.user.document}
 						returnKeyType={'next'}
 					/>
-				</Item>
-				<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.document']}/>
+					
+					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.document']}/>
 
-				<Item regular style={{backgroundColor:'#FFFFFF',height:50}}>
-					<TextInputMask underlineColorAndroid='transparent'
+					<TextInputMask 
+						underlineColorAndroid='transparent'
 						type={'datetime'}
 						placeholder="Data de Nascimento"
-						style={styles.StyleInputText}
+						style={styleInput.inputText}
 						onChangeText={(value) => this.props.onChangeFieldUser(value,'birth_date') }
 						value={this.props.user.birth_date}
 						options={{format: 'DD/MM/YYYY'}} 
 						returnKeyType={'next'}
 					/>
-				</Item>
-				<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.birth_date']}/>
+					
+					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.birth_date']}/>
 				
 				</View>
 			</View>

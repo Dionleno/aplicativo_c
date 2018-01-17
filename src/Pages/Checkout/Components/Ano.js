@@ -21,13 +21,13 @@ class Ano extends Component {
     for(i = incio; i <= fim; i++){
       ano.push(i.toString());
     }
-
+    
     return ano.map(val => <Picker.Item key={val} label={val} value={val} />);
   }
 
   render() {
     return (
-      <View style={[styleInput.boxinput, {backgroundColor: '#f1f1f1'}]}>
+      <View style={styleInput.picker}>
         <Picker
           selectedValue={this.props.cartao.ano}
           onValueChange={value => this.props.cartaoAno(value)}

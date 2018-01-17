@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import HeaderExterno from '../../Static/HeaderExterno'
 import PopupDialog, {DialogTitle, SlideAnimation, DialogButton } from 'react-native-popup-dialog';
 import styleButtons from '../../StyleSheet/Buttons';
+import styleInput from '../../StyleSheet/Input';
 
 /*Componentes*/
 import ErrorForm from '../../Helpers/ErrorForm'
@@ -66,7 +67,7 @@ export class Cadastro extends Component{
         </PopupDialog>
 
         <PopupDialog
-          dialogTitle={<DialogTitle title="Cadastrar contato" />}
+          dialogTitle={<DialogTitle title="Cadastrar Contato" />}
           ref={(popupDialogContato) => { this.popupDialogContato = popupDialogContato }}
           animationDuration={500}
           width={0.9}

@@ -39,22 +39,21 @@ export class FormularioCartaoCredito extends Component {
   
   render() {
     return (
-      <Form>
-        <View style={styles.viewForm}>
-          <Text style={styles.formLabel}>Nome do titular do cartão</Text>
-          
+      <Form style={{paddingHorizontal: 15, paddingVertical: 15}}>
+        <View style={{marginBottom: 15}}>
           <TextInput
-            style={[styleInput.boxinput, {backgroundColor: '#f1f1f1'}]}
+            style={styleInput.inputText}
             underlineColorAndroid='transparent'
+            placeholder='Nome do titular do cartão'
             onChangeText={value => this.props.cartaoTitular(value)}
             value={this.props.cartao.titular}
           />
         </View>
 
-        <View style={styles.viewForm}>
-          <Text style={styles.formLabel}>Número do cartão</Text>
+        <View style={{marginBottom: 15}}>
           <TextInputMask
-            style={[styleInput.boxinput, {backgroundColor: '#f1f1f1'}]}
+            style={styleInput.inputText}
+            placeholder='Número do cartão'
             options={{
               format: '9999 9999 9999 9999'
             }}
@@ -68,11 +67,11 @@ export class FormularioCartaoCredito extends Component {
         </View>
 
         <View style={{flexDirection: 'row'}}>
-          <View style={[styles.viewForm, {flex: 2}]}>
-            <Text style={styles.formLabel}>Código de segurança</Text>
+          <View style={{marginBottom: 15, flex: 2}}>
             <TextInputMask
-              style={[styleInput.boxinput, {backgroundColor: '#f1f1f1'}]}
+              style={styleInput.inputText}
               type={'only-numbers'}
+              placeholder='Código de segurança'
               underlineColorAndroid='transparent'
               keyboardType='numeric'
               maxLength={3}
@@ -80,27 +79,29 @@ export class FormularioCartaoCredito extends Component {
               value={this.props.cartao.cvv}
             />
           </View>
-          <View style={[styles.viewForm, {flex: 1, alignItems: 'center'}]}>
-            <Image source={CVV} style={{ width: 63, height: 42, marginTop: 35 }} />
+
+          <View style={{marginBottom: 15, flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <Image source={CVV} width={50} height={50} />
           </View>
         </View>
 
-        <View style={{flexDirection: 'row'}}>
-          <View style={styles.viewForm}>
-            <Text style={styles.formLabel}>Validade</Text>
+        <View>
+          <Text style={styles.formLabel}>Validade</Text>
+        </View>
+        
+        <View style={{flexDirection: 'row', marginBottom: 15}}>
+          <View style={{marginRight: 5, flex: 1}}>
             <Mes />
           </View>
-
-          <View style={styles.viewForm}>
-            <Text style={styles.formLabel}> </Text>
+          <View style={{marginLeft: 5, flex: 1}}>
             <Ano />
           </View>
         </View>
         
-        <View style={styles.viewForm}>
+        <View>
           <Text style={styles.formLabel}>Parcelas</Text>
           
-          <View style={[styleInput.boxinput, {backgroundColor: '#f1f1f1'}]}>
+          <View style={styleInput.picker}>
             <Picker
               selectedValue={this.props.installment_id}
               onValueChange={value => this.props.setInstallmentId(value)}
