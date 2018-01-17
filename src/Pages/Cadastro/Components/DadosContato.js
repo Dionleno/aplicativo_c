@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {View, TextInput, Picker, FlatList} from 'react-native';
-import {Row, Text, Item, ListItem, Button} from 'native-base';
+import {Row, Text, Item, ListItem, Button,Body,Right} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {TextInputMask} from 'react-native-masked-text';
 import styles from '../Style';
 import ErrorForm from '../../../Helpers/ErrorForm';
-import {onChangeField, onChangeFieldPhone, phoneCompanies} from '../Actions';
+import {onChangeField, onChangeFieldPhone, phoneCompanies,SetFieldPhone} from '../Actions';
 import {RequestGet} from '../../../Helpers/Http';
 import styleInput from '../../../StyleSheet/Input';
 import styleButtons from '../../../StyleSheet/Buttons';
@@ -21,12 +21,18 @@ class DadosContato extends Component {
   }
 
   renderListaContatos = ({item, index}) => (
-    <ListItem>
+    <ListItem onPress={() => this.props.SetFieldPhone(index)}>
+     <Body>
       <Text style={{color: '#656D82'}}>{item.number} | {item.phone_type_label}</Text>
+     </Body>
+     <Right>
+         <Icon name="delete-forever" style={{fontSize:20,color:'#FF0000'}}/>
+      </Right>
     </ListItem>
   );
 
   render(){
+ 
     return (
       <View>
 	 			<Row style={styles.title} >
@@ -54,5 +60,5 @@ class DadosContato extends Component {
 }
 
 const mapStateToProps = state => (state.cadastro);
-const mapDispatchToProps = dispatch => bindActionCreators({onChangeField, onChangeFieldPhone, phoneCompanies}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({onChangeField, onChangeFieldPhone, phoneCompanies,SetFieldPhone}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(DadosContato);

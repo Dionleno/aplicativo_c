@@ -62,6 +62,11 @@ const INITIAL_STATE = {
   }
 }
 
+const removePhone = (fhones, id) => {
+  // return a new list with all values, except the matched id
+  return fhones.filter( (memberId,index) => index !== id);
+}
+
 export default (state = INITIAL_STATE, action) => {
 	 
   switch(action.type){
@@ -71,6 +76,9 @@ export default (state = INITIAL_STATE, action) => {
       return {...state,address:{...state.address , [action.objectItem]: action.payload}}
     case 'CHANGE_FIELD_USER':
       return {...state,user:{...state.user , [action.objectItem]: action.payload}} 
+    case 'SET_FIELD_PHONE':
+       console.log(removePhone(state.telephones, action.payload))
+       return {...state,telephones: removePhone(state.telephones, action.payload) }    
     case 'CHANGE_FIELD_PHONE':
       return {...state,telephones:[{...state.telephones, [action.objectItem]: action.payload}]}           
     case 'CHANGE_LOADING':

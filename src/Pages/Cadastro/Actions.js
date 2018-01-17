@@ -60,6 +60,33 @@ export const changePhoneNumber = value => {
 	};
 }
 
+export const SetFieldPhone = value =>{
+    
+    
+
+ 
+return (dispatch,getState) => 
+	   { 
+       
+       Alert.alert(
+	          null,
+	          'Deseja deletar esse contato?',
+	          [
+	            {text: 'Cancelar', onPress: () => {return false} , style: 'cancel'},
+	            {text: 'Confirmar', onPress: async() =>{ 
+                    dispatch({type: 'SET_FIELD_PHONE', payload: value})
+               }},
+	          ],
+	          { cancelable: false }
+	        )
+		     
+
+		   	  
+
+
+	};
+}
+
 export const changePhoneCompany = value => {
 	return {
 		type: 'CHANGE_PHONE_COMPANY',

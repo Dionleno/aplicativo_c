@@ -17,7 +17,7 @@ import styleButtons from '../../StyleSheet/Buttons';
 
 /*Componentes*/
 import ErrorForm from '../../Helpers/ErrorForm'
-import {handlerSubmit} from './Actions' 
+import {handlerSubmit,SetFieldPhone} from './Actions' 
 import DadosPessoais from './Components/DadosPessoais';
 import DadosDeAcesso from './Components/DadosDeAcesso';
 import DadosContato from './Components/DadosContato';
@@ -100,5 +100,5 @@ export class Cadastro extends Component{
 } 
 
 const mapStateToProps = state => (state.cadastro)
-const mapDispatchToProps = dispatch => bindActionCreators({handlerSubmit},dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({handlerSubmit,SetFieldPhone},dispatch)
 export default connect(mapStateToProps,mapDispatchToProps)(Cadastro)
