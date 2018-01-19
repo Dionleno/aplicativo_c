@@ -7,6 +7,7 @@ import { Alert } from 'react-native';
 import { RequestAuth } from '../../Helpers/Http';
 import AdyenCse from '../../Helpers/AdyenCse';
 import { ADYEN_KEY } from '../../Helpers/Constants';
+import { MaskService } from 'react-native-masked-text';
 
 // Lista os endereços de entrega do usuário logado
 export const listarEnderecosEntrega = () => {
@@ -90,24 +91,6 @@ export const setKit = products => {
   }
 }
 
-/**
- * Enviar um GET para 'carts/installments/{value}'
- */
-export const calcularParcelas = () => {
-  RequestAuth('carts/installments/' + this.state.total, 'GET', null,
-    response => {
-      let parcelas = [];
-      
-      response.map((item, index) => {
-        parcelas.push({key: index, label: item});
-      });
-
-      this.setState({ parcelas });
-    },
-    error => console.log(error)
-  );
-}
-
 export const selecionarFrete = index => {
   return {
     type: 'CHANGE_FRETE', 
@@ -150,6 +133,13 @@ export const cartaoAno = value => {
   };
 }
 
+export const cartaoTotal = value => {
+  return {
+    type: 'CARTAO_TOTAL',
+    payload: value
+  };
+}
+
 export const formaPagamento = value => {
   
   // Boleto
@@ -163,18 +153,117 @@ export const formaPagamento = value => {
   // Cartão de crédito
   if(value == '2'){
     return (dispatch, getState) => {
-      RequestAuth('carts/installments/' + getState().checkout.total, 'GET')
-        .then(response => response.json())
-        .then(parcelas => {
-          dispatch(setParcelas(parcelas));
+      // Seta a forma de pagamento
+      dispatch({type: 'FORMA_PAGAMENTO', payload: value });
+      
+      // Seta o valor total para o JSON cartão
+      dispatch({type: 'CARTAO_TOTAL', payload: getState().checkout.total });
 
-          dispatch({
-            type: 'FORMA_PAGAMENTO',
-            payload: value
-          });
-
-        })
+      // Calcula as parcelas com base no valor total
+      dispatch(calcularParcelas(getState().checkout.total));
     }
+  }
+}
+
+/**
+ * Enviar um GET para 'carts/installments/{value}'
+ */
+export const calcularParcelas = value => {
+  return dispatch => {
+    let total = MaskService.toMask('money', value, {
+      unit: '',
+	    separator: ',',
+	    delimiter: '.'
+    });
+
+    RequestAuth('carts/installments/' + total, 'GET')
+    .then(response => response.json())
+    .then(parcelas =>  dispatch(setParcelas(parcelas)))
+    .catch(error => console.log(error));
+  }
+}
+
+export const cadastrarCartao = (popupDialogCartao) => {
+
+  return (dispatch, getState) => {
+    const { checkout } = getState();
+
+    let card = {
+      value: MaskService.toMask('money', checkout.cartao.total, {
+        unit: '',
+        separator: ',',
+        delimiter: '.'
+      }),
+      label: MaskService.toMask('money', checkout.cartao.total, {
+        unit: 'R$ ',
+        separator: ',',
+        delimiter: '.'
+      })
+    }
+    
+    AdyenCse.generateCSE(
+      ADYEN_KEY,
+      checkout.cartao.titular.toString(),
+      checkout.cartao.numero.toString().replace(' ', ''),
+      checkout.cartao.cvv.toString(),
+      checkout.cartao.mes.toString(),
+      checkout.cartao.ano.toString()
+    )
+    .then(encrypt => {
+      dispatch(
+        addCard(
+          {
+            stringadyen: encrypt.response,
+            value: card.value,
+            installment_id: checkout.cartao.installment_id
+          }
+        )
+      );
+
+      dispatch(
+        addCardLabel(
+          {
+            numero: checkout.cartao.numero,
+            valor: card.label,
+            parcelas: checkout.parcelas[checkout.cartao.installment_id].label
+          }
+        )
+      );
+      
+      popupDialogCartao.dismiss();
+
+      // Setar valorres.....
+      // dispatch(loadFinalizarCadastro(true));
+      // dispatch(enviarCadastroParaApi(_this, encrypt));
+    })
+    .catch(error => {
+      Alert.alert('Atenção', 'Verifique os dados do seu cartão de crédito');
+    });
+  }
+}
+
+export const addCard = card => {
+  return {
+    type: 'ADD_CARD',
+    payload: card
+  }
+}
+
+export const addCardLabel = card => {
+  return {
+    type: 'ADD_CARD_LABEL',
+    payload: card
+  }
+}
+
+export const removeCard = (index) => {
+  return (dispatch, getState) => {
+    const { cards, cards_label } = getState().checkout;
+    let newCards = cards.splice(index, 1);
+    let newCardsLabel = cards_label.splice(index, 1);
+    
+    dispatch({type: 'RENEW_CARD'});
+    dispatch({type: 'RENEW_CARD_LABEL'});
   }
 }
 
@@ -215,72 +304,31 @@ export const loadFormasEntrega = value => {
 export const finalizarCadastro = _this => {
 
   return (dispatch, getState) => {
-    const checkout = getState().checkout;
+    const { checkout } = getState();
 
-    if(checkout.factory == '1'){
-
-      if(!checkout.address_id){
-        Alert.alert('Atenção', 'Escolha um endereço para entrega');
-        return {
-          type: 'CADASTRO_ERRO'
-        }
+    if(!checkout.address_id && checkout.factory == '1'){
+      Alert.alert('Atenção', 'Escolha um endereço para entrega');
+      return {
+        type: 'CADASTRO_ERRO'
       }
-
-      if(!checkout.forma_pagamento){
-        Alert.alert('Atenção', 'Escolha uma forma de pagamento');
-        return {
-          type: 'CADASTRO_ERRO'
-        }
-      }
-
-      if(checkout.forma_pagamento == '1'){
-        dispatch(loadFinalizarCadastro(true));
-        dispatch(enviarCadastroParaApi(_this));
-      }
-
-      if(checkout.forma_pagamento == '2'){
-        if(!checkout.cartao.titular){
-          Alert.alert('Atenção', 'Digite o nome do titular do cartão');
-          return {
-            type: 'CADASTRO_ERRO'
-          }
-        }
-
-        if(!checkout.cartao.numero){
-          Alert.alert('Atenção', 'Digite o número do cartão');
-          return {
-            type: 'CADASTRO_ERRO'
-          }
-        }
-        
-        if(!checkout.cartao.cvv){
-          Alert.alert('Atenção', 'Digite o código de segurança do cartão');
-          return {
-            type: 'CADASTRO_ERRO'
-          }
-        }
-        
-        AdyenCse.generateCSE(
-          ADYEN_KEY,
-          checkout.cartao.titular.toString(),
-          checkout.cartao.numero.toString().replace(' ', ''),
-          checkout.cartao.cvv.toString(),
-          checkout.cartao.mes.toString(),
-          checkout.cartao.ano.toString()
-        )
-        .then(encrypt => {
-          dispatch(loadFinalizarCadastro(true));
-          dispatch(enviarCadastroParaApi(_this, encrypt));
-        })
-        .catch(error => {
-          Alert.alert('Atenção', 'Verifique os dados do seu cartão de crédito');
-        });
-      }
-      
-    }else{
-      dispatch(loadFinalizarCadastro(true));
-      dispatch(enviarCadastroParaApi(_this));
     }
+
+    if(!checkout.forma_pagamento && checkout.factory == '1'){
+      Alert.alert('Atenção', 'Escolha uma forma de pagamento');
+      return {
+        type: 'CADASTRO_ERRO'
+      }
+    }
+
+    if(checkout.forma_pagamento == '2' && checkout.cards.length == 0){
+      Alert.alert('Atenção', 'Você deve informar pelo menos um cartão de crédito');
+      return {
+        type: 'CADASTRO_ERRO'
+      }
+    }
+    
+    dispatch(loadFinalizarCadastro(true));
+    dispatch(enviarCadastroParaApi(_this));
     
   };
 
@@ -295,7 +343,7 @@ export const enviarCadastroParaApi = (_this, encrypt = '') => {
   let data = {};
 
   return (dispatch, getState) => {
-    const checkout = getState().checkout;
+    const { checkout } = getState();
     let data = {};
 
     if(checkout.factory == 1){
@@ -303,15 +351,13 @@ export const enviarCadastroParaApi = (_this, encrypt = '') => {
         payment_method_id: checkout.forma_pagamento,
         address_id: checkout.address_id
       }
-  
-      if(encrypt != ''){
-        data.cards = [{
-          stringadyen: encrypt,
-          value: checkout.total,
-          installment_id:checkout.installment_id
-        }];
+      
+      if(checkout.forma_pagamento == '2'){
+        data.cards = checkout.cards;
       }
     }
+    
+    // console.log(data);
     
     RequestAuth('carts/checkout', 'POST', data)
       .then(response => response.json())
@@ -328,8 +374,6 @@ export const enviarCadastroParaApi = (_this, encrypt = '') => {
         }
 
         dispatch(loadFinalizarCadastro(false));
-
-        console.log('SUCESSO', response);
       })
       .catch(error => {
         Alert.alert('Ocorreu um erro ao gerar o pedido. Tente novamente mais tarde');

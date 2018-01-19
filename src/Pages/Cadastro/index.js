@@ -12,7 +12,7 @@ import { bindActionCreators } from 'redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import HeaderExterno from '../../Static/HeaderExterno'
-import PopupDialog, {DialogTitle, SlideAnimation, DialogButton } from 'react-native-popup-dialog';
+import PopupDialog, { DialogTitle, SlideAnimation, DialogButton } from 'react-native-popup-dialog';
 import styleButtons from '../../StyleSheet/Buttons';
 import styleInput from '../../StyleSheet/Input';
 

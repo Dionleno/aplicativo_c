@@ -146,6 +146,23 @@ export default {
 		marginLeft: 15, 
 		marginRight: 15
 	},
-
-
+	listCard: {
+		flex: 1, 
+		flexDirection: 'row', 
+		justifyContent: 'space-between'
+	},
+	listCardLeft: {
+		alignItems: 'flex-start'
+	},
+	listCardRight: {
+		alignItems: 'flex-end', 
+		justifyContent: 'center'
+	},
+	listCardText: {
+		alignSelf: 'flex-start'
+	},
+	listCardButtonExcluir: {
+		backgroundColor: '#FFFFFF', 
+		elevation: 0
+	}
 }

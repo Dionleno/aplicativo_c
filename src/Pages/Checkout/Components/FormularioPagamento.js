@@ -14,16 +14,18 @@ import {
 	Left,
 	List,
 	ListItem,
-	Spinner
+	Spinner,
+	Body
 } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { TextInputMask } from 'react-native-masked-text';
 import styles from '../Styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { selecionarFrete, formaPagamento } from '../Actions';
+import { selecionarFrete, formaPagamento, removeCard } from '../Actions';
 import Ano from './Ano';
 import Mes from './Mes';
+import styleButtons from '../../../StyleSheet/Buttons';
 import FormularioCartaoCredito from './FormularioCartaoCredito';
 
 const CVV = require('../../../Images/cvv.png');
@@ -56,11 +58,45 @@ export class FormularioPagamento extends Component {
 		this.props.formaPagamento(tipo);
 	}
 
-  formularioCartao() {
+	renderItemCards = ({item, index}) => (
+		<ListItem>
+			<View style={styles.listCard}>
+				<View style={styles.listCardLeft}>
+					<Text style={styles.listCardText}>{item.numero}</Text>
+					<Text style={styles.listCardText} note>{item.parcelas}</Text>
+					<Text style={styles.listCardText} note>{item.valor}</Text>
+				</View>
+				<View style={styles.listCardRight}>
+					<Button style={styles.listCardButtonExcluir} onPress={() => this.props.removeCard(index)}>
+						<Icon name='close' style={{fontSize: 26, color: 'red'}}/>
+					</Button>
+				</View>
+			</View>
+		</ListItem>
+	)
+
+  cartao() {
     const { form, setFormValor } = this.props;
 
     if(this.state.pagamento.cartao){
-			return ( <FormularioCartaoCredito /> );
+			return (
+				<View>
+					<View style={{ marginVertical: 10}}>
+						<FlatList 
+							data={this.props.cards_label}
+							extraData={this.state}
+							keyExtractor={(item, index) => index}
+							renderItem={this.renderItemCards}
+						/>
+					</View>
+
+					<View style={{marginHorizontal: 15, marginVertical: 15}}>
+						<Button block style={styleButtons.btnPrimaryOutline} onPress={() => this.props.popupDialogCartao.dialog.show()} >
+							<Text style={styleButtons.btnPrimaryOutlineText} >Informar Cartão de Crédito</Text>
+						</Button>
+					</View>
+				</View>
+			);
 		}
   }
 
@@ -114,7 +150,7 @@ export class FormularioPagamento extends Component {
 					</View>
 				</View>
 				
-				{ this.formularioCartao() }
+				{ this.cartao() }
 			</View>
 		);
 	}
@@ -122,5 +158,5 @@ export class FormularioPagamento extends Component {
 }
 
 const mapStateToProps = state => (state.checkout);
-const mapDispatchToProps = dispatch => bindActionCreators({ selecionarFrete, formaPagamento }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ selecionarFrete, formaPagamento, removeCard }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(FormularioPagamento);

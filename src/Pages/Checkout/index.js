@@ -9,9 +9,11 @@ import FormularioPagamento from './Components/FormularioPagamento';
 import ResumoPedido from './Components/ResumoPedido';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import HeaderCheckout from '../../Static/HeaderCheckout';
-import { getCart } from './Actions';
+import { getCart, cadastrarCartao } from './Actions';
 import styles from './Styles';
-import stylesGlobal from '../../StyleSheet/Buttons';
+import styleButtons from '../../StyleSheet/Buttons';
+import FormularioCartaoCredito from './Components/FormularioCartaoCredito';
+import PopupDialog, {DialogTitle, SlideAnimation, DialogButton } from 'react-native-popup-dialog';
 
 export class Checkout extends Component {
 
@@ -25,7 +27,7 @@ export class Checkout extends Component {
       return (
         <View>
           <FormularioEntrega />
-          <FormularioPagamento />
+          <FormularioPagamento popupDialogCartao={this.popupDialogCartao} />
         </View>
       );
     }
@@ -46,17 +48,42 @@ export class Checkout extends Component {
   render(){
     return (
       <Container>
+
         <HeaderCheckout navigation={this.props.navigation} />
+
+        <PopupDialog
+          haveTitleBa={false}
+          ref={(popupDialogCartao) => { this.popupDialogCartao = popupDialogCartao }}
+          animationDuration={500}
+          width={0.9}
+          height={0.9}
+          containerStyle={{ zIndex: 10, elevation: 10}}
+          actions={
+            [
+              <Button 
+                key={0} 
+                block 
+                style={[styleButtons.btnPrimary, {marginHorizontal: 15, marginVertical: 15}]} 
+                onPress={() => this.props.cadastrarCartao(this.popupDialogCartao)}>
+                <Text style={styleButtons.btnPrimaryText}>Cadastrar Cartão</Text>
+              </Button>
+            ]
+          }>
+          <FormularioCartaoCredito />
+        </PopupDialog>
+
         <Content style={{backgroundColor: '#FFFFFF'}}>
           {this.verificaEntregaCd()}
           {this.carregarPedido()}
         </Content>
+
         <SpinnerOverlay visible={this.props.overlay} textContent={"Aguarde..."} textStyle={{color: '#FFF'}} />
+      
       </Container>
     );
   }
 }
 
 const mapStateToProps = state => (state.checkout);
-const mapDispatchToProps = dispatch => bindActionCreators({ getCart }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getCart, cadastrarCartao }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

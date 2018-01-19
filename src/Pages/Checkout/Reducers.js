@@ -6,7 +6,6 @@ const INITIAL_STATE = {
   enderecos: [],
   formas_entrega: [],
   address_id: '',
-  installment_id: '',
   frete: '',
   forma_pagamento: '',
   produtos: [],
@@ -25,9 +24,13 @@ const INITIAL_STATE = {
     titular: '',
     numero: '',
     cvv: '',
+    installment_id: 0,
     mes: ((new Date().getMonth())+1),
-    ano: (new Date().getFullYear())
+    ano: (new Date().getFullYear()),
+    total: 0
   },
+  cards: [],
+  cards_label: [],
   loading: {
     btnFinalizarCadastro: false,
     formasEntrega: 0
@@ -65,6 +68,21 @@ export default (state = INITIAL_STATE, action) => {
     case 'CARTAO_ANO':
       return {...state, cartao: {...state.cartao, ano: action.payload}};
 
+    case 'CARTAO_TOTAL':
+      return {...state, cartao: {...state.cartao, total: action.payload}};
+
+    case 'ADD_CARD':
+      return {...state, cards: [...state.cards, action.payload] };
+
+    case 'ADD_CARD_LABEL':
+      return {...state, cards_label: [...state.cards_label, action.payload] };
+
+    case 'RENEW_CARD':
+      return {...state, cards: [...state.cards] };
+
+    case 'RENEW_CARD_LABEL':
+      return {...state, cards_label: [...state.cards_label] };
+
     case 'FORMA_PAGAMENTO':
       return {...state, forma_pagamento: action.payload};
     
@@ -81,7 +99,7 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, parcelas: action.payload};
     
     case 'INSTALLMENT_ID':
-      return {...state, installment_id: action.payload};
+      return {...state, cartao: {...state.cartao, installment_id: action.payload }};
 
     case 'LOAD_FINALIZAR_CADASTRO':
       return {...state, loading: {...state.loading, btnFinalizarCadastro: action.payload }};

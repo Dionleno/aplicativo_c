@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TextInput, View, Image, FlatList, Picker } from 'react-native';
 import {
-	Container,
+  Container,
 	Text,
 	Row,
 	Col,
@@ -21,10 +21,19 @@ import { TextInputMask } from 'react-native-masked-text';
 import styles from '../Styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { selecionarFrete, cartaoTitular, cartaoNumero, cartaoCVV, setInstallmentId } from '../Actions';
+import { 
+  selecionarFrete, 
+  cartaoTitular, 
+  cartaoNumero, 
+  cartaoCVV, 
+  cartaoTotal,
+  setInstallmentId, 
+  calcularParcelas
+} from '../Actions';
 import Ano from './Ano';
 import Mes from './Mes';
 import styleInput from '../../../StyleSheet/Input';
+import styleButtons from '../../../StyleSheet/Buttons';
 const CVV = require('../../../Images/cvv.png');
 
 export class FormularioCartaoCredito extends Component {
@@ -32,14 +41,14 @@ export class FormularioCartaoCredito extends Component {
   constructor(props){
     super(props);
   }
-  
+
   parcelas() {
 	  return this.props.parcelas.map(item => <Picker.Item key={item.key} label={item.label} value={item.key} />);
   }
   
   render() {
     return (
-      <Form style={{paddingHorizontal: 15, paddingVertical: 15}}>
+      <Content style={{paddingHorizontal: 15, paddingTop: 15, paddingBottom: 30}}>
         <View style={{marginBottom: 15}}>
           <TextInput
             style={styleInput.inputText}
@@ -97,24 +106,48 @@ export class FormularioCartaoCredito extends Component {
             <Ano />
           </View>
         </View>
-        
-        <View>
+
+        <View style={{marginBottom: 10}} >
+          <Text style={styles.formLabel}>Valor a ser cobrado neste cartão</Text>
+          <TextInputMask
+            style={styleInput.inputText}
+            type={'money'}
+            placeholder='Digite o valor a ser cobrado neste cartão'
+            underlineColorAndroid='transparent'
+            keyboardType='numeric'
+            onBlur={() => this.props.calcularParcelas(this.props.cartao.total)}
+            onChangeText={value => this.props.cartaoTotal(value)}
+            value={this.props.cartao.total}
+          />
+        </View>
+
+        <View style={{marginBottom: 100}}>
           <Text style={styles.formLabel}>Parcelas</Text>
           
           <View style={styleInput.picker}>
             <Picker
-              selectedValue={this.props.installment_id}
+              selectedValue={this.props.cartao.installment_id}
               onValueChange={value => this.props.setInstallmentId(value)}
               iosHeader='Selecione as parcelas' mode='dialog'>
               {this.parcelas()}
             </Picker>
           </View>
         </View>
-      </Form>
+      </Content>
     );
   }
 }
 
 const mapStateToProps = state => (state.checkout);
-const mapDispatchToProps = dispatch => bindActionCreators({ cartaoTitular, cartaoNumero, cartaoCVV, setInstallmentId }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(
+  { 
+    cartaoTitular, 
+    cartaoNumero, 
+    cartaoCVV, 
+    setInstallmentId,
+    cartaoTotal,
+    calcularParcelas 
+  }, 
+  dispatch
+);
 export default connect(mapStateToProps, mapDispatchToProps)(FormularioCartaoCredito);
