@@ -82,17 +82,18 @@ export const listarProdutos = () => {
 	   	if(!state.loading){
       	dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'loading', payload: true })
        }
-	   	dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'showButtonLoading', payload: true })
+	   
 	   	 /*
 	   * @Listar produtos
 	   */       
-       RequestGetAuth(URL)
+       RequestGet(URL)
 		  .then(resp => resp.json())
 		  .then(resp => {
          
 			    dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'lastPage', payload: resp.meta.last_page })
 	        const stateUpdated = getState().produto;   
 	         
+	         	dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'showButtonLoading', payload: true })
 	        if(stateUpdated.actualPage <= stateUpdated.lastPage){
 	          let nextPage = stateUpdated.actualPage + 1;
 	          
@@ -169,6 +170,7 @@ export const searchRequestItem = async(_props) => {
         
   	return dispatch => 
 		 {
+		  	dispatch({ type:'CHANGE_FIELD_DETAILS',objectItem: 'quantidade', payload: 1 })
 		 	  dispatch({ type:'CHANGE_FIELD_DETAILS',objectItem: 'imagemDestaque', payload: produtoFirst.medias[0].url })
 		 	  dispatch({ type:'CHANGE_FIELD_DETAILS',objectItem: 'code', payload: produtoFirst.code })
 		 	  dispatch({ type:'CHANGE_FIELD_DETAILS',objectItem: 'idDetails', payload: produtoFirst.id })

@@ -17,7 +17,7 @@ import HeaderExterno from '../../Static/HeaderExterno'
 import IF from '../../Helpers/if'
 import PatrocionadorBySite from './Components/FormBySite'
 import PatrocionadorByCep from './Components/FormByCep'  
-import PatrocionadorByCupom from './Components/FormCupom'  
+
 import ListPatrocinador from './Components/Lists'  
 import stylesButtons,{verdeClaro,verdeInativo} from '../../StyleSheet/Buttons';
 
@@ -33,7 +33,7 @@ export class Patrocionador extends Component{
 				<ScrollView style={{paddingBottom:20}}>
 						<HeaderExterno item={this.props} title="Patrocinador" />
 
-						<PatrocionadorByCupom _obj={this.props}/>
+						 
 
 						<View style={{margin:10,backgroundColor:'#FFFFFF',padding:15,borderRadius:5}}>  
 							<Text style={{marginBottom:15,color:'#888888' }}>

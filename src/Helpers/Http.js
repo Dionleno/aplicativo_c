@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Platform, AsyncStorage ,Alert} from 'react-native';
 import { URL_API, headers, LOGIN, USER_TOKEN, USER_INFO } from './Constants';
+import {NavigationActions} from 'react-navigation';
 
 export function ApiStatusCode(response){
    
@@ -15,6 +16,15 @@ export function ApiStatusCode(response){
     }
   
 };
+
+ export const _navigateTo = (props, routeName: string) => {
+
+        const actionToDispatch = NavigationActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ routeName })]
+        })
+       props.navigation.dispatch(actionToDispatch)
+ }
   
 
 export const RequestGet = (_url) => {

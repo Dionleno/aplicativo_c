@@ -3,8 +3,9 @@ import { Platform, AsyncStorage,Alert } from 'react-native';
 
 import {RequestPostAuth,ApiStatusCode,RequestGetAuth,RequestGet,RequestPost,doLogin} from '../../Helpers/Http' 
 
- export const changeLoading = (_value) => ({
-		 type:'CHANGE_LOADING',
+ export const changeitem = (_item,_value) => ({
+		 type:'CHANGE_FIELD',
+		 objectItem: _item,
 		 payload: _value
 })
 
@@ -25,6 +26,7 @@ export const fetchGetKit = async() => {
 export const onSetKit = async(kit,_props) => {
 	 return dispatch => 
 	 {
+
 	 	   dispatch(onChangeFieldKit(kit.detail.id))
 
           Alert.alert(
@@ -32,7 +34,7 @@ export const onSetKit = async(kit,_props) => {
 	          'Confirme a escolha do kit de adesão '+kit.name+' e comece agora mesmo.',
 	          [
 	            {text: 'Cancelar', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-	            {text: 'Confirmar', onPress: async() => await addProduto(kit.detail.id,_props)},
+	            {text: 'Confirmar', onPress: () =>  dispatch(addProduto(kit.detail.id,_props))},
 	          ],
 	          { cancelable: false }
 	        )
@@ -50,7 +52,10 @@ export const addProduto = async(kitID, _props) => {
         product_detail_id: kitID,
         amount: 1
       };
-    
+
+      return dispatch => 
+	 {
+      dispatch(changeitem('overlay',true))
      console.log(ItemDistribution)
      
 		 	RequestPostAuth('carts',{distribution_center_id: ItemDistribution})
@@ -65,8 +70,15 @@ export const addProduto = async(kitID, _props) => {
 		               .catch((error) => console.log(error));
 
 		      })
-		     .then(resp =>  _props.navigation.navigate('Confirmacao'))
-		     .catch((error) => console.log(error));
+		     .then(resp =>  {
+            dispatch(changeitem('overlay',false))
+		     	_props.navigation.navigate('Confirmacao')
+		     })
+		     .catch((error) => {
+		     	 dispatch(changeitem('overlay',false))
+		     	 console.log(error)
+		     });
+		   }
 		    
 }
 

@@ -19,6 +19,7 @@ import Confirmacao from './Pages/CadastroConfirmacao'
 import Login from './Pages/Login';
 import Carrinho from './Pages/Carrinho';
 import Produto from './Pages/Produto';
+import Categorias from './Pages/Produto/Categorias';
 import ProdutoDetails from './Pages/Produto/Details';
 import CupomAtivacao from './Pages/CupomAtivacao';
 import CupomAgradecimento from './Pages/Agradecimentos/Cupom';
@@ -43,6 +44,12 @@ export const DrawerNav =  DrawerNavigator({
       drawerLabel : 'Produtos' 
     }
   },
+  Categorias: {
+    screen: Categorias,
+    navigationOptions : {
+      drawerLabel : 'Categorias' 
+    } 
+  },
   Logout: {
     screen: Home,
     navigationOptions : {
@@ -64,6 +71,7 @@ export const DrawerNav =  DrawerNavigator({
 const NavigatorRouter = StackNavigator({
     Drawer : {screen: DrawerNav},
     Home: {screen: Home},
+    
     Login: {screen:Login},
     Patrocinador: {screen: Patrocinador},
     Cadastro: {screen:Cadastro} ,

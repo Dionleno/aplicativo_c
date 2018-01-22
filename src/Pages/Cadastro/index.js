@@ -26,6 +26,8 @@ import Endereco from './Components/Endereco';
 import OpcoesEntrega from './Components/OpcoesEntrega';
 import TermosDeUso from './Components/TermosDeUso';
 import FormularioContato from './Components/FormularioContato';
+import PatrocionadorByCupom from './Components/FormCupom' 
+
 
 const AnimatedTI = Animated.createAnimatedComponent(Item);
 
@@ -43,8 +45,13 @@ export class Cadastro extends Component{
   }
 
   componentDidMount = async() =>{
-    const value = await AsyncStorage.getItem('@UIPatrocinador');
-    console.log(value);
+        const value = await AsyncStorage.getItem('@UIPatrocinador');
+        const patrocinador = JSON.parse(value);
+    return dispatch => {
+
+        this.props.onChangeField({id: patrocinador.id},'sponsor')
+    }
+   
   }
 
   render() {
@@ -82,7 +89,8 @@ export class Cadastro extends Component{
           <DadosDeAcesso />
           <DadosContato popupDialogContato={this.popupDialogContato} />
           <Endereco />
-          <OpcoesEntrega />
+        
+          <OpcoesEntrega />    
           <TermosDeUso _props={this}/>
 
           <View style={{paddingRight:15, paddingLeft:15, marginBottom: 15}}>

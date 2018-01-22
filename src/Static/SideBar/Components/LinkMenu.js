@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 export const LinkMenu = props => {
     
     return (
-        <ListItem itemDivider onPress={() => props.navigation.navigate('Produto', {categoria:props.name}) }>
+        <ListItem itemDivider onPress={() => props.navigation.navigate('Categorias', {categoria:props.name}) }>
           <Body>
             <Text>{props.name.name}</Text>
           </Body>

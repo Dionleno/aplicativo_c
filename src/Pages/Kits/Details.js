@@ -22,7 +22,7 @@ import {
  import {TextInputMask} from 'react-native-masked-text';
  import {RequestGet} from '../../Helpers/Http' 
  import HeaderExterno from '../../Static/HeaderExterno'
-
+ import SpinnerOverlay from 'react-native-loading-spinner-overlay';
 
 import {Content, Text ,Container , Item,Input,Thumbnail, H3,Label,Separator,Row,Button,Col,Grid ,Left,Card , CheckBox,List, ListItem,Body ,CardItem} from 'native-base';
  
@@ -56,6 +56,7 @@ export class KitsDatails extends Component {
   return (
         <Container style={{backgroundColor:'#FFFFFF'}}>
            <HeaderExterno item={this.props} title={name}/>
+           <SpinnerOverlay visible={this.props.overlay} textContent={"Aguarde..."} textStyle={{color: '#FFF'}} />
          <Content style={{paddingBottom:20}}>
                
 
@@ -109,7 +110,7 @@ export class KitsDatails extends Component {
                  <Text note>As fragrâncias, produtos e cores podem sofrer alterações.</Text>
              </View>
               <View style={{padding:15}}>
-                  <Button block style={styles.btnOutline}  onPress={() => this.props.onSetKit(kits,this.props)  }>
+                  <Button block style={styles.btnPrimary}  onPress={() => this.props.onSetKit(kits,this.props)  }>
                        <Icon name='done' style={{fontSize:25}} />
                         <Text style={{color:'#333333'}}>Selecionar este kit</Text>
                   </Button>

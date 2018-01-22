@@ -75,7 +75,13 @@ class SideBar extends Component {
           </ImageBackground>
 
           <ScrollView>
-            
+          <List>
+             <ListItem itemDivider onPress={() => this.props.navigation.navigate('Produto') }>
+                <Body>
+                  <Text>Produtos</Text>
+                </Body>
+              </ListItem> 
+              </List>
             <List
             dataArray={this.state.RouteMenu}
             renderRow={data => {   

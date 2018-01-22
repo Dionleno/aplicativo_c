@@ -79,30 +79,3 @@ export const onChangeField = (_value,_obj) => ({
 })
 
 
-/*CUPOM DE ATIVAÇÃO*/
- 
-
-export const requestCupom = (_props) =>{
-    
-	return (dispatch,getState) => 
-		 {
-        const state = getState().patrocionador;
-       
-       if(state.coupon == null || state.coupon == ''){
-   	       Alert.alert('Atenção', 'Campo cupom obrigatório!');
-				    return false;
-		   }
-
-	     	RequestGet('coupon/'+ state.coupon)
-				  .then(resp => resp.json())
-				  .then(resp => {
-				  	 if(resp.error != null){
-						            Alert.alert('Atenção',resp.error.message);
-						            return false;
-						 }
-				  	console.log(resp.data)
-				  	_props.navigation.navigate('CupomAtivacao', {cupominfo:resp.data})
-				  })
-				  .catch((error) => console.log(error));
-	   }
-}

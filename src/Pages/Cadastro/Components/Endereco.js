@@ -44,10 +44,10 @@ export class Endereco extends Component {
 		   		<Icon style={styles.titleIconArrowDown} name='keyboard-arrow-down' />
 	   		</Row>
 
-	   		<View style={{paddingRight:15,paddingLeft:15,paddingVertical:20}}>
+	   		<View style={{paddingRight:15,paddingLeft:15,paddingVertical:10}}>
 		   	
 					<TextInputMask 
-						style={styleInput.inputText}
+						style={this.props.errors['user.address.zip'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
 						options={{ format: '99999-999' }}
 						type={'zip-code'}
 						underlineColorAndroid='transparent' 
@@ -55,14 +55,21 @@ export class Endereco extends Component {
 						onBlur={() => {this.props.onGetAddressByCep(this.props.address.zip)}}
 						keyboardType='numeric' 
 						returnKeyType={'next'}
-						onChangeText={(value) => this.props.onChangeFieldAddress(value,'zip')} 
+						onChangeText={(value) => {
+                        this.props.onChangeFieldAddress(value,'zip')
+							          console.log(this.props.address.zip.length)
+							          if(this.props.address.zip.length >= 9){
+							          	this.props.onGetAddressByCep(this.props.address.zip)
+							          }
+							   }
+							} 
 						maxLength={9} value={this.props.address.zip}
 					/>
 
-					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['zip']} />
+				 
 		   		
 					<TextInput
-						style={styleInput.inputText}
+						style={this.props.errors['user.address.street'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
 						underlineColorAndroid='transparent' 
 						placeholder="Rua" 
 						returnKeyType={'next'}
@@ -70,10 +77,10 @@ export class Endereco extends Component {
 						value={this.props.address.street}
 					/>
 		   		
-					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['street']}/>
+				 
 
 					<TextInput
-						style={styleInput.inputText}
+						style={this.props.errors['user.address.district'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
 						underlineColorAndroid='transparent' 
 						placeholder="Bairro" 
 						returnKeyType={'next'}
@@ -81,7 +88,7 @@ export class Endereco extends Component {
 						value={this.props.address.district}
 					/>
 						
-					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['district']} />
+				 
 
 					<View style={{flexDirection: 'row'}}>
 						
@@ -95,7 +102,7 @@ export class Endereco extends Component {
 									{serviceStates}
 								</Picker>
 							</View>
-							<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['state_id']}/>
+							<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.address.state_id']}/>
 						</View>
 
 						<View style={{flex: 1, marginLeft: 5}}>
@@ -109,7 +116,7 @@ export class Endereco extends Component {
 									{citiesUpdate}
 								</Picker>
 							</View> 
-							<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['city_id']}/>
+							<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.address.city_id']}/>
 						</View>
 
 					</View>
@@ -118,7 +125,7 @@ export class Endereco extends Component {
 						
 						<View	style={{flex:1, marginRight: 5}}>
 							<TextInputMask 
-								style={styleInput.inputText}
+								style={this.props.errors['user.address.number'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
 								underlineColorAndroid='transparent' 
 								placeholder="Número" 
 								returnKeyType={'next'}
@@ -127,17 +134,18 @@ export class Endereco extends Component {
 								value={this.props.address.number}
 								onChangeText={(value) => this.props.onChangeFieldAddress(value,'number')} 
 							/>
-							<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['number']}/>
+						 
 						</View>
 
 						<View style={{flex:1, marginLeft: 5}}>
 							<TextInput 
-								style={styleInput.inputText}
+								style={this.props.errors['user.address.complement'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
 								underlineColorAndroid='transparent' 
 								placeholder="Complemento" 
+								value={this.props.address.complement}
 								onChangeText={(value) =>  this.props.onChangeFieldAddress(value,'complement')}
 							/>
-							<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['complement']}/>
+							 
 						</View>
 					</View>
 	   		</View>

@@ -53,6 +53,9 @@ export default{
       borderWidth: 1,
       borderColor: 'red'
     },
+    btnPrimary:{
+        backgroundColor: verdeClaro,
+    },
     btnPrimaryOutline: {
 	    backgroundColor: branco,
 	    borderRadius: 4,

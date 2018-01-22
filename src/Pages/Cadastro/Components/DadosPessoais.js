@@ -7,7 +7,7 @@ import { View, Item, Input, Text, Button, Row} from 'native-base';
 /*REDUX*/
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {onChangeFieldUser} from '../Actions'  ;
+import {onChangeFieldUser,onChangeField} from '../Actions'  ;
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from '../Style';
 import styleInput from '../../../StyleSheet/Input';
@@ -27,19 +27,19 @@ export class DadosPessoais extends Component {
 					<Icon style={styles.titleIconArrowDown} name='keyboard-arrow-down' />
 				</Row>
 
-				<View style={{paddingRight:15, paddingLeft:15, paddingVertical:20}}> 
+				<View style={{paddingRight:15, paddingLeft:15, paddingVertical:10}}> 
 				
-					<TextInput style={styleInput.inputText} 
+					<TextInput  
+						style={this.props.errors['user.name'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
 						underlineColorAndroid='transparent' 
 						placeholder="Nome Completo"
 						returnKeyType={'next'}
 						value={this.props.user.name} 
 						onChangeText={(value) => this.props.onChangeFieldUser(value,'name')  }
 					/>
-					
-					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.name']}/>
-			
-					<TextInputMask style={styleInput.inputText} 
+					 
+					<TextInputMask 
+						style={this.props.errors['user.document'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
 						underlineColorAndroid='transparent' 
 						type={'cpf'} 
 						options={{ format: '999.999.999-99' }} 
@@ -51,21 +51,19 @@ export class DadosPessoais extends Component {
 						returnKeyType={'next'}
 					/>
 					
-					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.document']}/>
+			 
 
 					<TextInputMask 
+					  style={this.props.errors['user.birth_date'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
 						underlineColorAndroid='transparent'
 						type={'datetime'}
 						placeholder="Data de Nascimento"
-						style={styleInput.inputText}
-						onChangeText={(value) => this.props.onChangeFieldUser(value,'birth_date') }
+				    onChangeText={(value) => this.props.onChangeFieldUser(value,'birth_date') }
 						value={this.props.user.birth_date}
 						options={{format: 'DD/MM/YYYY'}} 
 						returnKeyType={'next'}
 					/>
-					
-					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.birth_date']}/>
-				
+					 
 				</View>
 			</View>
 		)
@@ -73,5 +71,5 @@ export class DadosPessoais extends Component {
 }
 
 const mapStateToProps = state => (state.cadastro)
-const mapDispatchToProps = dispatch => bindActionCreators({onChangeFieldUser},dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({onChangeFieldUser,onChangeField},dispatch)
 export default connect(mapStateToProps,mapDispatchToProps)(DadosPessoais)

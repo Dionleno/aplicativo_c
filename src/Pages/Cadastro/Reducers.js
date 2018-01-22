@@ -9,6 +9,7 @@ const INITIAL_STATE = {
   states: [],
   errors: [],
   coupon: '',
+  coupon_ativo: false,
   overlay: false,
   phone_number: '',
   phone_types:  {
@@ -26,8 +27,8 @@ const INITIAL_STATE = {
     zip:'',
     complement:'',
     district:'',
-    state_id: '',
-    city_id:'',
+    state_id: 0,
+    city_id:0,
     address_type_id:1
   },
   user: {

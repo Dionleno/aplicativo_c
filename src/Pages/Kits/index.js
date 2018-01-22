@@ -16,8 +16,10 @@ import {
  import { connect } from 'react-redux'
  import { bindActionCreators } from 'redux'
  import {fetchGetKit,onSetKit} from './Actions'  
+ import SpinnerOverlay from 'react-native-loading-spinner-overlay';
  import Icon from 'react-native-vector-icons/MaterialIcons'
  import styles from './Style'
+ import stylesExterno from '../../StyleSheet/Buttons'
  import ErrorForm from '../../Helpers/ErrorForm'
  import {TextInputMask} from 'react-native-masked-text';
  import {RequestGet} from '../../Helpers/Http' 
@@ -39,6 +41,7 @@ export class Kits extends Component {
 
     return (
         <Container style={styles.ContainerMain} >
+         <SpinnerOverlay visible={this.props.overlay} textContent={"Aguarde..."} textStyle={{color: '#FFF'}} />
           <Content>
      
              <ImageBackground style={{backgroundColor:'#000000',height:100}}
@@ -60,9 +63,9 @@ export class Kits extends Component {
                       
                    <Content>
                      <Grid style={styles.GridBox}>
-                         <Row style={{padding:0,paddingBottom:0}}>
+                         <Row style={{padding:0,paddingBottom:0}} onPress={()=>{ navigate('KitDatails', { kits: item }) }}>
                             <Col style={styles.TitleBox}>
-                              <Text style={{fontSize:15,color:'#FFFFFF',fontWeight: 'bold',}}>{item.name}</Text>
+                              <Text style={{fontSize:15,color:'#FFFFFF',fontWeight: 'bold',}} >{item.name}</Text>
                              </Col>
                          </Row>
                         <Row style={{paddingTop:15,}}>
@@ -85,11 +88,11 @@ export class Kits extends Component {
                                            onPress={() => this.props.onSetKit(item,this.props) }>
                                         <Icon name='done' style={{fontSize:25}} />
                                    </Button>
-                                   
-                              <Text style={{marginTop:10,fontSize:14,alignSelf:'flex-end',}}
-                                onPress={()=>{
-                                      navigate('KitDatails', { kits: item })
-                                      }}>+Detalhes</Text>
+                               
+                               <Button small style={[styles.btnPrimary,{alignSelf:'flex-end',marginTop:20}]} onPress={()=>{ navigate('KitDatails', { kits: item }) }}>
+                                 <Text>+ Detalhes</Text>
+                               </Button>    
+                              
                             </Col>
                         </Row>
   
@@ -105,7 +108,7 @@ export class Kits extends Component {
                   />
 
             <View style={{padding:15}}>
-                  <Button block  style={styles.btnOutline}  onPress={() =>  this.props.navigation.navigate('ConfirmacaoCadastro')}>
+                  <Button block  style={stylesExterno.btnPrimaryOutline}  onPress={() =>  this.props.navigation.navigate('ConfirmacaoCadastro')}>
                        <Icon name='clear' style={{fontSize:25}} />
                         <Text style={{color:'#333333'}}>Escolher o kit mais tarde</Text>
                   </Button>

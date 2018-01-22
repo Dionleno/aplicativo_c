@@ -4,7 +4,7 @@ export const headers = { Accept: 'application/json', 'Content-Type': 'applicatio
 
 export const LOGIN = {
   grant_type: 'password',
-  client_secret: '1MwSGy9Ai8rhXS8zAd6iOmaCADzCwtrFOUy385z7',
+  client_secret: 'MLrsSU050Rnc1ZU15fMROHsRzpf1SRhr8a5jkapo',
   client_id: '2',
   scope: '*'
 };

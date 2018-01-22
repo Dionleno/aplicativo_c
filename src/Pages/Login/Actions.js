@@ -3,7 +3,9 @@ import { Platform, AsyncStorage, Alert } from 'react-native';
 
 import { RequestPostAuth, ApiStatusCode, RequestGetAuth, RequestGet, RequestPost } from '../../Helpers/Http';
 import { LOGIN, USER_INFO, USER_TOKEN } from '../../Helpers/Constants';
- 
+import {_navigateTo} from '../../Helpers/Http'
+
+
 export const changeLoading = (_value) => ({
 	type:'CHANGE_LOADING',
 	payload: _value
@@ -41,10 +43,13 @@ export const handlerLogin = async(_props) =>{
 		RequestPostAuth('oauth/token',data)
 			.then(resp => resp.json())
 			.then(resp => {
-
+         console.log(resp)
 				if(resp.error != null && resp.error == 'invalid_credentials'){
 					Alert.alert('Atenção', 'Login ou senha inválido');
 					return false;
+				}else if(resp.access_token == undefined){
+           Alert.alert('Atenção', 'Erro ao realizar o login, tente novamente!');
+				 	return false;
 				}else{
 					let auth = {
 						token_type: resp.token_type,
@@ -81,7 +86,7 @@ export const setUserCurrent = async(_props) => {
    		 .then(res => {
    			AsyncStorage.setItem(USER_INFO, JSON.stringify(res.data))
    		  console.log(res.data)
-   		  _props.navigation.navigate('Drawer');
+   		 _navigateTo(_props, 'Drawer');
    	   })  
    		
    }

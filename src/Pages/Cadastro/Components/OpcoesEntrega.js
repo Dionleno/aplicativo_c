@@ -43,7 +43,7 @@ export class OpcoesEntrega extends Component {
 					<Icon style={styles.titleIconArrowDown} name='keyboard-arrow-down' />
 				</Row>
 
-				<ListItem style={{backgroundColor:'transparent',paddingLeft:0}}>
+				<ListItem style={{backgroundColor:'transparent',paddingLeft:0}} onPress={() => this.props.onChangeField(!this.props.shipping_method,'shipping_method') }>
 					<CheckBox 
 						color='black' 
 						checked={this.props.shipping_method} 

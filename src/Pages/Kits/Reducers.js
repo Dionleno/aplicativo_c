@@ -2,7 +2,8 @@ const INITIAL_STATE = {
 	       kits: [],
          kit:{
               id:0
-         }
+         },
+         overlay:false
 	 }
 
 export default (state = INITIAL_STATE, action) => {

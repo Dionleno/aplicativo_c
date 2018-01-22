@@ -28,31 +28,31 @@ export class DadosDeAcesso extends Component {
 		 			<Icon style={styles.titleIconArrowDown} name='keyboard-arrow-down' />
 	 			</Row>
 
-				<View style={{paddingRight:15,paddingLeft:15,paddingVertical:20}}>
+				<View style={{paddingRight:15,paddingLeft:15,paddingVertical:10}}>
 					
 					<TextInput 
-						style={styleInput.inputText}
+						style={this.props.errors['user.login'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
 						underlineColorAndroid='transparent' 
 						placeholder="Login"
 						returnKeyType={'next'}
-						onChangeText={(value) => this.props.onChangeFieldUser(value,'login')  }
+						onChangeText={(value) => {
+																      this.props.onChangeFieldUser(value,'login')
+																      this.props.onChangeFieldUser(value,'minisite')
+																    }
+												  }
 					/>
 
-					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.login']}/>
-
 					<TextInput 
-						style={styleInput.inputText}
+						style={this.props.errors['user.email'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
 						underlineColorAndroid='transparent' 
 						placeholder="E-mail"
 						keyboardType='email-address'
 						returnKeyType={'next'}
 						onChangeText={(value) => this.props.onChangeFieldUser(value, 'email')}
 					/>
-						
-					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.email']}/>
-						
+			 			
 					<TextInput 
-						style={styleInput.inputText}
+						style={this.props.errors['user.email_confirmation'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
 						underlineColorAndroid='transparent' 
 						placeholder="Confirmar e-mail" 
 						keyboardType='email-address'
@@ -61,21 +61,19 @@ export class DadosDeAcesso extends Component {
 						onChangeText={(value) => this.props.onChangeFieldUser(value,'email_confirmation')}
 					/>
 						
-					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.email_confirmation']}/>
+				 
 
 					<TextInput 
-						style={styleInput.inputText}
+						style={this.props.errors['user.password'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
 						underlineColorAndroid='transparent' 
 						secureTextEntry={true} 
 						placeholder="Senha"
 						returnKeyType={'next'}
 						onChangeText={(value) => this.props.onChangeFieldUser(value,'password')}
 					/>
-					
-					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.password']}/>
-
+					 
 					<TextInput 
-						style={styleInput.inputText}
+						style={this.props.errors['user.password_confirmation'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
 						underlineColorAndroid='transparent' 
 						secureTextEntry={true} 
 						placeholder="Repetir senha"
@@ -83,18 +81,6 @@ export class DadosDeAcesso extends Component {
 						onBlur={() => this.props.verificarSenha()}
 						onChangeText={(value) => this.props.onChangeFieldUser(value,'password_confirmation')}
 					/>
-					
-					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.password']}/>
-
-					<TextInput 
-						style={styleInput.inputText}
-						underlineColorAndroid='transparent' 
-						placeholder="Minisite"
-						returnKeyType={'next'}
-						onChangeText={(value) => this.props.onChangeFieldUser(value,'minisite')}
-					/>
-					
-					<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.minisite']}/>
 					
 				</View>
 

@@ -160,13 +160,7 @@ export const phoneCompanies = () => {
 };
 
 export const handlerSubmit = async(_props) =>{
-	/*
-	* @buscar o patrocinador armazenado em variavel local
-	*/
-	const value = await AsyncStorage.getItem('@UIPatrocinador');
-	const coupon = await AsyncStorage.getItem('@InfoCupom');
-	const patrocinador = JSON.parse(value);
- 
+	  
   return dispatch => {
     /*
 	   * @Montar o array com os dados necessario para registro do usuario 
@@ -178,18 +172,10 @@ export const handlerSubmit = async(_props) =>{
 				password_confirmation: _props.user.password,
 				address: _props.address,
 				telephones: _props.telephones
-			},
-			sponsor: {
-				id:patrocinador.id
-			},
+			}, 
 			terms: _props.checked
 		};
-		
-		//verificar se existe coupon  
-    if(coupon != '' && coupon != null){   
-    	form['coupon'] = coupon
-		}
-		
+	 
 		/*
 		* @Fazer o envio para cadastrar o usuario
 		*/
@@ -256,6 +242,7 @@ export const onGetAddressByCep = async(cep) => {
 					
 					dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'street', payload: resp.data.data.logradouro });
 					dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'district', payload: resp.data.data.bairro });
+					dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'complement', payload: resp.data.data.complemento });
 					dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'city_id', payload: resp.data.city.id });
 					dispatch(changeStateBindCity(resp.data.city.state.id, 0));
 				}catch(e){
@@ -318,3 +305,43 @@ export const onChangeFieldPhone = (_value,_obj) => ({
 		 payload: _value,
 		 objectItem: _obj
 })
+
+/*CUPOM DE ATIVAÇÃO*/
+ 
+
+export const requestCupom = async() =>{
+    
+	return (dispatch,getState) => 
+		 {
+       const state = getState().cadastro;
+       
+       if(state.coupon == null || state.coupon == ''){
+       	    dispatch(onChangeField(false,'coupon_ativo'))
+   	        return false;
+		   }
+
+	     	RequestGet('coupon/'+ state.coupon)
+				  .then(resp => resp.json())
+				  .then(resp => {
+				  	 if(resp.error != null){
+						            Alert.alert('Atenção',resp.error.message);
+						            dispatch(onChangeField('','coupon'))
+						            dispatch(onChangeField(false,'coupon_ativo'))
+						            return false;
+						 }
+ 
+             /*Verificar se o cupom pertence ao patrocinador selecionado!*/  
+					   if(resp.data.user.id != state.sponsor.id){
+                      Alert.alert('Atenção','Cupom invalido!');
+                      dispatch(onChangeField('','coupon'))
+                      dispatch(onChangeField(false,'coupon_ativo'))
+									    return false;
+									 
+					   }
+
+					   dispatch(onChangeField(true,'coupon_ativo'))
+				  	//_props.navigation.navigate('CupomAtivacao', {cupominfo:resp.data})
+				  })
+				  .catch((error) => console.log(error));
+	   }
+}
