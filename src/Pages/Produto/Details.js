@@ -29,9 +29,11 @@ export class ProdutoDetalhes extends Component {
   
 	render({ produto } = this.props.navigation.state.params) {
 	
+
 		let produtoFirst = produto.product_details[0];
 		let allproducts = produto.product_details;
-		let preco = MaskService.toMask('money', details.prices[0].value, MOEDAS.BLR);
+     
+		let preco = MaskService.toMask('money', produtoFirst.prices[0].value, MOEDAS.BLR);
 
 			 
     return (
@@ -51,7 +53,7 @@ export class ProdutoDetalhes extends Component {
                  		    <ImageBackground style={{flex:1}} source={{ uri: this.props.details.imagemDestaque}} />
                  		 </Col>
                  		<Col style={{alignItems:"center",flex:1}}>
-                 		   <Text style={{justifyContent: 'center',alignItems:"center",fontSize:22,margin:30,fontWeight:'bold'}}>R$ {produtoFirst.prices[0].value}</Text>
+                 		   <Text style={{justifyContent: 'center',alignItems:"center",fontSize:22,margin:30,fontWeight:'bold'}}>{preco}</Text>
                           <View style={{justifyContent: 'center',alignItems:"flex-end", flexDirection: 'row'}}>
 	                 		   <Button  style={[stylesGlobal.btnPrimary,{justifyContent: 'center',alignItems:"center",flex:1,paddingHorizontal:8}]} onPress={this.props.decrementeQuantidade}>
 	                 		     <Icon name="remove" style={{fontSize:18,color:"#FFFFFF"}}/>
