@@ -221,7 +221,7 @@ export const cadastrarCartao = (popupDialogCartao) => {
       dispatch(
         addCard(
           {
-            stringadyen: encrypt.response,
+            card: encrypt.response,
             value: card.value,
             installment_id: checkout.cartao.installment_id
           }
@@ -425,7 +425,7 @@ export const enviarCadastroParaApi = (_this, encrypt = '') => {
         data.cards = checkout.cards;
       }
     }
-    
+
     RequestAuth('carts/checkout', 'POST', data)
       .then(response => response.json())
       .then(response => {

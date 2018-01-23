@@ -159,6 +159,17 @@ export const phoneCompanies = () => {
 	}
 };
 
+export const setPatrocinador = () => {
+	return dispatch => {
+		AsyncStorage.getItem('@UIPatrocinador')
+			.then(response => JSON.parse(response))
+			.then(patrocinador => {
+				dispatch(onChangeField({id: patrocinador.id}, 'sponsor'));
+			})
+			.catch(error => console.log(error));
+	}
+}
+
 export const handlerSubmit = async(_props) =>{
 	  
   return dispatch => {
@@ -170,19 +181,13 @@ export const handlerSubmit = async(_props) =>{
 				..._props.user, 
 				email_confirmation: _props.user.email,
 				password_confirmation: _props.user.password,
-				address: _props.address
+				address: _props.address,
+				telephones: _props.telephones,
 			},
 			telephones: _props.telephones,
-			sponsor: {
-				id:patrocinador.id
-			},
+			sponsor: _props.sponsor,
 			terms: _props.checked
 		};
-
-		//verificar se existe coupon  
-    if(coupon != '' && coupon != null){   
-    	form['coupon'] = coupon
-		}
 		
 		/*
 		* @Fazer o envio para cadastrar o usuario
@@ -192,23 +197,13 @@ export const handlerSubmit = async(_props) =>{
 		RequestPost('register',form)
 		.then(resp => resp.json())
 		.then(resp => {
-			console.log(resp)
+			console.log(resp);
 			//Verificar se retornou algum erro
 			if(resp.errors){
 				console.log(resp.errors)
 				dispatch({ type:'CHANGE_FIELD',objectItem: 'errors', payload: resp.errors })
 				dispatch(spinnerOverlay(false));
 				Alert.alert('Erro ao validar formulário', 'Verifique os campos e tente novamente');
-			}else if(coupon != '' && coupon != null){
-				/*
-				* @Fazer o login com o usuario cadastrado
-				*/
-				dispatch(doLogin(_props.user.login,_props.user.password))
-				dispatch(spinnerOverlay(false));
-				AsyncStorage.removeItem('@UIPatrocinador')
-				AsyncStorage.removeItem('@InfoCupom')
-
-				_props.navigation.navigate('CupomAgradecimento');     
 			}else{
 				dispatch(spinnerOverlay(false));
 

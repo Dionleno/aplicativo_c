@@ -22,9 +22,9 @@ const INITIAL_STATE = {
     pontos: ''
   },
   cartao: {
-    titular: 'Diego Galdino Jaldim',
-    numero: '4111 1111 1111 1111',
-    cvv: '737',
+    titular: '',
+    numero: '',
+    cvv: '',
     installment_id: 0,
     mes: ((new Date().getMonth())+1),
     ano: (new Date().getFullYear()),

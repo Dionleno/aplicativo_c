@@ -18,7 +18,7 @@ import styleInput from '../../StyleSheet/Input';
 
 /*Componentes*/
 import ErrorForm from '../../Helpers/ErrorForm'
-import {handlerSubmit, SetFieldPhone, cadastrarContato} from './Actions' 
+import {handlerSubmit, SetFieldPhone, cadastrarContato, setPatrocinador} from './Actions' 
 import DadosPessoais from './Components/DadosPessoais';
 import DadosDeAcesso from './Components/DadosDeAcesso';
 import DadosContato from './Components/DadosContato';
@@ -44,12 +44,8 @@ export class Cadastro extends Component{
     super(props);
   }
 
-  componentDidMount = async() => {
-    const value = await AsyncStorage.getItem('@UIPatrocinador');
-    const patrocinador = JSON.parse(value);
-    return dispatch => {
-      this.props.onChangeField({id: patrocinador.id},'sponsor')
-    }
+  componentDidMount = () => {
+    this.props.setPatrocinador();
   }
 
   render() {
@@ -113,5 +109,5 @@ export class Cadastro extends Component{
 } 
 
 const mapStateToProps = state => (state.cadastro)
-const mapDispatchToProps = dispatch => bindActionCreators({handlerSubmit,SetFieldPhone, cadastrarContato},dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({handlerSubmit, SetFieldPhone, cadastrarContato, setPatrocinador},dispatch)
 export default connect(mapStateToProps,mapDispatchToProps)(Cadastro)

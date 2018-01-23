@@ -56,7 +56,7 @@ const INITIAL_STATE = {
     whatsapp: 0
   }], */
   sponsor:{
-    id:1
+    id:0
   },
   kit:{
     id:''
