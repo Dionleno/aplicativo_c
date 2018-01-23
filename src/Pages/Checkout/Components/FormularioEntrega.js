@@ -18,6 +18,7 @@ import styles from '../Styles';
 import { RequestAuth } from '../../../Helpers/Http';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { MaskService } from 'react-native-masked-text';
 import { listarEnderecosEntrega, listarFormasEntrega, selecionarFrete, setAddressId } from '../Actions';
 
 export class FormularioEntrega extends Component {
@@ -82,16 +83,24 @@ export class FormularioEntrega extends Component {
     </Card>
   )
 
-  _renderItemFormaEntrega = ({item, index}) => (
-		<ListItem style={styles.viewRadio}>
-			<Radio
-				onPress={() => this.checkItemFrete(index)} 
-				selected={this.state.checked.entrega[index]} 
-				style={styles.radio}
-			/>
-			<Text style={styles.radioText}>{(item.type).toUpperCase()} - R$ {item.price}</Text>
-		</ListItem>
-	)
+  _renderItemFormaEntrega = ({item, index}) => {
+    let price = MaskService.toMask('money', item.price, {
+      unit: 'R$',
+      separator: ',',
+      delimiter: '.'
+    });
+
+    return (
+      <ListItem style={styles.viewRadio}>
+        <Radio
+          onPress={() => this.checkItemFrete(index)} 
+          selected={this.state.checked.entrega[index]} 
+          style={styles.radio}
+        />
+        <Text style={styles.radioText}>{(item.type).toUpperCase()} - {price}</Text>
+      </ListItem>
+    );
+  }
   
   loadingItemEnderecos() {
     if(this.props.enderecos.length == 0){

@@ -10,7 +10,8 @@ import {
 	View,
 	Image,
 	Dimensions,StyleSheet,ImageBackground,
-	FlatList,ScrollView,Alert,StatusBar
+	FlatList,ScrollView,Alert,StatusBar,
+	Linking
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -26,14 +27,50 @@ class Cadastro extends Component {
 	constructor(props){
 		super(props);
 
+		this.state = {
+			codigo: '',
+			boleto: ''
+		};
+	}
+
+	componentWillMount(){
+		const {response} = this.props.navigation.state.params;
+		
+		try {
+			this.setState({codigo: response.id});
+		} catch (error) { }
+
+		try {
+			this.setState({boleto: response.url});
+		} catch (error) { }
+	}
+
+	openPDF(){
+		Linking.openURL(this.state.boleto)
+			.catch(error => {
+				Alert.alert('Atenção', 'Ocorreu um erro ao gerar o Boleto, tente novamente mais tarde.');
+				console.log(error);
+			});
+	}
+
+	boleto(){
+		if(this.state.boleto){
+			return (
+				<View style={{marginBottom: 15}}>
+					<Button block style={stylesTemplate.btnPrimary} onPress={() => this.openPDF()}>
+						<Text>Abrir boleto</Text>
+					</Button>
+				</View>
+			);
+		}
 	}
 	
 	render() {
 
 		return (
 			<Container style={{backgroundColor:'#FFFFFF'}}>
-
-				<Content style={{paddingBottom:20}}> 
+				
+				<Content style={{paddingBottom:20, paddingHorizontal: 15}}> 
 					<View style={{padding:15,marginTop:25}}>
 						<Button rounded  style={styles.btnOutline} >
 							<Icon name='done' style={{fontSize:45,color:'#20CDA6'}} />
@@ -50,15 +87,17 @@ class Cadastro extends Component {
 						<Text>sendo processado.</Text>
 					</View>
 
-					<View style={{alignItems: 'center', padding:15}}>
+					<View style={{alignItems: 'center', flex: 1, padding:15}}>
 						<Text style={{marginBottom:10}}>Número do pedido</Text>
 						<Button  style={[stylesTemplate.btnPrimaryOutline, {alignSelf: 'center'}]} >
-							<Text style={{color:'#888888'}}>#{this.props.navigation.state.params.codigo}</Text>
+							<Text style={{color:'#888888'}}>#{this.state.codigo}</Text>
 						</Button>
 					</View>
 
-					<View style={{padding:15,}}>
-						<Button  style={[stylesTemplate.btnPrimary, {alignSelf: 'center'}]}  onPress={() => this.props.navigation.navigate('Home') }>
+					{this.boleto()}
+
+					<View >
+						<Button block style={stylesTemplate.btnPrimary} onPress={() => this.props.navigation.navigate('Home')}>
 							<Text>Voltar para a tela inicial</Text>
 						</Button>
 					</View>

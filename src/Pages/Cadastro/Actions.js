@@ -35,9 +35,9 @@ export const cadastrarContato = popupDialogContato => {
 			{
 				type: 'ADD_PHONE', 
 				payload: {
-					number: phone_number, 
-					phone_company_id: phone_companies.selected, 
-					phone_type_id: phone_types.selected,
+					telephone: phone_number, 
+					telephone_company_id: phone_companies.selected, 
+					telephone_type_id: phone_types.selected,
 					phone_type_label,
 					whatsapp: 0
 				}
@@ -176,15 +176,15 @@ export const handlerSubmit = async(_props) =>{
 				..._props.user, 
 				email_confirmation: _props.user.email,
 				password_confirmation: _props.user.password,
-				address: _props.address,
-				telephones: _props.telephones
+				address: _props.address
 			},
+			telephones: _props.telephones,
 			sponsor: {
 				id:patrocinador.id
 			},
 			terms: _props.checked
 		};
-		
+
 		//verificar se existe coupon  
     if(coupon != '' && coupon != null){   
     	form['coupon'] = coupon
@@ -252,8 +252,6 @@ export const onGetAddressByCep = async(cep) => {
 			.then(resp => resp.json())
 			.then(resp => {
 				try{
-					console.log('CEP', resp.data);
-					
 					dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'street', payload: resp.data.data.logradouro });
 					dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'district', payload: resp.data.data.bairro });
 					dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'city_id', payload: resp.data.city.id });
@@ -268,16 +266,26 @@ export const onGetAddressByCep = async(cep) => {
 	}
 }
 
-export const onselectStateDistribution = async(item) => {
-  console.log(item)
-       return dispatch => 
-	   	{
-		  RequestGet('/general/distribution_centers/'+item)
-		  .then(resp => resp.json())
-		  .then(resp => dispatch({ type:'CHANGE_FIELD',objectItem: 'centers', payload: resp.data, }))
-		  .then(resp => dispatch({ type:'CHANGE_FIELD',objectItem: 'centers_state_id', payload: item, }))
-		  .catch((error) => console.log(error));
+export const onselectStateDistribution = item => {
+	return dispatch => {
+		dispatch({ type:'CHANGE_FIELD', objectItem: 'centers_state_id', payload: item });
+		dispatch({ type:'CHANGE_FIELD', objectItem: 'centers', payload: [] });
+
+		if(item != ''){
+			dispatch(spinnerOverlay(true));
+			
+			RequestGet('/general/distribution_centers/'+item)
+			.then(resp => resp.json())
+			.then(resp => {
+				dispatch({ type:'CHANGE_FIELD', objectItem: 'centers', payload: resp.data });
+				dispatch(spinnerOverlay(false));
+			})
+			.catch((error) => {
+				dispatch(spinnerOverlay(false));
+				console.log(error);
+			});
 		}
+	}
 }
 
 export const changeStateBindCity = (itemValue, itemIndex) => {

@@ -62,24 +62,24 @@ export const DrawerNav =  DrawerNavigator({
 * @Rotas sem sidebar (Offline,Externas)
 */
 const NavigatorRouter = StackNavigator({
-    Drawer : {screen: DrawerNav},
-    Home: {screen: Home},
-    Login: {screen:Login},
-    Patrocinador: {screen: Patrocinador},
-    Cadastro: {screen:Cadastro} ,
-    Kits: {screen:Kits} ,
-    KitDatails:{screen:KitDatails},
-    Confirmacao:{screen:Confirmacao},
-    Carrinho: {screen: Carrinho},
-    ProdutoDetails:{screen:ProdutoDetails},
-    CupomAtivacao: {screen:CupomAtivacao} ,
-    CupomAgradecimento:{screen:CupomAgradecimento},
-    Checkout: {screen: Checkout},
-    CadastroAgradecimento: {screen: CadastroAgradecimento}
- },{
-    headerMode: 'none',
-    initialRouteName: 'Home',
-    navigationOptions : {}
+  Drawer : {screen: DrawerNav},
+  Home: {screen: Home},
+  Login: {screen:Login},
+  Patrocinador: {screen: Patrocinador},
+  Cadastro: {screen:Cadastro} ,
+  Kits: {screen:Kits} ,
+  KitDatails:{screen:KitDatails},
+  Confirmacao:{screen:Confirmacao},
+  Carrinho: {screen: Carrinho},
+  ProdutoDetails:{screen:ProdutoDetails},
+  CupomAtivacao: {screen:CupomAtivacao} ,
+  CupomAgradecimento:{screen:CupomAgradecimento},
+  Checkout: {screen: Checkout},
+  CadastroAgradecimento: {screen: CadastroAgradecimento}
+},{
+  headerMode: 'none',
+  initialRouteName: 'Home',
+  navigationOptions : {}
 });
 
 export default NavigatorRouter;

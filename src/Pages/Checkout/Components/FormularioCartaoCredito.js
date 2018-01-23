@@ -28,7 +28,8 @@ import {
   cartaoCVV, 
   cartaoTotal,
   setInstallmentId, 
-  calcularParcelas
+  calcularParcelas,
+  verificarValorCartao
 } from '../Actions';
 import Ano from './Ano';
 import Mes from './Mes';
@@ -45,7 +46,7 @@ export class FormularioCartaoCredito extends Component {
   parcelas() {
 	  return this.props.parcelas.map(item => <Picker.Item key={item.key} label={item.label} value={item.key} />);
   }
-  
+
   render() {
     return (
       <Content style={{paddingHorizontal: 15, paddingTop: 15, paddingBottom: 30}}>
@@ -115,7 +116,7 @@ export class FormularioCartaoCredito extends Component {
             placeholder='Digite o valor a ser cobrado neste cartão'
             underlineColorAndroid='transparent'
             keyboardType='numeric'
-            onBlur={() => this.props.calcularParcelas(this.props.cartao.total)}
+            onBlur={() => this.props.verificarValorCartao()}
             onChangeText={value => this.props.cartaoTotal(value)}
             value={this.props.cartao.total}
           />
@@ -146,7 +147,8 @@ const mapDispatchToProps = dispatch => bindActionCreators(
     cartaoCVV, 
     setInstallmentId,
     cartaoTotal,
-    calcularParcelas 
+    calcularParcelas,
+    verificarValorCartao
   }, 
   dispatch
 );

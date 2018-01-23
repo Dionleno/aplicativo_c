@@ -18,12 +18,19 @@ export const PatrocionadorByCep  = props => {
 		<View>  
 			<Item style={[StyleInput.boxinput,{marginBottom:10, backgroundColor:'#f1f1f1'}]}>
 				<TextInputMask 
-				style={StyleInput.inputText}
-				type={'zip-code'}
-				underlineColorAndroid='transparent' 
-				placeholder="Informe o seu CEP" keyboardType='numeric' value={props.findtextcep} onChangeText={(value) => props.onChangeField(value,'findtextcep')} maxLength={9} />
+					style={StyleInput.inputText}
+					type={'zip-code'}
+					underlineColorAndroid='transparent' 
+					placeholder="Informe o seu CEP" 
+					keyboardType='numeric' 
+					value={props.findtextcep} 
+					onChangeText={(value) => props.onChangeField(value,'findtextcep')} 
+					onBlur={() => props.BuscarPatrocinadorCep()}
+					returnKeyType='search'
+					maxLength={9}
+				/>
 			</Item>
-			<Button full style={{backgroundColor: "#000000"}} onPress={() => props.BuscarPatrocinadorCep(props.findtextcep)}>
+			<Button full style={{backgroundColor: "#000000"}} onPress={() => props.BuscarPatrocinadorCep()}>
 				<Icon name='location-on' style={{fontSize:20,color:'#FFFFFF'}} />   
 				<Text>Encontrar endereço</Text>
 			</Button>

@@ -32,14 +32,16 @@ class PatrocionadorBySite extends Component {
 							ref='inputPatrocinador'
 							underlineColorAndroid='transparent' 
 							style={{backgroundColor: '#ffffff', paddingRight: 15, color: '#888888'}}
-							placeholder='patrocionador' 
+							placeholder='link' 
 							value={this.props.findtext} 
+							returnKeyType={'search'}
+							onBlur={() => this.props.BuscarPatrocinador()}
 							onChangeText={(value) => this.props.onChangeField(value,'findtext')}
 						/>
 					</View>
 				</View>
 	
-				<Button full style={{backgroundColor: "#000000"}} onPress={() => this.props.BuscarPatrocinador(this.props.findtext)}>
+				<Button full style={{backgroundColor: "#000000"}} onPress={() => this.props.BuscarPatrocinador()}>
 					<Icon name='search' style={{fontSize:25,color:'#FFFFFF'}} />
 					<Text>Buscar Patrocionador</Text>
 				</Button>

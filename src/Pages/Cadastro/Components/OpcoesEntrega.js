@@ -21,8 +21,8 @@ export class OpcoesEntrega extends Component {
  		super(props);
  	}
  
- 	componentDidMount = async() =>{
- 		await RequestGet('/general/cds_states')
+ 	componentDidMount = () => {
+ 		RequestGet('/general/cds_states')
  		.then(resp => resp.json())
  		.then(resp => this.props.onChangeField(resp.data,'centers_state'));
  	}

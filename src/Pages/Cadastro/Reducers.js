@@ -98,7 +98,10 @@ export default (state = INITIAL_STATE, action) => {
     case 'CHANGE_PHONE_TYPE_LABEL':
       return {...state, phone_types: {...state.phone_types, description: action.payload}};
     case 'ADD_PHONE':
-      return {...state, telephones: [...state.telephones, action.payload]};
+      return {
+        ...state, 
+        telephones: [...state.telephones, action.payload]
+      };
   	default:
   	  return state  
   }

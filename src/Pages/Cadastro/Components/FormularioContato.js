@@ -35,7 +35,7 @@ class FormularioContato extends Component {
 
   render() {
     return(
-      <Content style={{paddingHorizontal: 15, paddingVertical: 15}}>
+      <Content style={{ paddingHorizontal: 15, paddingVertical: 15}}>
        
         <TextInputMask
           style={styleInput.inputText}
@@ -68,12 +68,6 @@ class FormularioContato extends Component {
           </Picker>
         </View>
 
-        <View style={{marginTop: 15}} >
-          <Button block style={styleButtons.btnPrimary} onPress={() => this.props.cadastrarContato(this.props.popupDialogContato)}>
-            <Text>Cadastrar</Text>
-          </Button>
-        </View>
-        
       </Content>
     );
   }

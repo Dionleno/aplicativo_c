@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
-	    issetCart:0,
-	 }
+	issetCart: -1,
+}
 
 export default (state = INITIAL_STATE, action) => {
 	

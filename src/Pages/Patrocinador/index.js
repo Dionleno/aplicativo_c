@@ -33,7 +33,7 @@ export class Patrocionador extends Component{
 				<ScrollView style={{paddingBottom:20}}>
 						<HeaderExterno item={this.props} title="Patrocinador" />
 
-						<PatrocionadorByCupom _obj={this.props}/>
+						{/* <PatrocionadorByCupom /> */}
 
 						<View style={{margin:10,backgroundColor:'#FFFFFF',padding:15,borderRadius:5}}>  
 							<Text style={{marginBottom:15,color:'#888888' }}>
