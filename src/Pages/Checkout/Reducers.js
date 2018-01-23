@@ -11,6 +11,7 @@ const INITIAL_STATE = {
   produtos: [],
   parcelas: [{key: 0, label: 'Aguarde...'}],
   total: 0,
+  total_diff: 0,
   factory: -1,
   overlay: false,
   kit: {
@@ -21,9 +22,9 @@ const INITIAL_STATE = {
     pontos: ''
   },
   cartao: {
-    titular: '',
-    numero: '',
-    cvv: '',
+    titular: 'Diego Galdino Jaldim',
+    numero: '4111 1111 1111 1111',
+    cvv: '737',
     installment_id: 0,
     mes: ((new Date().getMonth())+1),
     ano: (new Date().getFullYear()),
@@ -94,7 +95,10 @@ export default (state = INITIAL_STATE, action) => {
     
     case 'TOTAL':
       return {...state, total: action.payload};
-
+    
+    case 'TOTAL_DIFF':
+      return {...state, total_diff: action.payload};
+    
     case 'PARCELAS':
       return {...state, parcelas: action.payload};
     

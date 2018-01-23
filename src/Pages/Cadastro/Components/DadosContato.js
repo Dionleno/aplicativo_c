@@ -23,10 +23,10 @@ class DadosContato extends Component {
   renderListaContatos = ({item, index}) => (
     <ListItem onPress={() => this.props.SetFieldPhone(index)}>
      <Body>
-      <Text style={{color: '#656D82'}}>{item.number} | {item.phone_type_label}</Text>
+      <Text style={{color: '#656D82'}}>{item.telephone} | {item.phone_type_label}</Text>
      </Body>
      <Right>
-         <Icon name="delete-forever" style={{fontSize:20,color:'#FF0000'}}/>
+        <Icon name="delete-forever" style={{fontSize:20,color:'#FF0000'}}/>
       </Right>
     </ListItem>
   );

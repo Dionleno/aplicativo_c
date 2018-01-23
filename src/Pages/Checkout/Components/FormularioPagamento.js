@@ -75,6 +75,18 @@ export class FormularioPagamento extends Component {
 		</ListItem>
 	)
 
+	btnCartao(){
+		if(this.props.total_diff > 0){
+			return (
+				<View style={{marginHorizontal: 15, marginVertical: 15}}>
+					<Button block style={styleButtons.btnPrimaryOutline} onPress={() => this.props.popupDialogCartao.dialog.show()} >
+						<Text style={styleButtons.btnPrimaryOutlineText} >Informar Cartão de Crédito</Text>
+					</Button>
+				</View>
+			);
+		}
+	}
+
   cartao() {
     const { form, setFormValor } = this.props;
 
@@ -89,12 +101,9 @@ export class FormularioPagamento extends Component {
 							renderItem={this.renderItemCards}
 						/>
 					</View>
-
-					<View style={{marginHorizontal: 15, marginVertical: 15}}>
-						<Button block style={styleButtons.btnPrimaryOutline} onPress={() => this.props.popupDialogCartao.dialog.show()} >
-							<Text style={styleButtons.btnPrimaryOutlineText} >Informar Cartão de Crédito</Text>
-						</Button>
-					</View>
+					
+					{this.btnCartao()}
+				
 				</View>
 			);
 		}

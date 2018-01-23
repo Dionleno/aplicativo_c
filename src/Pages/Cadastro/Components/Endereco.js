@@ -51,18 +51,11 @@ export class Endereco extends Component {
 						options={{ format: '99999-999' }}
 						type={'zip-code'}
 						underlineColorAndroid='transparent' 
-						placeholder="CEP" 
+						placeholder="CEP"
 						onBlur={() => {this.props.onGetAddressByCep(this.props.address.zip)}}
 						keyboardType='numeric' 
 						returnKeyType={'next'}
-						onChangeText={(value) => {
-                        this.props.onChangeFieldAddress(value,'zip')
-							          console.log(this.props.address.zip.length)
-							          if(this.props.address.zip.length >= 9){
-							          	this.props.onGetAddressByCep(this.props.address.zip)
-							          }
-							   }
-							} 
+						onChangeText={(value) => {this.props.onChangeFieldAddress(value,'zip')}} 
 						maxLength={9} value={this.props.address.zip}
 					/>
 

@@ -18,7 +18,7 @@ import styleInput from '../../StyleSheet/Input';
 
 /*Componentes*/
 import ErrorForm from '../../Helpers/ErrorForm'
-import {handlerSubmit,SetFieldPhone} from './Actions' 
+import {handlerSubmit, SetFieldPhone, cadastrarContato} from './Actions' 
 import DadosPessoais from './Components/DadosPessoais';
 import DadosDeAcesso from './Components/DadosDeAcesso';
 import DadosContato from './Components/DadosContato';
@@ -44,21 +44,19 @@ export class Cadastro extends Component{
     super(props);
   }
 
-  componentDidMount = async() =>{
-        const value = await AsyncStorage.getItem('@UIPatrocinador');
-        const patrocinador = JSON.parse(value);
+  componentDidMount = async() => {
+    const value = await AsyncStorage.getItem('@UIPatrocinador');
+    const patrocinador = JSON.parse(value);
     return dispatch => {
-
-        this.props.onChangeField({id: patrocinador.id},'sponsor')
+      this.props.onChangeField({id: patrocinador.id},'sponsor')
     }
-   
   }
 
   render() {
     return ( 
       <Container>
         <HeaderExterno item={this.props} title="Cadastro" />
-    
+        
         <PopupDialog
           dialogTitle={<DialogTitle title="Termos de uso" />}
           ref={(popupDialog) => { this.popupDialog = popupDialog; }}
@@ -69,7 +67,7 @@ export class Cadastro extends Component{
           containerStyle={{ zIndex: 10, elevation: 10}}
           actions={[<DialogButton text="Fechar" key='xptop' align="center" onPress={() => this.popupDialog.dismiss()}/>]}>
           <Content>
-              <Text>Texto de termos de uso</Text>
+            <Text>Texto de termos de uso</Text>
           </Content>
         </PopupDialog>
 
@@ -78,10 +76,16 @@ export class Cadastro extends Component{
           ref={(popupDialogContato) => { this.popupDialogContato = popupDialogContato }}
           animationDuration={500}
           width={0.9}
-          height={0.9}
+          height={0.55}
           containerStyle={{ zIndex: 10, elevation: 10}}
-          actions={[<DialogButton text="Fechar" key='xptop' align="center" onPress={() => this.popupDialogContato.dismiss()}/>]}>
-          <FormularioContato popupDialogContato={this.popupDialogContato} />
+          actions={[
+            <View key={0} style={{paddingVertical: 15, paddingHorizontal: 15}}>
+              <Button block style={styleButtons.btnPrimary} onPress={() => this.props.cadastrarContato(this.popupDialogContato)}>
+                <Text>Cadastrar</Text>
+              </Button>
+            </View>
+          ]} >
+          <FormularioContato />
         </PopupDialog>
         
         <Content style={{backgroundColor: '#FFFFFF'}}>
@@ -109,5 +113,5 @@ export class Cadastro extends Component{
 } 
 
 const mapStateToProps = state => (state.cadastro)
-const mapDispatchToProps = dispatch => bindActionCreators({handlerSubmit,SetFieldPhone},dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({handlerSubmit,SetFieldPhone, cadastrarContato},dispatch)
 export default connect(mapStateToProps,mapDispatchToProps)(Cadastro)

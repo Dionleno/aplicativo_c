@@ -9,6 +9,14 @@ export const LOGIN = {
   scope: '*'
 };
 
+export const MOEDAS = {
+  BLR: {
+    unit: 'R$ ',
+    separator: ',',
+    delimiter: '.'
+  }
+}
+
 export const USER_INFO = '@Userinfo';
 
 export const USER_TOKEN = '@usertoken';

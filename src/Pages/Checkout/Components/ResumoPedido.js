@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import styles from '../Styles';
 import { finalizarCadastro } from '../Actions';
 import stylesGlobal from '../../../StyleSheet/Buttons';
+import { MaskService } from 'react-native-masked-text';
+import { MOEDAS } from '../../../Helpers/Constants';
 
 class ResumoPedido extends Component {
   
@@ -19,7 +21,7 @@ class ResumoPedido extends Component {
     // Renderiza somente produtos sem o kit
     if(item.detail.kits.length === 0) {
       const titulo = item.detail.product.name;
-      const preco = 'R$ ' + item.price.value;
+      const preco = MaskService.toMask('money', item.price.value, MOEDAS.BLR);
       const pontos = item.detail.points[0].value + 'pts';
 
       return (
@@ -31,6 +33,9 @@ class ResumoPedido extends Component {
   }
 
   render() {
+    const kitValor = MaskService.toMask('money', this.props.kit.valor, MOEDAS.BLR);
+    const pedidoValor = MaskService.toMask('money', this.props.total, MOEDAS.BLR);
+
     return (
       <View>
         <Row style={styles.title} >
@@ -48,7 +53,7 @@ class ResumoPedido extends Component {
           </View>
     
           <View style={styles.resumoValores}>
-            <Text style={styles.resumoTexto}>Valor do Kit: {this.props.kit.valor}</Text>
+            <Text style={styles.resumoTexto}>Valor do Kit: {kitValor}</Text>
           </View>
     
           <FlatList
@@ -59,7 +64,7 @@ class ResumoPedido extends Component {
           />
     
           <View style={styles.resumoValores}>
-            <Text style={styles.resumoTexto}>Valor do Pedido: R$ {this.props.total}</Text>
+            <Text style={styles.resumoTexto}>Valor do Pedido: {pedidoValor}</Text>
           </View>
         </View>
 

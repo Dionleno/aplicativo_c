@@ -3,7 +3,7 @@
  * Actions da tela de Checkout
  */
 
-import { Alert } from 'react-native';
+import { Alert, MaskedView } from 'react-native';
 import { RequestAuth } from '../../Helpers/Http';
 import AdyenCse from '../../Helpers/AdyenCse';
 import { ADYEN_KEY } from '../../Helpers/Constants';
@@ -54,6 +54,7 @@ export const getCart = () => {
         dispatch({type: 'PRODUTOS', payload: products});
         dispatch({type: 'FACTORY', payload: response.data.distribution_center.factory});
         dispatch({type: 'TOTAL', payload: total});
+        dispatch({type: 'TOTAL_DIFF', payload: total});
         dispatch(setKit(products));
 
         console.log('Carrinho', response);
@@ -172,9 +173,11 @@ export const calcularParcelas = value => {
   return dispatch => {
     let total = MaskService.toMask('money', value, {
       unit: '',
-	    separator: ',',
-	    delimiter: '.'
+      separator: '.',
+      delimiter: '|'
     });
+
+    total = total.replace('|', '');
 
     RequestAuth('carts/installments/' + total, 'GET')
     .then(response => response.json())
@@ -198,9 +201,14 @@ export const cadastrarCartao = (popupDialogCartao) => {
         unit: 'R$ ',
         separator: ',',
         delimiter: '.'
+      }),
+      diff: MaskService.toMask('money', checkout.cartao.total, {
+        unit: '',
+        separator: '.',
+        delimiter: '|'
       })
-    }
-    
+    };
+
     AdyenCse.generateCSE(
       ADYEN_KEY,
       checkout.cartao.titular.toString(),
@@ -229,12 +237,15 @@ export const cadastrarCartao = (popupDialogCartao) => {
           }
         )
       );
-      
+
       popupDialogCartao.dismiss();
 
-      // Setar valorres.....
-      // dispatch(loadFinalizarCadastro(true));
-      // dispatch(enviarCadastroParaApi(_this, encrypt));
+      let cardValue = parseFloat(card.diff.replace('|', ''));
+      let diff = checkout.total_diff-cardValue;
+
+      dispatch({type: 'TOTAL_DIFF', payload: diff});
+      dispatch({type: 'CARTAO_TOTAL', payload: diff});
+      dispatch(calcularParcelas(diff));
     })
     .catch(error => {
       Alert.alert('Atenção', 'Verifique os dados do seu cartão de crédito');
@@ -258,12 +269,42 @@ export const addCardLabel = card => {
 
 export const removeCard = (index) => {
   return (dispatch, getState) => {
-    const { cards, cards_label } = getState().checkout;
-    let newCards = cards.splice(index, 1);
-    let newCardsLabel = cards_label.splice(index, 1);
-    
-    dispatch({type: 'RENEW_CARD'});
-    dispatch({type: 'RENEW_CARD_LABEL'});
+    Alert.alert
+    (
+      'Atenção', 
+      'Deseja remover este cartão?',
+      [
+        {
+          text: 'Cancelar', 
+          onPress: () => null, 
+          style: 'cancel'
+        },
+        {
+          text: 'Remover', 
+          onPress: () => {
+            const { cards, cards_label, total_diff } = getState().checkout;
+
+            let value =  MaskService.toMask('money', cards[index].value, {
+              unit: '',
+              separator: '.',
+              delimiter: '|'
+            });
+            value = parseFloat(value.replace('|', ''));
+            let diff = total_diff+value;
+        
+            let newCards = cards.splice(index, 1);
+            let newCardsLabel = cards_label.splice(index, 1);
+            
+            dispatch({type: 'RENEW_CARD'});
+            dispatch({type: 'RENEW_CARD_LABEL'});
+            dispatch({type: 'TOTAL_DIFF', payload: diff});
+            dispatch({type: 'CARTAO_TOTAL', payload: diff});
+            dispatch(calcularParcelas(diff));
+          }
+        }
+      ],
+      {cancelable: true}
+    );
   }
 }
 
@@ -301,6 +342,27 @@ export const loadFormasEntrega = value => {
   };
 }
 
+export const verificarValorCartao = () => {
+  return (dispatch, getState) => {
+    const { checkout } = getState();
+    
+    let total = MaskService.toMask('money', checkout.cartao.total, {
+      unit: '',
+      separator: '.',
+      delimiter: '|'
+    });
+    
+    total = parseFloat(total.replace('|', ''));
+
+    if(total > checkout.total_diff){
+      Alert.alert('Atenção', 'O valor digitado excede o valor do pedido');
+      dispatch({type: 'CARTAO_TOTAL', payload: checkout.total_diff});
+    }else{
+      dispatch(calcularParcelas(total));
+    }
+  }
+}
+
 export const finalizarCadastro = _this => {
 
   return (dispatch, getState) => {
@@ -322,6 +384,13 @@ export const finalizarCadastro = _this => {
 
     if(checkout.forma_pagamento == '2' && checkout.cards.length == 0){
       Alert.alert('Atenção', 'Você deve informar pelo menos um cartão de crédito');
+      return {
+        type: 'CADASTRO_ERRO'
+      }
+    }
+
+    if(checkout.forma_pagamento == '2' && checkout.total_diff > 0){
+      Alert.alert('Atenção', 'Existem valores pendentes de Cartão de Crédito.\nInforme mais um Cartão de Crédito para completar os valores.');
       return {
         type: 'CADASTRO_ERRO'
       }
@@ -357,8 +426,6 @@ export const enviarCadastroParaApi = (_this, encrypt = '') => {
       }
     }
     
-    // console.log(data);
-    
     RequestAuth('carts/checkout', 'POST', data)
       .then(response => response.json())
       .then(response => {
@@ -368,15 +435,15 @@ export const enviarCadastroParaApi = (_this, encrypt = '') => {
           dispatch(loadFinalizarCadastro(false));
         }
         
-        if(response.data.id){
+        if(response.data){
           dispatch(loadFinalizarCadastro(false));
-          _this.navigation.navigate('CadastroAgradecimento', {codigo: response.data.id});
+          _this.navigation.navigate('CadastroAgradecimento', {response: response.data});
         }
 
         dispatch(loadFinalizarCadastro(false));
       })
       .catch(error => {
-        Alert.alert('Ocorreu um erro ao gerar o pedido. Tente novamente mais tarde');
+        Alert.alert('Atenção', 'Ocorreu um erro ao gerar o pedido.\nTente novamente mais tarde');
         dispatch(loadFinalizarCadastro(false));
         console.log(error);
       });

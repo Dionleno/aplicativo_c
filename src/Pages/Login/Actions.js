@@ -34,16 +34,13 @@ export const handlerLogin = async(_props) =>{
 		username: username,
 		password: password
 	};
-
-
 	return dispatch => 
 	{
 		dispatch(changeLoading(true))
 
-		RequestPostAuth('oauth/token',data)
+		RequestPostAuth('oauth/token', data)
 			.then(resp => resp.json())
 			.then(resp => {
-         console.log(resp)
 				if(resp.error != null && resp.error == 'invalid_credentials'){
 					Alert.alert('Atenção', 'Login ou senha inválido');
 					return false;
@@ -63,7 +60,6 @@ export const handlerLogin = async(_props) =>{
 				}
 			})
 			.then(resp => {
-				
 				if(resp != false){
 					console.log(resp)
 				  dispatch(setUserCurrent(_props))
