@@ -13,16 +13,17 @@ import {
   FlatList,ScrollView,Alert,StatusBar
 } from 'react-native';
  /*REDUX*/
- import { connect } from 'react-redux'
- import { bindActionCreators } from 'redux'
- import {fetchGetKit,onSetKit} from './Actions'  
- import SpinnerOverlay from 'react-native-loading-spinner-overlay';
- import Icon from 'react-native-vector-icons/MaterialIcons'
- import styles from './Style'
- import stylesExterno from '../../StyleSheet/Buttons'
- import ErrorForm from '../../Helpers/ErrorForm'
- import {TextInputMask} from 'react-native-masked-text';
- import {RequestGet} from '../../Helpers/Http' 
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import {fetchGetKit,onSetKit} from './Actions'  
+import SpinnerOverlay from 'react-native-loading-spinner-overlay';
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import styles from './Style'
+import stylesExterno from '../../StyleSheet/Buttons'
+import ErrorForm from '../../Helpers/ErrorForm'
+import {TextInputMask, MaskService} from 'react-native-masked-text';
+import {RequestGet} from '../../Helpers/Http';
+import { MOEDAS } from '../../Helpers/Constants';
 
 import {Content, Text ,Container , Item,Input,Thumbnail, H3,Label,Row,Button,Col,Grid ,Left,Card , CheckBox,List, ListItem,Body ,CardItem} from 'native-base';
   
@@ -59,6 +60,9 @@ export class Kits extends Component {
                     keyExtractor={(item, index) => item.id} 
                     numColumns={1}
                     renderItem={({item, id, index}) => {
+                      const preco = MaskService.toMask('money', item.detail.prices[0].value, MOEDAS.BLR);
+                      const precoRevenda = MaskService.toMask('money', item.detail.prices[0].resale_price, MOEDAS.BLR);
+                      
                       return (
                       
                    <Content>
@@ -70,12 +74,12 @@ export class Kits extends Component {
                          </Row>
                         <Row style={{paddingTop:15,}}>
                              <Col style={{flex:1,alignItems:'flex-start',justifyContent: 'center',}}>
-                               <Text style={{fontSize:18,color:'#333333',fontWeight: 'bold',}}>R$ {item.detail.prices[0].value}</Text>
+                               <Text style={{fontSize:18,color:'#333333',fontWeight: 'bold',}}>{preco}</Text>
                                <Text style={styles.TextSmall}>1x s/ juros</Text>
                                <Text style={styles.TextSmall}>Bônus de equipe: 23%</Text>
                                <View style={{marginBottom:10,height:1,backgroundColor:'#ccd5dd'}}/> 
                                <Text style={styles.TextSmall}>Sugestão de revenda</Text>
-                               <Text style={{fontSize:18,color:'#333333',fontWeight: 'bold',}}>R$ {item.detail.prices[0].resale_price}</Text>
+                               <Text style={{fontSize:18,color:'#333333',fontWeight: 'bold',}}>{precoRevenda}</Text>
                                <Text style={styles.TextSmall}>recupere até 23%</Text>
                                <Text style={styles.TextSmall}>do valor investido</Text>
                              </Col>

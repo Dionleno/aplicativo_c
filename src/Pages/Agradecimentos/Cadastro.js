@@ -21,6 +21,7 @@ import { loadFinalizarCadastro } from '../Checkout/Actions';
 import { Content, Text, Container, Item, Input, Thumbnail, H3, Label, Separator, Row, Button, Col, Grid, Left, Card, CheckBox, List, ListItem, Body, CardItem } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import stylesTemplate from '../../StyleSheet/Buttons';
+import { _navigateTo } from '../../Helpers/Http';
 
 class Cadastro extends Component {
 
@@ -97,7 +98,7 @@ class Cadastro extends Component {
 					{this.boleto()}
 
 					<View >
-						<Button block style={stylesTemplate.btnPrimary} onPress={() => this.props.navigation.navigate('Home')}>
+						<Button block style={stylesTemplate.btnPrimary} onPress={() => _navigateTo(this.props, 'Home')}>
 							<Text>Voltar para a tela inicial</Text>
 						</Button>
 					</View>

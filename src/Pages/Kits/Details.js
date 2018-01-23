@@ -19,10 +19,11 @@ import {
  import Icon from 'react-native-vector-icons/MaterialIcons'
  import styles from './Style'
  import ErrorForm from '../../Helpers/ErrorForm'
- import {TextInputMask} from 'react-native-masked-text';
+ import {TextInputMask, MaskService} from 'react-native-masked-text';
  import {RequestGet} from '../../Helpers/Http' 
  import HeaderExterno from '../../Static/HeaderExterno'
  import SpinnerOverlay from 'react-native-loading-spinner-overlay';
+ import { MOEDAS } from '../../Helpers/Constants';
 
 import {Content, Text ,Container , Item,Input,Thumbnail, H3,Label,Separator,Row,Button,Col,Grid ,Left,Card , CheckBox,List, ListItem,Body ,CardItem} from 'native-base';
  
@@ -51,8 +52,9 @@ export class KitsDatails extends Component {
   const imgKit = detail.medias[0].url
   const itensKit = description.split(',')
   const dimensions = Dimensions.get('window');
-  console.log(itensKit)
-   
+  const preco = MaskService.toMask('money', kits.detail.prices[0].value, MOEDAS.BLR);
+  const precoResale = MaskService.toMask('money', kits.detail.prices[0].resale_price, MOEDAS.BLR);
+
   return (
         <Container style={{backgroundColor:'#FFFFFF'}}>
            <HeaderExterno item={this.props} title={name}/>
@@ -82,7 +84,7 @@ export class KitsDatails extends Component {
             <Grid style={{backgroundColor:'#f1f1f1',margin:15,borderRadius:5}}>
                <Row>
                  <Col style={{padding:20,flex:1,alignItems:'center',justifyContent: 'center',}}>
-                    <Text style={{fontSize:18,color:'#333333',fontWeight: 'bold',}}>R$ 240</Text>
+                    <Text style={{fontSize:18,color:'#333333',fontWeight: 'bold',}}>{preco}</Text>
                 </Col>
                  <Col style={{padding:20,flex:1,alignItems:'center',justifyContent: 'center',}}>    
                       <Text style={styles.TextSmall}>1x s/ juros</Text>
@@ -96,7 +98,7 @@ export class KitsDatails extends Component {
                </Row>
                <Row>
                  <Col style={{padding:20,flex:1,alignItems:'center',justifyContent: 'center',}}>
-                    <Text style={{fontSize:18,color:'#333333',fontWeight: 'bold',}}>R$ 240</Text>
+                    <Text style={{fontSize:18,color:'#333333',fontWeight: 'bold',}}>{precoResale}</Text>
                   </Col>
                  <Col style={{padding:20,flex:1,alignItems:'center',justifyContent: 'center',}}>    
                      <Text style={styles.TextSmall}>Sugestão de revenda</Text>
@@ -107,12 +109,11 @@ export class KitsDatails extends Component {
             </Grid>
 
             <View style={{padding:15}}>
-                 <Text note>As fragrâncias, produtos e cores podem sofrer alterações.</Text>
+                <Text note>As fragrâncias, produtos e cores podem sofrer alterações.</Text>
              </View>
               <View style={{padding:15}}>
-                  <Button block style={styles.btnPrimary}  onPress={() => this.props.onSetKit(kits,this.props)  }>
-                       <Icon name='done' style={{fontSize:25}} />
-                        <Text style={{color:'#333333'}}>Selecionar este kit</Text>
+                  <Button block style={styles.btnPrimary}  onPress={() => this.props.onSetKit(kits,this.props) }>    
+                    <Text style={{color:'#FFFFFF'}}>Selecionar este kit</Text>
                   </Button>
               </View>
           </Content>

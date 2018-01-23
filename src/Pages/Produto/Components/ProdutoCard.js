@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { AppRegistry, View, Image, FlatList, StyleSheet, AsyncStorage, Alert } from 'react-native';
 import { Button, Container, Text, Header, Spinner, Card, CardItem, Body, Left, Right, Row, Col } from 'native-base';
-import Icon from 'react-native-vector-icons/MaterialIcons'
-
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { MOEDAS } from '../../../Helpers/Constants';
+import { MaskService } from 'react-native-masked-text';
 
 export const ProdutoCard  = props => {
     let item = props.item;
     let details = props.item.product_details[0];
     let img = details.medias[0].url;
+    let preco = MaskService.toMask('money', details.prices[0].value, MOEDAS.BLR);
 
     return (
     <Row style={styles.row} onPress={ () => {props.propriedades.navigation.navigate('ProdutoDetalhes', {produto:item}) }}>
@@ -25,7 +27,7 @@ export const ProdutoCard  = props => {
             <Text style={styles.productPoints}>{details.points[0].value} pts</Text>
           </View>
           <View style={styles.viewProductPrice}>
-             <Text style={styles.productPrice}>R$ {details.prices[0].value}</Text>
+             <Text style={styles.productPrice}>{preco}</Text>
           </View>
 
          

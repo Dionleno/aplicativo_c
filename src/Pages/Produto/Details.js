@@ -14,6 +14,8 @@ import { Container, Text,Grid,Row,Col,Content,Button} from 'native-base';
 import stylesGlobal from '../../StyleSheet/Buttons';
 import HeaderExterno from '../../Static/HeaderExterno'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import { MOEDAS } from '../../Helpers/Constants';
+import { MaskService } from 'react-native-masked-text';
  
 
 export class ProdutoDetalhes extends Component {
@@ -29,7 +31,7 @@ export class ProdutoDetalhes extends Component {
 	
 		let produtoFirst = produto.product_details[0];
 		let allproducts = produto.product_details;
-     
+		let preco = MaskService.toMask('money', details.prices[0].value, MOEDAS.BLR);
 
 			 
     return (

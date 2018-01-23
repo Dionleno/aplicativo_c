@@ -20,7 +20,7 @@ import styles from './Style';
 import stylesButton from '../../StyleSheet/Buttons';
 
 /*Helpers*/
-import { RequestAuth, RequestGetAuth } from '../../Helpers/Http';
+import { RequestAuth, RequestGetAuth, _navigateTo } from '../../Helpers/Http';
 
 export class ConfirmacaoCadastro extends Component {
   
@@ -46,7 +46,7 @@ export class ConfirmacaoCadastro extends Component {
     if(this.props.issetCart == 0){
       return (
         <View style={{ padding:15 }}>
-          <Button block style={stylesButton.btnPrimary}  onPress={() => this.props.navigation.navigate('Login') }>
+          <Button block style={stylesButton.btnPrimary}  onPress={() => _navigateTo(this.props, 'Login') }>
             <Text style={stylesButton.btnPrimaryText}>Login</Text>
           </Button>
         </View>
@@ -56,7 +56,7 @@ export class ConfirmacaoCadastro extends Component {
     if(this.props.issetCart == 1){
       return (
         <View style={{ padding:15 }}>
-          <Button block style={stylesButton.btnPrimary} onPress={() => this.props.navigation.navigate('Drawer') }>
+          <Button block style={stylesButton.btnPrimary} onPress={() => _navigateTo(this.props, 'Drawer') }>
             <Text style={stylesButton.btnPrimaryText}>Acessar a loja</Text>
           </Button>
         </View>
