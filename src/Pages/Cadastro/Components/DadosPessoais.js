@@ -34,7 +34,8 @@ export class DadosPessoais extends Component {
 						underlineColorAndroid='transparent' 
 						placeholder="Nome Completo"
 						returnKeyType={'next'}
-						value={this.props.user.name} 
+						value={this.props.user.name}
+						autoCapitalize='words' 
 						onChangeText={(value) => this.props.onChangeFieldUser(value,'name')  }
 					/>
 					 
@@ -50,8 +51,6 @@ export class DadosPessoais extends Component {
 						value={this.props.user.document}
 						returnKeyType={'next'}
 					/>
-					
-			 
 
 					<TextInputMask 
 					  style={this.props.errors['user.birth_date'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}

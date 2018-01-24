@@ -34,12 +34,14 @@ export class DadosDeAcesso extends Component {
 						style={this.props.errors['user.login'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
 						underlineColorAndroid='transparent' 
 						placeholder="Login"
+						autoCapitalize='none'
 						returnKeyType={'next'}
-						onChangeText={(value) => {
-																      this.props.onChangeFieldUser(value,'login')
-																      this.props.onChangeFieldUser(value,'minisite')
-																    }
-												  }
+						onChangeText={
+							(value) => {
+								this.props.onChangeFieldUser(value,'login')
+								this.props.onChangeFieldUser(value,'minisite')
+							}
+						}
 					/>
 
 					<TextInput 
@@ -48,26 +50,21 @@ export class DadosDeAcesso extends Component {
 						placeholder="E-mail"
 						keyboardType='email-address'
 						returnKeyType={'next'}
-						onChangeText={(value) => this.props.onChangeFieldUser(value, 'email')}
+						autoCapitalize='none'
+						onChangeText={
+							(value) => {
+								this.props.onChangeFieldUser(value, 'email');
+								this.props.onChangeFieldUser(value,'email_confirmation');
+							}
+						}
 					/>
-			 			
-					<TextInput 
-						style={this.props.errors['user.email_confirmation'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
-						underlineColorAndroid='transparent' 
-						placeholder="Confirmar e-mail" 
-						keyboardType='email-address'
-						returnKeyType={'next'}
-						onBlur={() => this.props.verificarEmail()}
-						onChangeText={(value) => this.props.onChangeFieldUser(value,'email_confirmation')}
-					/>
-						
-				 
 
 					<TextInput 
 						style={this.props.errors['user.password'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
 						underlineColorAndroid='transparent' 
 						secureTextEntry={true} 
 						placeholder="Senha"
+						autoCapitalize='none'
 						returnKeyType={'next'}
 						onChangeText={(value) => this.props.onChangeFieldUser(value,'password')}
 					/>
@@ -78,6 +75,7 @@ export class DadosDeAcesso extends Component {
 						secureTextEntry={true} 
 						placeholder="Repetir senha"
 						returnKeyType={'next'}
+						autoCapitalize='none'
 						onBlur={() => this.props.verificarSenha()}
 						onChangeText={(value) => this.props.onChangeFieldUser(value,'password_confirmation')}
 					/>

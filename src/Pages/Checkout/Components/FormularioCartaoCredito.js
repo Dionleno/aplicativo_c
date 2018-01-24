@@ -55,6 +55,8 @@ export class FormularioCartaoCredito extends Component {
             style={styleInput.inputText}
             underlineColorAndroid='transparent'
             placeholder='Nome do titular do cartão'
+            autoCapitalize='words'
+            returnKeyType='next'
             onChangeText={value => this.props.cartaoTitular(value)}
             value={this.props.cartao.titular}
           />
@@ -71,6 +73,7 @@ export class FormularioCartaoCredito extends Component {
             underlineColorAndroid='transparent'
             keyboardType='numeric'
             maxLength={19}
+            returnKeyType='next'
             onChangeText={value => this.props.cartaoNumero(value)}
             value={this.props.cartao.numero}
           />
@@ -85,6 +88,7 @@ export class FormularioCartaoCredito extends Component {
               underlineColorAndroid='transparent'
               keyboardType='numeric'
               maxLength={3}
+              returnKeyType='next'
               onChangeText={value => this.props.cartaoCVV(value)}
               value={this.props.cartao.cvv}
             />
@@ -116,6 +120,7 @@ export class FormularioCartaoCredito extends Component {
             placeholder='Digite o valor a ser cobrado neste cartão'
             underlineColorAndroid='transparent'
             keyboardType='numeric'
+            returnKeyType='next'
             onBlur={() => this.props.verificarValorCartao()}
             onChangeText={value => this.props.cartaoTotal(value)}
             value={this.props.cartao.total}

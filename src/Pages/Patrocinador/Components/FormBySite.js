@@ -32,7 +32,8 @@ class PatrocionadorBySite extends Component {
 							ref='inputPatrocinador'
 							underlineColorAndroid='transparent' 
 							style={{backgroundColor: '#ffffff', paddingRight: 15, color: '#888888'}}
-							placeholder='link' 
+							placeholder='link'
+							autoCapitalize='none'
 							value={this.props.findtext} 
 							returnKeyType={'search'}
 							onBlur={() => this.props.BuscarPatrocinador()}

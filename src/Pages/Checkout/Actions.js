@@ -246,6 +246,11 @@ export const cadastrarCartao = (popupDialogCartao) => {
       dispatch({type: 'TOTAL_DIFF', payload: diff});
       dispatch({type: 'CARTAO_TOTAL', payload: diff});
       dispatch(calcularParcelas(diff));
+
+      dispatch({type: 'CARTAO_TITULAR', payload: ''});
+      dispatch({type: 'CARTAO_NUMERO', payload: ''});
+      dispatch({type: 'CARTAO_CVV', payload: ''});
+      dispatch({type: 'CARTAO_MES', payload: 1});
     })
     .catch(error => {
       Alert.alert('Atenção', 'Verifique os dados do seu cartão de crédito');

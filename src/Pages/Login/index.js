@@ -7,72 +7,79 @@
 import React, { Component } from 'react';
 
 /*REDUX*/
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import {handlerLogin,onChangeField} from './Actions' 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { handlerLogin, onChangeField } from './Actions';
 
 /*NATIVE E NATIVE BASE*/
-import { Alert ,ImageBackground,View,Dimensions,StyleSheet,TextInput} from 'react-native';
-import {Container, Content, Form, Item, Input, Button, Text, Label, Spinner } from 'native-base';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import styles from './Style'
-import HeaderExterno from '../../Static/HeaderExterno'
+import { ImageBackground, View, TextInput } from 'react-native';
+import { Container, Content, Item, Button, Text, Spinner } from 'native-base';
+import styles from './Style';
+import HeaderExterno from '../../Static/HeaderExterno';
 
- /*Helpers*/
+/*Helpers*/
 import IF from '../../Helpers/if'
 import StyleInput from '../../StyleSheet/Input';
 
 export class Login extends Component {
-    constructor(props) {
-     super(props);
-    } 
- 
+	
+	constructor(props) {
+		super(props);
+	} 
+
   render() {
 
     return (
-<Container style={{backgroundColor:'#FFFFFF'}}>
+			<Container style={{backgroundColor:'#FFFFFF'}}>
 			  <HeaderExterno item={this.props} title="Login" />
+				
 				<Content>
 					
-             <ImageBackground style={{backgroundColor:'#000000',height:100}}
-                     source={require('../../Images/banner2.jpg')}>
-               
-                <View  style={styles.ContainerView} >  
-                      <Text style={styles.TitleH1}>Acesse sua conta</Text> 
-                 </View>
-             
-             </ImageBackground>
+					<ImageBackground 
+						style={{backgroundColor:'#000000',height:100}}
+						source={require('../../Images/banner2.jpg')}>
+						
+						<View  style={styles.ContainerView} >  
+							<Text style={styles.TitleH1}>Acesse sua conta</Text> 
+						</View>
+					</ImageBackground>
 
-						<IF visible={this.props.loading}>
-								<Spinner color='#000000' />
-						</IF>
+					<IF visible={this.props.loading_login_app}>
+						<Spinner color='#000000' />
+					</IF>
  
 					<View style={{padding:20,backgroundColor:'#FFFFFF'}}>
 
 					  <Item style={[StyleInput.boxinput,{marginBottom:10, backgroundColor:'#f1f1f1'}]}> 
-							<TextInput underlineColorAndroid='transparent'  
-							           style={StyleInput.inputText} 
-							           placeholder='Login' 
-							           value={this.props.form.login} 
-							           onChangeText={(value) => this.props.onChangeField(value,'login')}/>
+							<TextInput 
+								underlineColorAndroid='transparent'  
+								style={StyleInput.inputText} 
+								placeholder='Login' 
+								autoCapitalize='none'
+								returnKeyType='next'
+								value={this.props.form.login} 
+								onChangeText={(value) => this.props.onChangeField(value,'login')}
+							/>
 						</Item>
 
             <Item style={[StyleInput.boxinput,{marginBottom:10, backgroundColor:'#f1f1f1'}]}> 
-							<TextInput underlineColorAndroid='transparent'  
-							           style={StyleInput.inputText} 
-							           placeholder='Senha' 
-							           secureTextEntry={true} 
-							           value={this.props.form.senha} 
-							           onChangeText={(value) => this.props.onChangeField(value,'senha')}/>
+							<TextInput 
+								underlineColorAndroid='transparent'  
+								style={StyleInput.inputText} 
+								placeholder='Senha' 
+								autoCapitalize='none'
+								secureTextEntry={true} 
+								value={this.props.form.senha}
+								onChangeText={(value) => this.props.onChangeField(value,'senha')}
+							/>
 						</Item>
  
-	            		<Button block style={[styles.btnPrimary,{marginTop:20}]} onPress={() => {this.props.handlerLogin(this.props)}}>
-	            			<Text>Entrar</Text>
-	            		</Button>
-		     </View>
+						<Button block style={[styles.btnPrimary,{marginTop:20}]} onPress={() => {this.props.handlerLogin(this.props)}}>
+							<Text>Entrar</Text>
+						</Button>
+		     	</View>
 				</Content>
 			</Container>
-
     )
   }
 }
