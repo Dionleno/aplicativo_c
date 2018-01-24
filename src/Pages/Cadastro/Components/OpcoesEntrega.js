@@ -40,7 +40,7 @@ export class OpcoesEntrega extends Component {
 			<View>
 				<Row style={styles.title} >
 					<Text style={styles.titleText}>Opções de entrega</Text>
-					<Icon style={styles.titleIconArrowDown} name='keyboard-arrow-down' />
+				 
 				</Row>
 
 				<ListItem style={{backgroundColor:'transparent',paddingLeft:0}} onPress={() => this.props.onChangeField(!this.props.shipping_method,'shipping_method') }>

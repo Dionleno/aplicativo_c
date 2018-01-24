@@ -25,7 +25,7 @@ export class DadosDeAcesso extends Component {
  			<View>
 	 			<Row style={styles.title} >
 		 			<Text style={styles.titleText}>Dados de acesso</Text>
-		 			<Icon style={styles.titleIconArrowDown} name='keyboard-arrow-down' />
+		 	 
 	 			</Row>
 
 				<View style={{paddingRight:15,paddingLeft:15,paddingVertical:10}}>
@@ -48,21 +48,13 @@ export class DadosDeAcesso extends Component {
 						placeholder="E-mail"
 						keyboardType='email-address'
 						returnKeyType={'next'}
-						onChangeText={(value) => this.props.onChangeFieldUser(value, 'email')}
+						onChangeText={(value) => {
+														          this.props.onChangeFieldUser(value, 'email')
+							                        this.props.onChangeFieldUser(value, 'email_confirmation')
+														           }
+							           }
 					/>
-			 			
-					<TextInput 
-						style={this.props.errors['user.email_confirmation'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
-						underlineColorAndroid='transparent' 
-						placeholder="Confirmar e-mail" 
-						keyboardType='email-address'
-						returnKeyType={'next'}
-						onBlur={() => this.props.verificarEmail()}
-						onChangeText={(value) => this.props.onChangeFieldUser(value,'email_confirmation')}
-					/>
-						
-				 
-
+			 			 
 					<TextInput 
 						style={this.props.errors['user.password'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
 						underlineColorAndroid='transparent' 

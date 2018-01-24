@@ -37,7 +37,7 @@ class DadosContato extends Component {
       <View>
 	 			<Row style={styles.title} >
 		 			<Text style={styles.titleText}>Dados para contato</Text>
-		 			<Icon style={styles.titleIconArrowDown} name='keyboard-arrow-down' />
+		 	 
 	 			</Row>
 
         <View style={{ paddingBottom:20 }}>

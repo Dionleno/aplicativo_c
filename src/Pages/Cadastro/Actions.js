@@ -5,7 +5,7 @@ import {RequestPostAuth,ApiStatusCode,RequestGetAuth,RequestGet,RequestPost,doLo
 
 export const cadastrarContato = popupDialogContato => {
 	return (dispatch, getState) => {
-		const {phone_number, phone_types, phone_companies} = getState().cadastro;
+		const {phone_number, phone_types, phone_companies,whatsappset} = getState().cadastro;
 		
 		if(!phone_number){
 			Alert.alert('Atenção', 'Digite o número do telefone');
@@ -39,7 +39,7 @@ export const cadastrarContato = popupDialogContato => {
 					telephone_company_id: phone_companies.selected, 
 					telephone_type_id: phone_types.selected,
 					phone_type_label,
-					whatsapp: 0
+					whatsapp: whatsappset ? 1 : 0
 				}
 			}
 		);

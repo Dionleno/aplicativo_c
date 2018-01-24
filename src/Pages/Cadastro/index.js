@@ -72,7 +72,7 @@ export class Cadastro extends Component{
           ref={(popupDialogContato) => { this.popupDialogContato = popupDialogContato }}
           animationDuration={500}
           width={0.9}
-          height={0.55}
+          height={0.60}
           containerStyle={{ zIndex: 10, elevation: 10}}
           actions={[
             <View key={0} style={{paddingVertical: 15, paddingHorizontal: 15}}>
