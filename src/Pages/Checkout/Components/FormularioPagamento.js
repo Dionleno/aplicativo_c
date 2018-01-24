@@ -130,7 +130,6 @@ export class FormularioPagamento extends Component {
 			<View>
 				<Row style={styles.title} >
 					<Text style={styles.titleText}>Pagamento</Text>
-					<Icon style={styles.titleIconArrowDown} name='keyboard-arrow-down' />
 				</Row>
 
 				<View style={styles.viewRadioBorder}>

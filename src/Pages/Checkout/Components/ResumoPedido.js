@@ -40,7 +40,6 @@ class ResumoPedido extends Component {
       <View>
         <Row style={styles.title} >
           <Text style={styles.titleText}>Resumo do pedido</Text>
-          <Icon style={styles.titleIconArrowDown} name='keyboard-arrow-down' />
         </Row>
     
         <View style={styles.resumo}>

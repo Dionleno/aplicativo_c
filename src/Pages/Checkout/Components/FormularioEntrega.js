@@ -132,7 +132,6 @@ export class FormularioEntrega extends Component {
         <View>
           <Row style={styles.title} >
             <Text style={styles.titleText}>Endereço de entrega</Text>
-            <Icon style={styles.titleIconArrowDown} name='keyboard-arrow-down' />
           </Row>
         </View>
         
@@ -148,7 +147,6 @@ export class FormularioEntrega extends Component {
         <View>
           <Row style={styles.title} >
             <Text style={styles.titleText}>Forma de entrega</Text>
-            <Icon style={styles.titleIconArrowDown} name='keyboard-arrow-down' />
           </Row>
         </View>
 
