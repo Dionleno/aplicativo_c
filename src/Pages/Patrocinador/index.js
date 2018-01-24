@@ -4,22 +4,21 @@
 import React, { Component } from 'react';
 
 /*REDUX*/
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import {BuscarPatrocinador,onSelectedTypeSearch,onChangeField,requestCupom,} from './Actions'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import { Platform , Alert, Content ,ScrollView ,FlatList,TouchableOpacity,TextInput,AsyncStorage } from 'react-native';
-import { View,Text ,Container, Form , Item,H3, Right,Radio,Input, Label,Button,Grid,Col ,Spinner,List,ListItem,Left,Thumbnail,Body} from 'native-base';
-import Icon from 'react-native-vector-icons/MaterialIcons'
-import HeaderExterno from '../../Static/HeaderExterno'
+import { ScrollView, FlatList } from 'react-native';
+import { View, Text, H3, Button, Grid, Col, Spinner, List} from 'native-base';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import HeaderExterno from '../../Static/HeaderExterno';
 
 /*Componentes*/
-import IF from '../../Helpers/if'
-import PatrocionadorBySite from './Components/FormBySite'
-import PatrocionadorByCep from './Components/FormByCep'  
+import IF from '../../Helpers/if';
+import PatrocionadorBySite from './Components/FormBySite';
+import PatrocionadorByCep from './Components/FormByCep'; 
 
-import ListPatrocinador from './Components/Lists'  
-import stylesButtons,{verdeClaro,verdeInativo} from '../../StyleSheet/Buttons';
+import ListPatrocinador from './Components/Lists';
+import stylesButtons, {verdeClaro, verdeInativo} from '../../StyleSheet/Buttons';
 
 export class Patrocionador extends Component{
 	constructor(props) {
@@ -92,6 +91,6 @@ export class Patrocionador extends Component{
 	}
 }
 
-const mapStateToProps = state => (state.patrocionador)
-const mapDispatchToProps = dispatch => bindActionCreators({BuscarPatrocinador,onSelectedTypeSearch,onChangeField,requestCupom},dispatch)
+const mapStateToProps = state => (state.patrocionador);
+const mapDispatchToProps = dispatch => bindActionCreators({},dispatch)
 export default connect(mapStateToProps,mapDispatchToProps)(Patrocionador)

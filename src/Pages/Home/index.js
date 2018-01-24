@@ -11,8 +11,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 /*NATIVE E NATIVE BASE*/
-import { Platform, View, Image, Dimensions, Content, ImageBackground, StyleSheet, NetInfo} from 'react-native';
-import { StyleProvider, Container, Button,Text,Header} from 'native-base';
+import { View, Image, Dimensions, ImageBackground, StyleSheet} from 'react-native';
+import { Container, Button, Text} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './Style'
 
