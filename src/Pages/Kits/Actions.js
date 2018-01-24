@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
-import { Platform, AsyncStorage,Alert } from 'react-native';
+import { AsyncStorage, Alert } from 'react-native';
+import { RequestPostAuth, RequestGet } from '../../Helpers/Http';
+import {
+	CHANGE_FIELD_KIT,
+	CHANGE_FIELD_KIT_OBJECT
+} from '../../Types';
 
-import {RequestPostAuth,ApiStatusCode,RequestGetAuth,RequestGet,RequestPost,doLogin} from '../../Helpers/Http' 
-
- export const changeitem = (_item,_value) => ({
-		 type:'CHANGE_FIELD',
-		 objectItem: _item,
-		 payload: _value
+export const changeitem = (_item,_value) => ({
+	type: CHANGE_FIELD_KIT,
+	objectItem: _item,
+	payload: _value
 })
 
 export const fetchGetKit = async() => {
@@ -17,7 +19,7 @@ export const fetchGetKit = async() => {
 						      .then(resp => resp.json())
 						      .then(resp => {
 						      	console.log(resp)
-						         	dispatch({ type:'CHANGE_FIELD',objectItem: 'kits', payload: resp.data})
+						         	dispatch({ type: CHANGE_FIELD_KIT,objectItem: 'kits', payload: resp.data})
 				            })
 
 						}
@@ -83,7 +85,7 @@ export const addProduto = async(kitID, _props) => {
 }
 
 export const onChangeFieldKit = (_value) => ({
-		 type:'CHANGE_FIELD_KIT',
+		 type: CHANGE_FIELD_KIT,
 		 payload: _value	 
 })
  

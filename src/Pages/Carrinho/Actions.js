@@ -1,16 +1,21 @@
 /**
  * Actions redux da tela de carrinho
  */
-import React from 'react';
-import { AsyncStorage, Alert } from 'react-native';
-import { USER_INFO } from '../../Helpers/Constants';
+
+import { Alert } from 'react-native';
 import { RequestAuth } from '../../Helpers/Http';
+import {
+  CARREGAR_CARRINHO,
+  CHECK_ITEM,
+  LOAD_CARRINHO,
+  INFORMACAO_CARRINHO
+} from '../../Types';
 
 export const carregarCarrinho = () => {
   return (dispatch, getState) => {
     
     dispatch(loadCarrinho(true));
-    dispatch({ type: 'CARREGAR_CARRINHO', payload: [] });
+    dispatch({ type: CARREGAR_CARRINHO, payload: [] });
     dispatch(informacao(''));
 
     RequestAuth('carts', 'GET')
@@ -23,7 +28,7 @@ export const carregarCarrinho = () => {
         }
 
         try {
-          dispatch({ type: 'CARREGAR_CARRINHO', payload: response.data.products });
+          dispatch({ type: CARREGAR_CARRINHO, payload: response.data.products });
         } catch (e) {
 
         }
@@ -39,14 +44,14 @@ export const carregarCarrinho = () => {
 
 export const informacao = value => {
   return {
-    type: 'INFORMACAO',
+    type: INFORMACAO_CARRINHO,
     payload: value
   }
 }
 
 export const loadCarrinho = value => {
   return {
-    type: 'LOAD_CARRINHO',
+    type: LOAD_CARRINHO,
     payload: value
   }
 }
@@ -62,7 +67,7 @@ export const check = (value, checked) => {
   }
   
   return {
-    type: 'CHECK_ITEM',
+    type: CHECK_ITEM,
     payload: n
   }
 }
@@ -86,8 +91,8 @@ export const excluir = () => {
                   RequestAuth('carts/' + idProdutoCarrinho, 'DELETE')
                     .then(response => response.json())
                     .then(response => {
-                      dispatch({ type: 'CARREGAR_CARRINHO', payload: response.data.products });
-                      dispatch({ type: 'CHECK_ITEM', payload: [] });
+                      dispatch({ type: CARREGAR_CARRINHO, payload: response.data.products });
+                      dispatch({ type: CHECK_ITEM, payload: [] });
                     })
                     .catch(error => console.log(error));
                 });
@@ -103,6 +108,6 @@ export const excluir = () => {
   }
 }
 
-export const reset = () => {
+/* export const reset = () => {
 
-}
+} */

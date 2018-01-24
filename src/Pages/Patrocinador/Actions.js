@@ -1,14 +1,17 @@
-import React, { Component } from 'react';
-import { Platform, AsyncStorage,Alert } from 'react-native';
+import { AsyncStorage, Alert } from 'react-native';
+import { RequestGet } from '../../Helpers/Http';
+import {
+	SET_PATROCINADORES,
+	CHANGE_FIELD_PATROCINADOR,
+	CHANGE_LOADING_PATROCINADOR
+} from '../../Types';
 
-import {RequestPostAuth,ApiStatusCode,RequestGetAuth,RequestGet} from '../../Helpers/Http' 
-
- export const changeLoading = (_value) => ({
-		 type:'CHANGE_LOADING',
-		 payload: _value
+export const changeLoading = (_value) => ({
+	type: CHANGE_LOADING_PATROCINADOR,
+	payload: _value
 })
 
- export const BuscarPatrocinador = () => {
+export const BuscarPatrocinador = () => {
   
 	return (dispatch, getState) => {
 		const { patrocionador } = getState();
@@ -20,7 +23,7 @@ import {RequestPostAuth,ApiStatusCode,RequestGetAuth,RequestGet} from '../../Hel
 			.then(resp => resp.json())
 			.then(resp => {
 				if(resp.data){
-					dispatch({ type:'SET_PATROCINADORES',  payload: resp.data });
+					dispatch({ type: SET_PATROCINADORES,  payload: resp.data });
 				}
 
 				if(resp.error){
@@ -50,7 +53,7 @@ export const BuscarPatrocinadorCep = () => {
 					return false;
 				}
 				
-				dispatch({ type:'SET_PATROCINADORES',  payload: resp.data, });
+				dispatch({ type: SET_PATROCINADORES,  payload: resp.data, });
 			})
 			.catch((error) => console.log(error));
 		}
@@ -58,20 +61,20 @@ export const BuscarPatrocinadorCep = () => {
 }
 
 export const onSelectedPatrocinador = async(_user,_props) => {
-	 await AsyncStorage.setItem('@UIPatrocinador',  JSON.stringify(_user))
+		await AsyncStorage.setItem('@UIPatrocinador',  JSON.stringify(_user))
 		return dispatch => {
-		      	_props.navigation.navigate('Cadastro')
+		  _props.navigation.navigate('Cadastro')
 		}     
 }
  
 export const onSelectedTypeSearch = (_value) => ({
-		 type:'CHANGE_FIELD',
+		 type: CHANGE_FIELD_PATROCINADOR,
 		 payload: _value,
 		 objectItem:'typeForm'
 })
 
 export const onChangeField = (_value,_obj) => ({
-		 type:'CHANGE_FIELD',
+		 type: CHANGE_FIELD_PATROCINADOR,
 		 payload: _value,
 		 objectItem: _obj
 })

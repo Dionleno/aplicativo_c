@@ -1,18 +1,17 @@
-import React, { Component } from 'react';
-import { Platform, AsyncStorage,Alert,Dimensions ,Animated} from 'react-native';
-
-import {RequestPostAuth,ApiStatusCode,RequestGetAuth,RequestGet,RequestPost,URL_API} from '../../Helpers/Http' 
-
- export const changeLoading = (_value) => ({
-		 type:'CHANGE_LOADING',
-		 payload: _value
-})
-
+import { Alert, Dimensions, Animated} from 'react-native';
+import { RequestPostAuth, RequestGetAuth, RequestGet } from '../../Helpers/Http';
+import {
+	LISTS_PRODUCTO,
+	CHANGE_FIELD_PRODUTO,
+	STATE_DEFAULT,
+	STATE_SEARCH,
+	CHANGE_FIELD_DETAILS
+} from '../../Types';
 
 export const changeItem = (_object, _value) => ({
-		 type:'CHANGE_FIELD_PRODUTO',
-		 objectItem: _object,
-		 payload: _value
+	type: CHANGE_FIELD_PRODUTO,
+	objectItem: _object,
+	payload: _value
 })
 
 export const listarProdutosCategoria = () => {
@@ -31,7 +30,7 @@ export const listarProdutosCategoria = () => {
        console.log(URL)
 
 	   	if(!state.loading){
-      	dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'loading', payload: true })
+      	dispatch({ type: CHANGE_FIELD_PRODUTO, objectItem: 'loading', payload: true })
        }
 	  
 	   	 /*
@@ -41,10 +40,10 @@ export const listarProdutosCategoria = () => {
 		  .then(resp => resp.json())
 		  .then(resp => {
          console.log(resp)
-			    dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'lastPage', payload: resp.meta.last_page })
+			    dispatch({ type: CHANGE_FIELD_PRODUTO, objectItem: 'lastPage', payload: resp.meta.last_page })
 	        const stateUpdated = getState().produto;   
 	        
-	        dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'showButtonLoading', payload: true })
+	        dispatch({ type: CHANGE_FIELD_PRODUTO, objectItem: 'showButtonLoading', payload: true })
 	        if(stateUpdated.actualPage <= stateUpdated.lastPage){
 	          let nextPage = stateUpdated.actualPage + 1;
 	          
@@ -53,16 +52,16 @@ export const listarProdutosCategoria = () => {
 	          var novos = a.concat(resp.data)
 
             console.log(novos)
-	          dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'produtos', payload: novos })
-	          dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'actualPage', payload: nextPage })
+	          dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'produtos', payload: novos })
+	          dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'actualPage', payload: nextPage })
 	        
 	         }else{
 
 	           console.log('fim')
-	           dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'showButtonLoading', payload: false })
+	           dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'showButtonLoading', payload: false })
 	            
 	        }
-             dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'loading', payload: false })
+             dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'loading', payload: false })
           
 	      
 		  })
@@ -80,7 +79,7 @@ export const listarProdutos = () => {
        console.log(URL)
 
 	   	if(!state.loading){
-      	dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'loading', payload: true })
+      	dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'loading', payload: true })
        }
 	   
 	   	 /*
@@ -90,10 +89,10 @@ export const listarProdutos = () => {
 		  .then(resp => resp.json())
 		  .then(resp => {
          
-			    dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'lastPage', payload: resp.meta.last_page })
+			    dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'lastPage', payload: resp.meta.last_page })
 	        const stateUpdated = getState().produto;   
 	         
-	         	dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'showButtonLoading', payload: true })
+	         	dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'showButtonLoading', payload: true })
 	        if(stateUpdated.actualPage <= stateUpdated.lastPage){
 	          let nextPage = stateUpdated.actualPage + 1;
 	          
@@ -102,16 +101,16 @@ export const listarProdutos = () => {
 	          var novos = a.concat(resp.data)
 
             console.log(novos)
-	          dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'produtos', payload: novos })
-	          dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'actualPage', payload: nextPage })
+	          dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'produtos', payload: novos })
+	          dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'actualPage', payload: nextPage })
 	        
 	         }else{
 
 	           console.log('fim')
-	           dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'showButtonLoading', payload: false })
+	           dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'showButtonLoading', payload: false })
 	            
 	        }
-             dispatch({ type:'CHANGE_FIELD_PRODUTO',objectItem: 'loading', payload: false })
+             dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'loading', payload: false })
           
 	      
 		  })
@@ -139,11 +138,11 @@ export const listarProdutos = () => {
   }
 
 
- export const _onClosedInputSearch = (_props) => { 
+export const _onClosedInputSearch = (_props) => { 
 
 	  return dispatch => 
 		 {
-        dispatch({ type:'STATE_DEFAULT' })
+        dispatch({ type: STATE_DEFAULT })
         _props.listarProdutos()
      } 
   } 
@@ -153,7 +152,7 @@ export const searchRequestItem = async(_props) => {
    return dispatch => 
 		 {   
  
-          dispatch({ type:'STATE_SEARCH' })
+          dispatch({ type: STATE_SEARCH })
         
            setTimeout(() => {
            	     _props.listarProdutos()
@@ -170,19 +169,19 @@ export const searchRequestItem = async(_props) => {
         
   	return dispatch => 
 		 {
-		  	dispatch({ type:'CHANGE_FIELD_DETAILS',objectItem: 'quantidade', payload: 1 })
-		 	  dispatch({ type:'CHANGE_FIELD_DETAILS',objectItem: 'imagemDestaque', payload: produtoFirst.medias[0].url })
-		 	  dispatch({ type:'CHANGE_FIELD_DETAILS',objectItem: 'code', payload: produtoFirst.code })
-		 	  dispatch({ type:'CHANGE_FIELD_DETAILS',objectItem: 'idDetails', payload: produtoFirst.id })
+		  	dispatch({ type: CHANGE_FIELD_DETAILS, objectItem: 'quantidade', payload: 1 })
+		 	  dispatch({ type: CHANGE_FIELD_DETAILS, objectItem: 'imagemDestaque', payload: produtoFirst.medias[0].url })
+		 	  dispatch({ type: CHANGE_FIELD_DETAILS, objectItem: 'code', payload: produtoFirst.code })
+		 	  dispatch({ type: CHANGE_FIELD_DETAILS, objectItem: 'idDetails', payload: produtoFirst.id })
     }
   }
 
   export const onchangeitem = (_item) =>{
   	return dispatch => 
 		 {
-		   	dispatch({ type:'CHANGE_FIELD_DETAILS',objectItem: 'imagemDestaque', payload: _item.medias[0].url })
-		 	  dispatch({ type:'CHANGE_FIELD_DETAILS',objectItem: 'code', payload: _item.code })
-		 	  dispatch({ type:'CHANGE_FIELD_DETAILS',objectItem: 'idDetails', payload: _item.id })
+		   	dispatch({ type: CHANGE_FIELD_DETAILS, objectItem: 'imagemDestaque', payload: _item.medias[0].url })
+		 	  dispatch({ type: CHANGE_FIELD_DETAILS, objectItem: 'code', payload: _item.code })
+		 	  dispatch({ type: CHANGE_FIELD_DETAILS, objectItem: 'idDetails', payload: _item.id })
 		 }
 	}
 
@@ -190,7 +189,7 @@ export const searchRequestItem = async(_props) => {
     return (dispatch,getState) => 
 		 {
 		 	  const state = getState().produto;
-        dispatch({ type:'CHANGE_FIELD_DETAILS',objectItem: 'quantidade', payload: state.details.quantidade + 1 })
+        dispatch({ type: CHANGE_FIELD_DETAILS,objectItem: 'quantidade', payload: state.details.quantidade + 1 })
 		 }
 	}
 
@@ -198,7 +197,7 @@ export const searchRequestItem = async(_props) => {
   	 return (dispatch,getState) => 
 		 {
 		 	  const state = getState().produto;
-        dispatch({ type:'CHANGE_FIELD_DETAILS',objectItem: 'quantidade', payload: state.details.quantidade > 1 ? state.details.quantidade - 1 : 1 })
+        dispatch({ type: CHANGE_FIELD_DETAILS,objectItem: 'quantidade', payload: state.details.quantidade > 1 ? state.details.quantidade - 1 : 1 })
 		 }
   }
 
@@ -212,7 +211,7 @@ export const searchRequestItem = async(_props) => {
 	        amount: state.details.quantidade
 	      };
      
-	      RequestPostAuth('carts/products',data)
+	      RequestPostAuth('carts/products', data)
 	      .then(resp => resp.json())
 		    .then(resp => {
 		    	console.log(resp)

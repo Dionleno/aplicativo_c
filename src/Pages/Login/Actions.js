@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import { Platform, AsyncStorage, Alert } from 'react-native';
-
-import { RequestPostAuth, ApiStatusCode, RequestGetAuth, RequestGet, RequestPost } from '../../Helpers/Http';
+import {  AsyncStorage, Alert } from 'react-native';
+import { RequestPostAuth, RequestGetAuth } from '../../Helpers/Http';
 import { LOGIN, USER_INFO, USER_TOKEN } from '../../Helpers/Constants';
-import {_navigateTo} from '../../Helpers/Http'
-
+import { _navigateTo } from '../../Helpers/Http'
+import {
+	CHANGE_LOADING_LOGIN,
+	CHANGE_FIELD_LOGIN
+} from '../../Types';
 
 export const changeLoading = (_value) => ({
-	type:'CHANGE_LOADING',
+	type: CHANGE_LOADING_LOGIN,
 	payload: _value
 })
 
@@ -45,7 +46,7 @@ export const handlerLogin = async(_props) =>{
 					Alert.alert('Atenção', 'Login ou senha inválido');
 					return false;
 				}else if(resp.access_token == undefined){
-           Alert.alert('Atenção', 'Erro ao realizar o login, tente novamente!');
+          Alert.alert('Atenção', 'Erro ao realizar o login, tente novamente!');
 				 	return false;
 				}else{
 					let auth = {
@@ -53,7 +54,6 @@ export const handlerLogin = async(_props) =>{
 						access_token: resp.access_token
 					};
 
-					console.log(auth)
 					AsyncStorage.setItem(USER_TOKEN, resp.access_token)
 
 					return resp;
@@ -89,7 +89,7 @@ export const setUserCurrent = async(_props) => {
 }
 
 export const onChangeField = (_value,_obj) => ({
-	type:'CHANGE_FIELD',
+	type: CHANGE_FIELD_LOGIN,
 	payload: _value,
 	objectItem: _obj
 })

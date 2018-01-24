@@ -1,11 +1,25 @@
-import React, { Component } from 'react';
-import { Platform, AsyncStorage,Alert } from 'react-native';
-
-import {RequestPostAuth,ApiStatusCode,RequestGetAuth,RequestGet,RequestPost,doLogin} from '../../Helpers/Http' 
+import { AsyncStorage,Alert } from 'react-native';
+import { RequestGet, RequestPost, doLogin} from '../../Helpers/Http';
+import {
+	CHANGE_FIELD,
+	CHANGE_FIELD_ADDRESS,
+	CHANGE_FIELD_USER,
+	SET_FIELD_PHONE,
+	CHANGE_FIELD_PHONE,
+	CHANGE_LOADING,
+	SPINNER_OVERLAY,
+	DATA_PHONE_COMPANY,
+	DATA_PHONE_TYPES,
+	CHANGE_PHONE_NUMBER,
+	CHANGE_PHONE_COMPANY,
+	CHANGE_PHONE_TYPE,
+	CHANGE_PHONE_TYPE_LABEL,
+	ADD_PHONE
+} from '../../Types';
 
 export const cadastrarContato = popupDialogContato => {
 	return (dispatch, getState) => {
-		const {phone_number, phone_types, phone_companies,whatsappset} = getState().cadastro;
+		const {phone_number, phone_types, phone_companies, whatsappset} = getState().cadastro;
 		
 		if(!phone_number){
 			Alert.alert('Atenção', 'Digite o número do telefone');
@@ -33,7 +47,7 @@ export const cadastrarContato = popupDialogContato => {
 
 		dispatch(
 			{
-				type: 'ADD_PHONE', 
+				type: ADD_PHONE, 
 				payload: {
 					telephone: phone_number, 
 					telephone_company_id: phone_companies.selected, 
@@ -44,10 +58,10 @@ export const cadastrarContato = popupDialogContato => {
 			}
 		);
 
-		dispatch({type: 'CHANGE_PHONE_NUMBER', payload: ''});
-		dispatch({type: 'CHANGE_PHONE_COMPANY', payload: ''});
-		dispatch({type: 'CHANGE_PHONE_TYPE', payload: ''});
-		dispatch({type: 'CHANGE_PHONE_TYPE_LABEL', payload: ''});
+		dispatch({type: CHANGE_PHONE_NUMBER, payload: ''});
+		dispatch({type: CHANGE_PHONE_COMPANY, payload: ''});
+		dispatch({type: CHANGE_PHONE_TYPE, payload: ''});
+		dispatch({type: CHANGE_PHONE_TYPE_LABEL, payload: ''});
 
 		popupDialogContato.dismiss();
 	}
@@ -55,48 +69,38 @@ export const cadastrarContato = popupDialogContato => {
 
 export const changePhoneNumber = value => {
 	return {
-		type: 'CHANGE_PHONE_NUMBER',
+		type: CHANGE_PHONE_NUMBER,
 		payload: value
 	};
 }
 
-export const SetFieldPhone = value =>{
-    
-    
-
- 
-return (dispatch,getState) => 
-	   { 
-       
-       Alert.alert(
-	          null,
-	          'Deseja deletar esse contato?',
-	          [
-	            {text: 'Cancelar', onPress: () => {return false} , style: 'cancel'},
-	            {text: 'Confirmar', onPress: async() =>{ 
-                    dispatch({type: 'SET_FIELD_PHONE', payload: value})
-               }},
-	          ],
-	          { cancelable: false }
-	        )
-		     
-
-		   	  
-
-
+export const SetFieldPhone = value => {
+	return (dispatch, getState) => { 
+		Alert.alert(
+			null,
+			'Deseja deletar esse contato?',
+			[
+				{text: 'Cancelar', onPress: () => {return false} , style: 'cancel'},
+				{text: 'Confirmar', onPress: async() => { 
+						dispatch({type: SET_FIELD_PHONE, payload: value})
+					}
+				},
+			],
+			{ cancelable: false }
+		)
 	};
 }
 
 export const changePhoneCompany = value => {
 	return {
-		type: 'CHANGE_PHONE_COMPANY',
+		type: CHANGE_PHONE_COMPANY,
 		payload: value
 	};
 }
 
 export const changePhoneType = value => {
 	return {
-		type: 'CHANGE_PHONE_TYPE',
+		type: CHANGE_PHONE_TYPE,
 		payload: value
 	};
 }
@@ -104,30 +108,30 @@ export const changePhoneType = value => {
 export const loadPhoneCompanies = () => {
 	return dispatch => {
 		RequestGet('general/phone_companies')
-    .then(response => response.json())
-    .then(response => dispatch({type: 'DATA_PHONE_COMPANY', payload: response.data}))
-    .catch(error => console.log(error));
+			.then(response => response.json())
+			.then(response => dispatch({type: DATA_PHONE_COMPANY, payload: response.data}))
+			.catch(error => console.log(error));
 	}
 };
 
 export const loadPhoneTypes = () => {
 	return dispatch => {
 		RequestGet('general/phone_types')
-    .then(response => response.json())
-    .then(response => dispatch({type: 'DATA_PHONE_TYPES', payload: response.data}))
-    .catch(error => console.log(error));
+			.then(response => response.json())
+			.then(response => dispatch({type: DATA_PHONE_TYPES, payload: response.data}))
+			.catch(error => console.log(error));
 	}
 }
 
 export const spinnerOverlay = value => {
 	return {
-		type: 'SPINNER_OVERLAY',
+		type: SPINNER_OVERLAY,
 		payload: value
 	};
 };
 
 export const changeLoading = (_value) => ({
-	type:'CHANGE_LOADING',
+	type: CHANGE_LOADING,
 	payload: _value
 });
 
@@ -153,9 +157,9 @@ export const verificarSenha = () => {
 export const phoneCompanies = () => {
 	return dispatch => {
 		RequestGet('general/phone_types')
-    .then(response => response.json())
-    .then(response => dispatch(onChangeField(response.data, 'phone_types')))
-    .catch(error => console.log(error));
+			.then(response => response.json())
+			.then(response => dispatch(onChangeField(response.data, 'phone_types')))
+			.catch(error => console.log(error));
 	}
 };
 
@@ -170,7 +174,7 @@ export const setPatrocinador = () => {
 	}
 }
 
-export const handlerSubmit = async(_props) =>{
+export const handlerSubmit = async(_props) => {
 	  
   return dispatch => {
     /*
@@ -201,7 +205,7 @@ export const handlerSubmit = async(_props) =>{
 			//Verificar se retornou algum erro
 			if(resp.errors){
 				console.log(resp.errors)
-				dispatch({ type:'CHANGE_FIELD',objectItem: 'errors', payload: resp.errors })
+				dispatch({ type:CHANGE_FIELD, objectItem: 'errors', payload: resp.errors })
 				dispatch(spinnerOverlay(false));
 				Alert.alert('Erro ao validar formulário', 'Verifique os campos e tente novamente');
 			}else{
@@ -237,14 +241,14 @@ export const onGetAddressByCep = async(cep) => {
 
 			dispatch(spinnerOverlay(true));
 			
-			RequestGet('/general/zip/'+cep)
+			RequestGet(`general/zip/${cep}`)
 			.then(resp => resp.json())
 			.then(resp => {
 				try{
-					dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'street', payload: resp.data.data.logradouro });
-					dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'district', payload: resp.data.data.bairro });
-					dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'complement', payload: resp.data.data.complemento });
-					dispatch({ type:'CHANGE_FIELD_ADDRESS',objectItem: 'city_id', payload: resp.data.city.id });
+					dispatch({ type: CHANGE_FIELD_ADDRESS, objectItem: 'street', payload: resp.data.data.logradouro });
+					dispatch({ type: CHANGE_FIELD_ADDRESS, objectItem: 'district', payload: resp.data.data.bairro });
+					dispatch({ type: CHANGE_FIELD_ADDRESS, objectItem: 'complement', payload: resp.data.data.complemento });
+					dispatch({ type: CHANGE_FIELD_ADDRESS, objectItem: 'city_id', payload: resp.data.city.id });
 					dispatch(changeStateBindCity(resp.data.city.state.id, 0));
 				}catch(e){
 					Alert.alert('Atenção', 'Não foi possível buscar o endereço através deste CEP');
@@ -258,16 +262,16 @@ export const onGetAddressByCep = async(cep) => {
 
 export const onselectStateDistribution = item => {
 	return dispatch => {
-		dispatch({ type:'CHANGE_FIELD', objectItem: 'centers_state_id', payload: item });
-		dispatch({ type:'CHANGE_FIELD', objectItem: 'centers', payload: [] });
+		dispatch({ type: CHANGE_FIELD, objectItem: 'centers_state_id', payload: item });
+		dispatch({ type: CHANGE_FIELD, objectItem: 'centers', payload: [] });
 
 		if(item != ''){
 			dispatch(spinnerOverlay(true));
 			
-			RequestGet('/general/distribution_centers/'+item)
+			RequestGet(`general/distribution_centers/${item}`)
 			.then(resp => resp.json())
 			.then(resp => {
-				dispatch({ type:'CHANGE_FIELD', objectItem: 'centers', payload: resp.data });
+				dispatch({ type: CHANGE_FIELD, objectItem: 'centers', payload: resp.data });
 				dispatch(spinnerOverlay(false));
 			})
 			.catch((error) => {
@@ -280,12 +284,19 @@ export const onselectStateDistribution = item => {
 
 export const changeStateBindCity = (itemValue, itemIndex) => {
   if(itemValue != '' && itemValue > 0) {
-   	return dispatch => {
-			RequestGet('general/'+itemValue+'/cities')
+
+   	return (dispatch, getState) => {
+			const {cadastro} = getState();
+			
+			if(!cadastro.overlay){
+				dispatch(spinnerOverlay(true));
+			}
+
+			RequestGet(`general/${itemValue}/cities`)
 			.then(resp => resp.json())
 			.then(resp => {
-				dispatch({ type:'CHANGE_FIELD', objectItem: 'cities', payload: resp.data });
-				dispatch({ type:'CHANGE_FIELD_ADDRESS', objectItem: 'state_id', payload: itemValue });
+				dispatch({ type: CHANGE_FIELD , objectItem: 'cities', payload: resp.data });
+				dispatch({ type: CHANGE_FIELD_ADDRESS, objectItem: 'state_id', payload: itemValue });
 				dispatch(spinnerOverlay(false));
 			})
 			.catch((error) => console.log(error));
@@ -294,33 +305,32 @@ export const changeStateBindCity = (itemValue, itemIndex) => {
 }
 
 export const onChangeField = (_value,_obj) => ({
-		 type:'CHANGE_FIELD',
-		 payload: _value,
-		 objectItem: _obj
+	type: CHANGE_FIELD,
+	payload: _value,
+	objectItem: _obj
 })
 
 export const onChangeFieldUser = (_value,_obj) => ({
-		 type:'CHANGE_FIELD_USER',
+		 type: CHANGE_FIELD_USER,
 		 payload: _value,
 		 objectItem: _obj
 })
 
 export const onChangeFieldAddress = (_value,_obj) => ({
-		 type:'CHANGE_FIELD_ADDRESS',
+		 type: CHANGE_FIELD_ADDRESS,
 		 payload: _value,
 		 objectItem: _obj
 })
 
 export const onChangeFieldPhone = (_value,_obj) => ({
-		 type:'CHANGE_FIELD_PHONE',
+		 type: CHANGE_FIELD_PHONE,
 		 payload: _value,
 		 objectItem: _obj
 })
 
 /*CUPOM DE ATIVAÇÃO*/
- 
 
-export const requestCupom = async() =>{
+export const requestCupom = async() => {
     
 	return (dispatch,getState) => 
 		 {

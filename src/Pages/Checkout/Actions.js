@@ -8,6 +8,33 @@ import { RequestAuth } from '../../Helpers/Http';
 import AdyenCse from '../../Helpers/AdyenCse';
 import { ADYEN_KEY } from '../../Helpers/Constants';
 import { MaskService } from 'react-native-masked-text';
+import {
+  LISTAR_ENDERECOS,
+  CHANGE_ADDRESS,
+  FORMAS_ENTREGA,
+  FORMA_PAGAMENTO,
+  PRODUTOS,
+  FACTORY,
+  TOTAL,
+  TOTAL_DIFF,
+  KIT,
+  CHANGE_FRETE,
+  CARTAO_ANO,
+  CARTAO_CVV,
+  CARTAO_MES,
+  CARTAO_NUMERO,
+  CARTAO_TITULAR,
+  CARTAO_TOTAL,
+  ADD_CARD,
+  ADD_CARD_LABEL,
+  RENEW_CARD,
+  RENEW_CARD_LABEL,
+  PARCELAS,
+  INSTALLMENT_ID,
+  LOAD_OVERLAY,
+  CHECKOUT_CADASTRO_ERRO,
+  LOAD_FORMAS_ENTREGA
+} from '../../Types';
 
 // Lista os endereços de entrega do usuário logado
 export const listarEnderecosEntrega = () => {
@@ -15,7 +42,7 @@ export const listarEnderecosEntrega = () => {
     RequestAuth('users', 'GET')
       .then(response => response.json())
       .then(response => {
-        dispatch({type: 'LISTAR_ENDERECOS', payload: response.data.addresses}); 
+        dispatch({type: LISTAR_ENDERECOS, payload: response.data.addresses}); 
       })
       .catch(error => console.log(error));
   }
@@ -23,7 +50,7 @@ export const listarEnderecosEntrega = () => {
 
 export const setAddressId = value => {
   return {
-    type: 'CHANGE_ADDRESS',
+    type: CHANGE_ADDRESS,
     payload: value
   }
 }
@@ -36,7 +63,7 @@ export const listarFormasEntrega = cep => {
     RequestAuth('carts', 'PATCH', {zip_code: cep})
       .then(response => response.json())
       .then(response => {
-        dispatch({ type: 'FORMAS_ENTREGA', payload: response.data.shipments });
+        dispatch({ type: FORMAS_ENTREGA, payload: response.data.shipments });
         dispatch(loadFormasEntrega(-1));
       })
       .catch(error => console.log(error));
@@ -51,10 +78,10 @@ export const getCart = () => {
         const products = response.data.products;
         const total = response.data.total;
 
-        dispatch({type: 'PRODUTOS', payload: products});
-        dispatch({type: 'FACTORY', payload: response.data.distribution_center.factory});
-        dispatch({type: 'TOTAL', payload: total});
-        dispatch({type: 'TOTAL_DIFF', payload: total});
+        dispatch({type: PRODUTOS, payload: products});
+        dispatch({type: FACTORY, payload: response.data.distribution_center.factory});
+        dispatch({type: TOTAL, payload: total});
+        dispatch({type: TOTAL_DIFF, payload: total});
         dispatch(setKit(products));
 
         console.log('Carrinho', response);
@@ -81,7 +108,7 @@ export const setKit = products => {
   const pontos = kit.detail.points[0].value;
 
   return {
-    type: 'KIT',
+    type: KIT,
     payload: {
       titulo,
       descricao,
@@ -94,49 +121,49 @@ export const setKit = products => {
 
 export const selecionarFrete = index => {
   return {
-    type: 'CHANGE_FRETE', 
+    type: CHANGE_FRETE, 
     payload: index
   };
 }
 
 export const cartaoTitular = value => {
   return {
-    type: 'CARTAO_TITULAR',
+    type: CARTAO_TITULAR,
     payload: value
   };
 }
 
 export const cartaoNumero = value => {
   return {
-    type: 'CARTAO_NUMERO',
+    type: CARTAO_NUMERO,
     payload: value
   };
 }
 
 export const cartaoCVV = value => {
   return {
-    type: 'CARTAO_CVV',
+    type: CARTAO_CVV,
     payload: value
   };
 }
 
 export const cartaoMes = value => {
   return {
-    type: 'CARTAO_MES',
+    type: CARTAO_MES,
     payload: value
   };
 }
 
 export const cartaoAno = value => {
   return {
-    type: 'CARTAO_ANO',
+    type: CARTAO_ANO,
     payload: value
   };
 }
 
 export const cartaoTotal = value => {
   return {
-    type: 'CARTAO_TOTAL',
+    type: CARTAO_TOTAL,
     payload: value
   };
 }
@@ -146,7 +173,7 @@ export const formaPagamento = value => {
   // Boleto
   if(value == '1'){
     return {
-      type: 'FORMA_PAGAMENTO',
+      type: FORMA_PAGAMENTO,
       payload: value
     };
   }
@@ -155,10 +182,10 @@ export const formaPagamento = value => {
   if(value == '2'){
     return (dispatch, getState) => {
       // Seta a forma de pagamento
-      dispatch({type: 'FORMA_PAGAMENTO', payload: value });
+      dispatch({type: FORMA_PAGAMENTO, payload: value });
       
       // Seta o valor total para o JSON cartão
-      dispatch({type: 'CARTAO_TOTAL', payload: getState().checkout.total });
+      dispatch({type: CARTAO_TOTAL, payload: getState().checkout.total });
 
       // Calcula as parcelas com base no valor total
       dispatch(calcularParcelas(getState().checkout.total));
@@ -243,14 +270,14 @@ export const cadastrarCartao = (popupDialogCartao) => {
       let cardValue = parseFloat(card.diff.replace('|', ''));
       let diff = checkout.total_diff-cardValue;
 
-      dispatch({type: 'TOTAL_DIFF', payload: diff});
-      dispatch({type: 'CARTAO_TOTAL', payload: diff});
+      dispatch({type: TOTAL_DIFF, payload: diff});
+      dispatch({type: CARTAO_TOTAL, payload: diff});
       dispatch(calcularParcelas(diff));
 
-      dispatch({type: 'CARTAO_TITULAR', payload: ''});
-      dispatch({type: 'CARTAO_NUMERO', payload: ''});
-      dispatch({type: 'CARTAO_CVV', payload: ''});
-      dispatch({type: 'CARTAO_MES', payload: 1});
+      dispatch({type: CARTAO_TITULAR, payload: ''});
+      dispatch({type: CARTAO_NUMERO, payload: ''});
+      dispatch({type: CARTAO_CVV, payload: ''});
+      dispatch({type: CARTAO_MES, payload: 1});
     })
     .catch(error => {
       Alert.alert('Atenção', 'Verifique os dados do seu cartão de crédito');
@@ -260,14 +287,14 @@ export const cadastrarCartao = (popupDialogCartao) => {
 
 export const addCard = card => {
   return {
-    type: 'ADD_CARD',
+    type: ADD_CARD,
     payload: card
   }
 }
 
 export const addCardLabel = card => {
   return {
-    type: 'ADD_CARD_LABEL',
+    type: ADD_CARD_LABEL,
     payload: card
   }
 }
@@ -300,10 +327,10 @@ export const removeCard = (index) => {
             let newCards = cards.splice(index, 1);
             let newCardsLabel = cards_label.splice(index, 1);
             
-            dispatch({type: 'RENEW_CARD'});
-            dispatch({type: 'RENEW_CARD_LABEL'});
-            dispatch({type: 'TOTAL_DIFF', payload: diff});
-            dispatch({type: 'CARTAO_TOTAL', payload: diff});
+            dispatch({type: RENEW_CARD});
+            dispatch({type: RENEW_CARD_LABEL});
+            dispatch({type: TOTAL_DIFF, payload: diff});
+            dispatch({type: CARTAO_TOTAL, payload: diff});
             dispatch(calcularParcelas(diff));
           }
         }
@@ -321,28 +348,28 @@ export const setParcelas = value => {
   });
 
   return {
-    type: 'PARCELAS',
+    type: PARCELAS,
     payload: parcelas
   };
 }
 
 export const setInstallmentId = value => {
   return {
-    type: 'INSTALLMENT_ID',
+    type: INSTALLMENT_ID,
     payload: value
   }
 }
 
 export const loadFinalizarCadastro = value => {
   return {
-    type: 'LOAD_OVERLAY',
+    type: LOAD_OVERLAY,
     payload: value
   }
 }
 
 export const loadFormasEntrega = value => {
   return {
-    type: 'LOAD_FORMAS_ENTREGA',
+    type: LOAD_FORMAS_ENTREGA,
     payload: value
   };
 }
@@ -361,7 +388,7 @@ export const verificarValorCartao = () => {
 
     if(total > checkout.total_diff){
       Alert.alert('Atenção', 'O valor digitado excede o valor do pedido');
-      dispatch({type: 'CARTAO_TOTAL', payload: checkout.total_diff});
+      dispatch({type: CARTAO_TOTAL, payload: checkout.total_diff});
     }else{
       dispatch(calcularParcelas(total));
     }
@@ -376,21 +403,21 @@ export const finalizarCadastro = _this => {
     if(!checkout.address_id && checkout.factory == '1'){
       Alert.alert('Atenção', 'Escolha um endereço para entrega');
       return {
-        type: 'CADASTRO_ERRO'
+        type: CHECKOUT_CADASTRO_ERRO
       }
     }
 
     if(!checkout.forma_pagamento && checkout.factory == '1'){
       Alert.alert('Atenção', 'Escolha uma forma de pagamento');
       return {
-        type: 'CADASTRO_ERRO'
+        type: CHECKOUT_CADASTRO_ERRO
       }
     }
 
     if(checkout.forma_pagamento == '2' && checkout.cards.length == 0){
       Alert.alert('Atenção', 'Você deve informar pelo menos um cartão de crédito');
       return {
-        type: 'CADASTRO_ERRO'
+        type: CHECKOUT_CADASTRO_ERRO
       }
     }
 

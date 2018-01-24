@@ -19,6 +19,7 @@ import PatrocionadorByCep from './Components/FormByCep';
 
 import ListPatrocinador from './Components/Lists';
 import stylesButtons, {verdeClaro, verdeInativo} from '../../StyleSheet/Buttons';
+import { onSelectedTypeSearch } from './Actions';
 
 export class Patrocionador extends Component{
 	constructor(props) {
@@ -92,5 +93,5 @@ export class Patrocionador extends Component{
 }
 
 const mapStateToProps = state => (state.patrocionador);
-const mapDispatchToProps = dispatch => bindActionCreators({},dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({onSelectedTypeSearch},dispatch)
 export default connect(mapStateToProps,mapDispatchToProps)(Patrocionador)

@@ -8,7 +8,7 @@ import { View, Item, Text, Row, Picker} from 'native-base';
 /*REDUX*/
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {onChangeFieldAddress,onChangeField,changeStateBindCity,onGetAddressByCep} from '../Actions'  ;
+import {onChangeFieldAddress,onChangeField,changeStateBindCity,onGetAddressByCep} from '../Actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from '../Style';
 import ErrorForm from '../../../Helpers/ErrorForm';
@@ -24,12 +24,11 @@ export class Endereco extends Component {
  	componentDidMount(){
  		RequestGet('general/states')
  		.then(resp => resp.json())
- 		.then(resp => this.props.onChangeField(resp.data,'states'));
+ 		.then(resp => {this.props.onChangeField(resp.data, 'states')});
  	}
  
  	render() {
-
-    let serviceStates =  this.props.states.map( (s, i) => {
+    let serviceStates = this.props.states.map( (s, i) => {
 	    return <Picker.Item key={i} value={s.id} label={s.uf} />
 	  });
 
@@ -58,8 +57,6 @@ export class Endereco extends Component {
 						onChangeText={(value) => {this.props.onChangeFieldAddress(value,'zip')}} 
 						maxLength={9} value={this.props.address.zip}
 					/>
-
-				 
 		   		
 					<TextInput
 						style={this.props.errors['user.address.street'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
@@ -69,8 +66,6 @@ export class Endereco extends Component {
 						onChangeText={(value) => this.props.onChangeFieldAddress(value,'street')} 
 						value={this.props.address.street}
 					/>
-		   		
-				 
 
 					<TextInput
 						style={this.props.errors['user.address.district'] != undefined ? styleInput.inputTextError : styleInput.inputTextCadastro}
@@ -80,9 +75,7 @@ export class Endereco extends Component {
 						onChangeText={(value) => this.props.onChangeFieldAddress(value, 'district')} 
 						value={this.props.address.district}
 					/>
-						
-				 
-
+					
 					<View style={{flexDirection: 'row'}}>
 						
 						<View style={{flex: 1, marginRight:5}}>
@@ -91,7 +84,7 @@ export class Endereco extends Component {
 									returnKeyType={'next'}
 									selectedValue={this.props.address.state_id}
 									onValueChange={(itemValue, itemIndex) => { itemValue != 0 ? this.props.changeStateBindCity(itemValue, itemIndex) : ''}}>
-									<Picker.Item key={0}  value={0} label='UF' />
+									<Picker.Item key={0} value={0} label='UF' />
 									{serviceStates}
 								</Picker>
 							</View>

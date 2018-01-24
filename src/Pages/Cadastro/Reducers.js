@@ -1,3 +1,20 @@
+import {
+  CHANGE_FIELD,
+  CHANGE_FIELD_ADDRESS,
+  CHANGE_FIELD_USER,
+  SET_FIELD_PHONE,
+  CHANGE_FIELD_PHONE,
+  CHANGE_LOADING,
+  SPINNER_OVERLAY,
+  DATA_PHONE_COMPANY,
+  DATA_PHONE_TYPES,
+  CHANGE_PHONE_NUMBER,
+  CHANGE_PHONE_COMPANY,
+  CHANGE_PHONE_TYPE,
+  CHANGE_PHONE_TYPE_LABEL,
+  ADD_PHONE
+} from '../../Types';
+
 const INITIAL_STATE = {
   checked: false, 
   listoperadora: [],
@@ -72,34 +89,34 @@ const removePhone = (fhones, id) => {
 export default (state = INITIAL_STATE, action) => {
 	 
   switch(action.type){
-    case 'CHANGE_FIELD':
+    case CHANGE_FIELD:
       return {...state, [action.objectItem]: action.payload}
-    case 'CHANGE_FIELD_ADDRESS':
+    case CHANGE_FIELD_ADDRESS:
       return {...state,address:{...state.address , [action.objectItem]: action.payload}}
-    case 'CHANGE_FIELD_USER':
+    case CHANGE_FIELD_USER:
       return {...state,user:{...state.user , [action.objectItem]: action.payload}} 
-    case 'SET_FIELD_PHONE':
-       console.log(removePhone(state.telephones, action.payload))
-       return {...state,telephones: removePhone(state.telephones, action.payload) }    
-    case 'CHANGE_FIELD_PHONE':
+    case SET_FIELD_PHONE:
+      console.log(removePhone(state.telephones, action.payload))
+      return {...state,telephones: removePhone(state.telephones, action.payload) }    
+    case CHANGE_FIELD_PHONE:
       return {...state,telephones:[{...state.telephones, [action.objectItem]: action.payload}]}           
-    case 'CHANGE_LOADING':
+    case CHANGE_LOADING:
       return {...state, showLoader: action.payload} 
-    case 'SPINNER_OVERLAY':
+    case SPINNER_OVERLAY:
       return {...state, overlay: action.payload};
-    case 'DATA_PHONE_COMPANY':
+    case DATA_PHONE_COMPANY:
       return {...state, phone_companies: {...state.phone_companies, data: action.payload}};
-    case 'DATA_PHONE_TYPES':
+    case DATA_PHONE_TYPES:
       return {...state, phone_types: {...state.phone_types, data: action.payload}};
-    case 'CHANGE_PHONE_NUMBER':
+    case CHANGE_PHONE_NUMBER:
       return {...state, phone_number: action.payload};
-    case 'CHANGE_PHONE_COMPANY':
+    case CHANGE_PHONE_COMPANY:
       return {...state, phone_companies: {...state.phone_companies, selected: action.payload}};
-    case 'CHANGE_PHONE_TYPE':
+    case CHANGE_PHONE_TYPE:
       return {...state, phone_types: {...state.phone_types, selected: action.payload}};
-    case 'CHANGE_PHONE_TYPE_LABEL':
+    case CHANGE_PHONE_TYPE_LABEL:
       return {...state, phone_types: {...state.phone_types, description: action.payload}};
-    case 'ADD_PHONE':
+    case ADD_PHONE:
       return {
         ...state, 
         telephones: [...state.telephones, action.payload]
