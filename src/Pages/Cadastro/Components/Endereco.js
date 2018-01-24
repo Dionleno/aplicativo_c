@@ -41,7 +41,7 @@ export class Endereco extends Component {
  	 		<View>
 	   		<Row style={styles.title} >
 		   		<Text style={styles.titleText}>Endereço</Text>
-		   		<Icon style={styles.titleIconArrowDown} name='keyboard-arrow-down' />
+		   
 	   		</Row>
 
 	   		<View style={{paddingRight:15,paddingLeft:15,paddingVertical:10}}>

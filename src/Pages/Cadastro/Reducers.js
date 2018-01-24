@@ -12,6 +12,7 @@ const INITIAL_STATE = {
   coupon_ativo: false,
   overlay: false,
   phone_number: '',
+  whatsappset: false,
   phone_types:  {
     data: [{id: 0, description: 'Aguarde...'}],
     selected: 0,

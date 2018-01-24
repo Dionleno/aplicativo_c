@@ -85,7 +85,7 @@ const NavigatorRouter = StackNavigator({
   CadastroAgradecimento: {screen: CadastroAgradecimento}
 },{
   headerMode: 'none',
-  initialRouteName: 'Home',
+  initialRouteName: 'Cadastro',
   navigationOptions : {}
 });
 

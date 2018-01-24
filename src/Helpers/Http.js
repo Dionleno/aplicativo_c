@@ -118,7 +118,7 @@ export const doLogin = (_username,_password) =>{
             };
                  
                  console.log(auth)
-            AsyncStorage.setItem(USER_TOKEN, resp.access_token)
+                 AsyncStorage.setItem(USER_TOKEN, resp.access_token)
              
           }
       })
