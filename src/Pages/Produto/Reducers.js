@@ -4,7 +4,8 @@ import {
   CHANGE_FIELD_PRODUTO,
   STATE_DEFAULT,
   STATE_SEARCH,
-  CHANGE_FIELD_DETAILS
+  CHANGE_FIELD_DETAILS,
+  ADD_PRODUTO_LOADING
 } from '../../Types';
 
 const INITIAL_STATE = {
@@ -19,6 +20,7 @@ const INITIAL_STATE = {
   search: '',
   _slug:'',
   activeSearch:false,
+  add_produto_loading: false,
   details:{
     imagemDestaque: 'https://contem1gbeauty.com.br/img/produtos/002677_3_g.jpg',
     code: 0,
@@ -49,7 +51,9 @@ export default (state = INITIAL_STATE, action) => {
     case STATE_SEARCH:
       return {...state, produtos: [], lastPage: 0, actualPage: 1 };
     case CHANGE_FIELD_DETAILS:
-      return {...state, details:{...state.details , [action.objectItem]: action.payload}}
+      return {...state, details:{...state.details , [action.objectItem]: action.payload}};
+    case ADD_PRODUTO_LOADING:
+      return {...state, add_produto_loading: action.payload};
     default:
       return state;
   }
