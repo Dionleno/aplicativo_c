@@ -48,9 +48,11 @@ export class Cadastro extends Component{
   }
 
   cupom(){
-    if(this.props.navigation.state.params.origem == 'site'){
-      return (<PatrocionadorByCupom />);
-    }
+    try{
+      if(this.props.navigation.state.params.origem == 'site'){
+        return (<PatrocionadorByCupom />);
+      }
+    }catch(e){ }
   }
 
   render() {

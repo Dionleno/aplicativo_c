@@ -34,7 +34,6 @@ export class Login extends Component {
 			  <HeaderExterno item={this.props} title="Login" />
 				
 				<Content>
-					
 					<ImageBackground 
 						style={{backgroundColor:'#000000',height:100}}
 						source={require('../../Images/banner2.jpg')}>
@@ -49,31 +48,26 @@ export class Login extends Component {
 					</IF>
  
 					<View style={{padding:20,backgroundColor:'#FFFFFF'}}>
+						<TextInput 
+							underlineColorAndroid='transparent'  
+							style={[StyleInput.inputText, {marginBottom: 15}]} 
+							placeholder='Login' 
+							autoCapitalize='none'
+							returnKeyType='next'
+							value={this.props.form.login} 
+							onChangeText={(value) => this.props.onChangeField(value,'login')}
+						/>
 
-					  <Item style={[StyleInput.boxinput,{marginBottom:10, backgroundColor:'#f1f1f1'}]}> 
-							<TextInput 
-								underlineColorAndroid='transparent'  
-								style={StyleInput.inputText} 
-								placeholder='Login' 
-								autoCapitalize='none'
-								returnKeyType='next'
-								value={this.props.form.login} 
-								onChangeText={(value) => this.props.onChangeField(value,'login')}
-							/>
-						</Item>
-
-            <Item style={[StyleInput.boxinput,{marginBottom:10, backgroundColor:'#f1f1f1'}]}> 
-							<TextInput 
-								underlineColorAndroid='transparent'  
-								style={StyleInput.inputText} 
-								placeholder='Senha' 
-								autoCapitalize='none'
-								secureTextEntry={true} 
-								value={this.props.form.senha}
-								onChangeText={(value) => this.props.onChangeField(value,'senha')}
-							/>
-						</Item>
- 
+						<TextInput 
+							underlineColorAndroid='transparent'  
+							style={StyleInput.inputText} 
+							placeholder='Senha' 
+							autoCapitalize='none'
+							secureTextEntry={true} 
+							value={this.props.form.senha}
+							onChangeText={(value) => this.props.onChangeField(value, 'senha')}
+						/>
+						
 						<Button block style={[styles.btnPrimary,{marginTop:20}]} onPress={() => {this.props.handlerLogin(this.props)}}>
 							<Text>Entrar</Text>
 						</Button>

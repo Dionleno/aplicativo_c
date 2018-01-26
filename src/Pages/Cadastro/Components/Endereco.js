@@ -78,7 +78,7 @@ export class Endereco extends Component {
 					
 					<View style={{flexDirection: 'row'}}>
 						
-						<View style={{flex: 1, marginRight:5}}>
+						<View style={{flex: 1, marginRight:5, marginTop: 10}}>
 							<View style={styleInput.picker}>
 								<Picker
 									returnKeyType={'next'}
@@ -91,7 +91,7 @@ export class Endereco extends Component {
 							<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.address.state_id']}/>
 						</View>
 
-						<View style={{flex: 1, marginLeft: 5}}>
+						<View style={{flex: 1, marginLeft: 5, marginTop: 10}}>
 							<View style={styleInput.picker}>
 								<Picker
 									returnKeyType={'next'}
@@ -129,11 +129,19 @@ export class Endereco extends Component {
 								underlineColorAndroid='transparent' 
 								placeholder="Complemento" 
 								value={this.props.address.complement}
-								onChangeText={(value) =>  this.props.onChangeFieldAddress(value,'complement')}
+								onChangeText={(value) =>  this.props.onChangeFieldAddress(value, 'complement')}
 							/>
-							 
 						</View>
 					</View>
+
+					<TextInput
+						style={styleInput.inputTextCadastro}
+						underlineColorAndroid='transparent' 
+						placeholder="Ponto de Referência"
+						onChangeText={(value) => this.props.onChangeFieldAddress(value, 'reference')} 
+						value={this.props.address.reference}
+					/>
+
 	   		</View>
 			</View>
  		)

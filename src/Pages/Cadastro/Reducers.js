@@ -47,7 +47,8 @@ const INITIAL_STATE = {
     district:'',
     state_id: 0,
     city_id:0,
-    address_type_id:1
+    address_type_id:1,
+    reference: ''
   },
   user: {
     name:'',
