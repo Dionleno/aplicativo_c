@@ -3,7 +3,8 @@ import { RequestGet } from '../../Helpers/Http';
 import {
 	SET_PATROCINADORES,
 	CHANGE_FIELD_PATROCINADOR,
-	CHANGE_LOADING_PATROCINADOR
+	CHANGE_LOADING_PATROCINADOR,
+	PATROCINADOR_LOADING_OVERLAY
 } from '../../Types';
 
 export const changeLoading = (_value) => ({
@@ -60,11 +61,22 @@ export const BuscarPatrocinadorCep = () => {
 	}
 }
 
-export const onSelectedPatrocinador = async(_user,_props) => {
-		await AsyncStorage.setItem('@UIPatrocinador',  JSON.stringify(_user))
-		return dispatch => {
-		  _props.navigation.navigate('Cadastro')
-		}     
+export const onSelectedPatrocinador = (_user, _props) => {
+	return dispatch => {
+		dispatch(spinnerOverlay(true));
+		AsyncStorage.setItem('@UIPatrocinador', JSON.stringify(_user))
+		.then(() => {
+			dispatch(spinnerOverlay(false));
+			_props.navigation.navigate('Cadastro');
+		});
+	}
+}
+
+export const spinnerOverlay = value => {
+	return {
+		type: PATROCINADOR_LOADING_OVERLAY,
+		payload: value
+	}
 }
  
 export const onSelectedTypeSearch = (_value) => ({
