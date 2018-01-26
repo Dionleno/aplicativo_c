@@ -174,7 +174,7 @@ export const setPatrocinador = () => {
 	}
 }
 
-export const handlerSubmit = async(_props) => {
+export const handlerSubmit = (_props) => {
 	  
   return dispatch => {
     /*
@@ -192,6 +192,13 @@ export const handlerSubmit = async(_props) => {
 			sponsor: _props.sponsor,
 			terms: _props.checked
 		};
+
+		const { coupon } = _props;
+
+		//verificar se existe coupon  
+		if(coupon != '' && coupon != null){
+			form['coupon'] = coupon;
+		}
 		
 		/*
 		* @Fazer o envio para cadastrar o usuario
@@ -208,6 +215,17 @@ export const handlerSubmit = async(_props) => {
 				dispatch({ type:CHANGE_FIELD, objectItem: 'errors', payload: resp.errors })
 				dispatch(spinnerOverlay(false));
 				Alert.alert('Erro ao validar formulário', 'Verifique os campos e tente novamente');
+
+			}else if(coupon != '' && coupon != null){
+				/*
+				* @Fazer o login com o usuario cadastrado
+				*/
+				dispatch(doLogin(_props.user.login, _props.user.password));
+				dispatch(spinnerOverlay(false));
+				AsyncStorage.removeItem('@UIPatrocinador');
+				AsyncStorage.removeItem('@InfoCupom');
+
+				_props.navigation.navigate('CupomAgradecimento'); 
 			}else{
 				dispatch(spinnerOverlay(false));
 

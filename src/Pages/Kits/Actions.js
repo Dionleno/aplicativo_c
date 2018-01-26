@@ -11,20 +11,17 @@ export const changeitem = (_item,_value) => ({
 	payload: _value
 })
 
-export const fetchGetKit = async() => {
-         
-       return dispatch => 
-						{  
-							 RequestGet('/kits')
-						      .then(resp => resp.json())
-						      .then(resp => {
-						      	console.log(resp)
-						         	dispatch({ type: CHANGE_FIELD_KIT,objectItem: 'kits', payload: resp.data})
-				            })
+export const fetchGetKit = () => {
+	return dispatch => {  
+		RequestGet('kits')
+			.then(resp => resp.json())
+			.then(resp => {
+				console.log(resp)
+				dispatch({ type: CHANGE_FIELD_KIT, objectItem: 'kits', payload: resp.data})
+			})
+	}  
+}
 
-						}
-       
-} 
 export const onSetKit = async(kit,_props) => {
 	 return dispatch => 
 	 {

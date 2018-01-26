@@ -8,7 +8,7 @@ import { View, Item, Text, Row, Picker} from 'native-base';
 /*REDUX*/
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {onChangeFieldAddress,onChangeField,changeStateBindCity,onGetAddressByCep} from '../Actions';
+import {onChangeFieldAddress,onChangeField, changeStateBindCity, onGetAddressByCep} from '../Actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from '../Style';
 import ErrorForm from '../../../Helpers/ErrorForm';

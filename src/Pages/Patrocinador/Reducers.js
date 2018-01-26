@@ -13,7 +13,8 @@ const INITIAL_STATE = {
 	findtextcep: '',
 	user: [],
 	coupon: '',
-	overlay: false
+	overlay: false,
+	origem: 'site'
 }
 
 export default (state = INITIAL_STATE, action) => {

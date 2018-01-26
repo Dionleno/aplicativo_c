@@ -26,8 +26,7 @@ import Endereco from './Components/Endereco';
 import OpcoesEntrega from './Components/OpcoesEntrega';
 import TermosDeUso from './Components/TermosDeUso';
 import FormularioContato from './Components/FormularioContato';
-import PatrocionadorByCupom from './Components/FormCupom' 
-
+import PatrocionadorByCupom from './Components/FormCupom';
 
 const AnimatedTI = Animated.createAnimatedComponent(Item);
 
@@ -46,6 +45,12 @@ export class Cadastro extends Component{
 
   componentDidMount = () => {
     this.props.setPatrocinador();
+  }
+
+  cupom(){
+    if(this.props.navigation.state.params.origem == 'site'){
+      return (<PatrocionadorByCupom />);
+    }
   }
 
   render() {
@@ -89,7 +94,7 @@ export class Cadastro extends Component{
           <DadosDeAcesso />
           <DadosContato popupDialogContato={this.popupDialogContato} />
           <Endereco />
-        
+          {this.cupom()}
           <OpcoesEntrega />    
           <TermosDeUso _props={this}/>
 

@@ -13,27 +13,27 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import StyleInput from '../../../StyleSheet/Input';
 import stylesButtons from '../../../StyleSheet/Buttons';
 import styles from '../Style';
-export const PatrocionadorByCupom  = props => {
+
+export const PatrocionadorByCupom = props => {
   return (
-   <View>
-	  	 <Row style={styles.title} >
-						<Text style={styles.titleText}>Cupom de ativação</Text>
-						<Icon style={styles.titleIconArrowDown} name='keyboard-arrow-down' />
-			 </Row>
-			<View style={{margin:10}}>  
-				  	<TextInput style={props.coupon_ativo ? [StyleInput.inputTextCadastro,{borderColor:'#20CDA6'}] : [StyleInput.inputTextCadastro]} 
-						placeholder='Cupom de ativação?' 
-						value={props.coupon} 
-						returnKeyType="search"
-						keyboardType='numeric'
-						underlineColorAndroid='transparent' 
-						onSubmitEditing={() => props.requestCupom() }
-						onBlur={() => props.requestCupom()}
-						onChangeText={(value) => props.onChangeField(value,'coupon')}
-					/>
-	  
+		<View>
+			<Row style={styles.title} >
+				<Text style={styles.titleText}>Cupom de ativação</Text>
+			</Row>
+
+			<View style={{marginHorizontal:15, marginBottom: 10}}>  
+				<TextInput style={props.coupon_ativo ? [StyleInput.inputTextCadastro, {borderColor:'#20CDA6'}] : [StyleInput.inputTextCadastro]} 
+					placeholder='Digite aqui o número do seu cupom' 
+					value={props.coupon} 
+					returnKeyType="search"
+					keyboardType='numeric'
+					underlineColorAndroid='transparent' 
+					onSubmitEditing={() => props.requestCupom() }
+					onBlur={() => props.requestCupom()}
+					onChangeText={(value) => props.onChangeField(value,'coupon')}
+				/>
 			</View>
-	 </View>
+		</View>
   )
 }
 

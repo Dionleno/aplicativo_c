@@ -62,12 +62,12 @@ export const BuscarPatrocinadorCep = () => {
 }
 
 export const onSelectedPatrocinador = (_user, _props) => {
-	return dispatch => {
+	return (dispatch, getState) => {
 		dispatch(spinnerOverlay(true));
 		AsyncStorage.setItem('@UIPatrocinador', JSON.stringify(_user))
 		.then(() => {
 			dispatch(spinnerOverlay(false));
-			_props.navigation.navigate('Cadastro');
+			_props.navigation.navigate('Cadastro', {origem: getState().patrocionador.origem});
 		});
 	}
 }
@@ -80,15 +80,15 @@ export const spinnerOverlay = value => {
 }
  
 export const onSelectedTypeSearch = (_value) => ({
-		 type: CHANGE_FIELD_PATROCINADOR,
-		 payload: _value,
-		 objectItem:'typeForm'
+	type: CHANGE_FIELD_PATROCINADOR,
+	payload: _value,
+	objectItem:'typeForm'
 })
 
 export const onChangeField = (_value,_obj) => ({
-		 type: CHANGE_FIELD_PATROCINADOR,
-		 payload: _value,
-		 objectItem: _obj
+	type: CHANGE_FIELD_PATROCINADOR,
+	payload: _value,
+	objectItem: _obj
 })
 
 

@@ -19,7 +19,7 @@ import PatrocionadorByCep from './Components/FormByCep';
 
 import ListPatrocinador from './Components/Lists';
 import stylesButtons, {verdeClaro, verdeInativo} from '../../StyleSheet/Buttons';
-import { onSelectedTypeSearch } from './Actions';
+import { onSelectedTypeSearch, onChangeField } from './Actions';
 import SpinnerOverlay from 'react-native-loading-spinner-overlay';
 
 export class Patrocionador extends Component{
@@ -43,22 +43,26 @@ export class Patrocionador extends Component{
 
 						<Grid style={{marginBottom:20}}>
 							<Col style={{ height: 40 }}>
-									<Button block  
-											style={{marginRight:10 , backgroundColor: this.props.typeForm ? verdeClaro : verdeInativo}} 
-											onPress={() => this.props.onSelectedTypeSearch(true)}
-											>
-												<Icon name='thumb-up' style={{fontSize:20,color:'#FFFFFF'}} />       
-												<Text>Sim, tenho</Text>
-									</Button>
+								<Button block  
+									style={{marginRight:10 , backgroundColor: this.props.typeForm ? verdeClaro : verdeInativo}} 
+									onPress={() => {
+										this.props.onSelectedTypeSearch(true);
+										this.props.onChangeField('site', 'origem');
+									}}>
+										<Icon name='thumb-up' style={{fontSize:20,color:'#FFFFFF'}} />       
+										<Text>Sim</Text>
+								</Button>
 							</Col>
 							<Col style={{ height: 40 }}>
-									<Button block 
-											style={{marginLeft:10 , backgroundColor: this.props.typeForm ? verdeInativo : this.props.typeForm == null ? verdeInativo : verdeClaro}} 
-											onPress={() => this.props.onSelectedTypeSearch(false)}
-											>
-													<Icon name='thumb-down' style={{fontSize:20,color:'#FFFFFF'}} />    
-													<Text>Não tenho</Text>
-									</Button>
+								<Button block 
+									style={{marginLeft:10 , backgroundColor: this.props.typeForm ? verdeInativo : this.props.typeForm == null ? verdeInativo : verdeClaro}} 
+									onPress={() => {
+										this.props.onSelectedTypeSearch(false);
+										this.props.onChangeField('cep', 'origem');
+									}} >
+										<Icon name='thumb-down' style={{fontSize:20,color:'#FFFFFF'}} />    
+										<Text>Não</Text>
+								</Button>
 							</Col>
 						</Grid>
 
@@ -72,7 +76,7 @@ export class Patrocionador extends Component{
 					</View>
 
 					<IF visible={this.props.showLoader}>
-							<Spinner color='#000000' />
+						<Spinner color='#000000' />
 					</IF>
 
 					<IF visible={this.props.user.length > 0}>
@@ -96,5 +100,5 @@ export class Patrocionador extends Component{
 }
 
 const mapStateToProps = state => (state.patrocionador);
-const mapDispatchToProps = dispatch => bindActionCreators({onSelectedTypeSearch},dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({onSelectedTypeSearch, onChangeField},dispatch)
 export default connect(mapStateToProps,mapDispatchToProps)(Patrocionador)

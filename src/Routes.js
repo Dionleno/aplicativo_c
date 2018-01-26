@@ -74,7 +74,7 @@ const NavigatorRouter = StackNavigator({
   Login: {screen:Login},
   Patrocinador: {screen: Patrocinador},
   Cadastro: {screen:Cadastro} ,
-  Kits: {screen:Kits} ,
+  Kits: {screen:Kits},
   KitDatails:{screen:KitDatails},
   Confirmacao:{screen:Confirmacao},
   Carrinho: {screen: Carrinho},
