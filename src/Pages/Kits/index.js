@@ -16,15 +16,34 @@ import styles from './Style';
 import stylesExterno from '../../StyleSheet/Buttons';
 import { MaskService } from 'react-native-masked-text';
 import { MOEDAS } from '../../Helpers/Constants';
-import {Content, Text, Container, Row, Button, Col, Grid } from 'native-base';
+import { Content, Text, Container, Row, Button, Col, Grid, Spinner } from 'native-base';
   
 export class Kits extends Component {
   constructor(props) {
     super(props)
   } 
 
-  componentDidMount = async() =>{
-    await this.props.fetchGetKit();
+  componentWillMount = () =>{
+    this.props.fetchGetKit();
+  }
+
+  escolherKitMaisTarde(){
+    if(this.props.kits.length > 0){
+      return (
+        <View style={{padding:15}}>
+          <Button block  style={stylesExterno.btnPrimaryOutline}  onPress={() =>  this.props.navigation.navigate('ConfirmacaoCadastro')}>
+            <Icon name='clear' style={{fontSize:25}} />
+            <Text style={{color:'#333333'}}>Escolher o kit mais tarde</Text>
+          </Button>
+        </View>
+      );
+    }
+  }
+
+  loading(){
+    if(this.props.kits.length == 0){
+      return (<Spinner color='black' />);
+    }
   }
 
   render() {
@@ -41,6 +60,8 @@ export class Kits extends Component {
               <Text style={styles.TitleH1}>Escolha seu kit de adesão</Text> 
             </View>
           </ImageBackground>
+
+          {this.loading()}
 
           <FlatList 
             data={this.props.kits}
@@ -91,12 +112,8 @@ export class Kits extends Component {
             }} 
           />
 
-          <View style={{padding:15}}>
-            <Button block  style={stylesExterno.btnPrimaryOutline}  onPress={() =>  this.props.navigation.navigate('ConfirmacaoCadastro')}>
-              <Icon name='clear' style={{fontSize:25}} />
-              <Text style={{color:'#333333'}}>Escolher o kit mais tarde</Text>
-            </Button>
-          </View>
+          {this.escolherKitMaisTarde()}
+
         </Content>
 
       </Container>

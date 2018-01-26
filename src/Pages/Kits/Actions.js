@@ -17,7 +17,7 @@ export const fetchGetKit = () => {
 			.then(resp => resp.json())
 			.then(resp => {
 				console.log(resp)
-				dispatch({ type: CHANGE_FIELD_KIT, objectItem: 'kits', payload: resp.data})
+				dispatch({ type: CHANGE_FIELD_KIT_OBJECT, objectItem: 'kits', payload: resp.data})
 			})
 	}  
 }
