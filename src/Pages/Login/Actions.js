@@ -7,6 +7,7 @@ import {
 	CHANGE_FIELD_LOGIN
 } from '../../Types';
 
+ 
 export const changeLoading = (_value) => ({
 	type: CHANGE_LOADING_LOGIN,
 	payload: _value
@@ -37,7 +38,7 @@ export const handlerLogin = async(_props) =>{
 	};
 	return dispatch => 
 	{
-		dispatch(changeLoading(true))
+		dispatch(changeLoading_login(true))
 
 		RequestPostAuth('oauth/token', data)
 			.then(resp => resp.json())
@@ -64,11 +65,11 @@ export const handlerLogin = async(_props) =>{
 					console.log(resp)
 				  dispatch(setUserCurrent(_props))
 				}
-				dispatch(changeLoading(false))
+				dispatch(changeLoading_login(false))
 			})
 			.catch(error => {
 				Alert.alert('Atenção', 'Login ou senha inválido');
-				dispatch(changeLoading(false))
+				dispatch(changeLoading_login(false))
 			})
 	}
 

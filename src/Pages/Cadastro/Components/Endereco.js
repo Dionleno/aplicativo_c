@@ -78,7 +78,9 @@ export class Endereco extends Component {
 					
 					<View style={{flexDirection: 'row'}}>
 						
-						<View style={{flex: 1, marginRight:5, marginTop: 10}}>
+ 
+						<View style={{flex: 1, marginRight:5,paddingVertical: 10}}>
+ 
 							<View style={styleInput.picker}>
 								<Picker
 									returnKeyType={'next'}
@@ -88,10 +90,12 @@ export class Endereco extends Component {
 									{serviceStates}
 								</Picker>
 							</View>
-							<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.address.state_id']}/>
+							 
 						</View>
 
-						<View style={{flex: 1, marginLeft: 5, marginTop: 10}}>
+ 
+						<View style={{flex: 1, marginLeft: 5,paddingVertical: 10}}>
+ 
 							<View style={styleInput.picker}>
 								<Picker
 									returnKeyType={'next'}
@@ -102,7 +106,7 @@ export class Endereco extends Component {
 									{citiesUpdate}
 								</Picker>
 							</View> 
-							<ErrorForm arrayError={this.props.errors} filterValidate={this.props.errors['user.address.city_id']}/>
+							 
 						</View>
 
 					</View>
