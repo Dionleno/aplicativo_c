@@ -38,17 +38,14 @@ export class Patrocionador extends Component{
 
 					<View style={{margin:10,backgroundColor:'#FFFFFF',padding:15,borderRadius:5}}>  
 						<Text style={{marginBottom:15,color:'#888888' }}>
-								Já tem um patrocionador? 
+							Já tem um patrocionador? 
 						</Text>
 
 						<Grid style={{marginBottom:20}}>
 							<Col style={{ height: 40 }}>
 								<Button block  
 									style={{marginRight:10 , backgroundColor: this.props.typeForm ? verdeClaro : verdeInativo}} 
-									onPress={() => {
-										this.props.onSelectedTypeSearch(true);
-										this.props.onChangeField('site', 'origem');
-									}}>
+									onPress={() => {this.props.onSelectedTypeSearch(true)}}>
 										<Icon name='thumb-up' style={{fontSize:20,color:'#FFFFFF'}} />       
 										<Text>Sim</Text>
 								</Button>
@@ -56,10 +53,7 @@ export class Patrocionador extends Component{
 							<Col style={{ height: 40 }}>
 								<Button block 
 									style={{marginLeft:10 , backgroundColor: this.props.typeForm ? verdeInativo : this.props.typeForm == null ? verdeInativo : verdeClaro}} 
-									onPress={() => {
-										this.props.onSelectedTypeSearch(false);
-										this.props.onChangeField('cep', 'origem');
-									}} >
+									onPress={() => { this.props.onSelectedTypeSearch(false)}} >
 										<Icon name='thumb-down' style={{fontSize:20,color:'#FFFFFF'}} />    
 										<Text>Não</Text>
 								</Button>

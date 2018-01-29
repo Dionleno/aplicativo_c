@@ -34,13 +34,14 @@ export class Home extends Component {
 
 						<View style={{flex: 1, justifyContent: 'center',alignItems:"center", flexDirection: 'column',margin:20,}} >
 
-							<Image style={{ width: imageWidth -40, height: imageHeight,resizeMode: Image.resizeMode.contain}}
-							       source={require('../../Images/logo.png')}
+							<Image 
+								style={{ width: imageWidth -40, height: imageHeight,resizeMode: Image.resizeMode.contain}}
+							  source={require('../../Images/logo.png')}
 							/>
 
-              <Text style={{color:'#000000',fontSize:18}}>
-									Você fez a escolha certa.{'\n'}
-									Seja bem-vindo (a)!
+              <Text style={{color:'#000000',fontSize:18, textAlign: 'center'}}>
+								Você fez a escolha certa.{'\n'}
+								Seja bem-vindo(a)!
 							</Text>
 
 							<Button block dark style={{marginTop:30}} onPress={() => this.props.navigation.navigate('Login')}>
