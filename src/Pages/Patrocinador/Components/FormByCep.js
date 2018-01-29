@@ -15,21 +15,20 @@ import StyleInput from '../../../StyleSheet/Input';
 
 export const PatrocionadorByCep  = props => {
     return (
-		<View>  
-			<Item style={[StyleInput.boxinput,{marginBottom:10, backgroundColor:'#f1f1f1'}]}>
-				<TextInputMask 
-					style={StyleInput.inputText}
-					type={'zip-code'}
-					underlineColorAndroid='transparent' 
-					placeholder="Informe o seu CEP" 
-					keyboardType='numeric' 
-					value={props.findtextcep} 
-					onChangeText={(value) => props.onChangeField(value,'findtextcep')} 
-					onBlur={() => props.BuscarPatrocinadorCep()}
-					returnKeyType='search'
-					maxLength={9}
-				/>
-			</Item>
+		<View>
+			<TextInputMask 
+				style={[StyleInput.inputText, {marginBottom: 15}]}
+				type={'zip-code'}
+				underlineColorAndroid='transparent' 
+				placeholder="Informe o seu CEP" 
+				keyboardType='numeric' 
+				value={props.findtextcep} 
+				onChangeText={(value) => props.onChangeField(value,'findtextcep')} 
+				onBlur={() => props.BuscarPatrocinadorCep()}
+				returnKeyType='search'
+				maxLength={9}
+			/>
+
 			<Button full style={{backgroundColor: "#000000"}} onPress={() => props.BuscarPatrocinadorCep()}>
 				<Icon name='location-on' style={{fontSize:20,color:'#FFFFFF'}} />   
 				<Text>Encontrar endereço</Text>

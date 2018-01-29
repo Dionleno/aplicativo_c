@@ -13,19 +13,19 @@ export const changeLoading_login = (_value) => ({
 	payload: _value
 })
 
-export const handlerLogin = async(_props) =>{
-        
+export const handlerLogin = (_props) => {
+
 	let username = _props.form.login;
 	let password = _props.form.senha;
 	
 	if(username === ''){
 		Alert.alert('Atenção', 'Digite o seu login');
-		return dispatch =>  false
+		return dispatch => false;
 	}
 
 	if(password === ''){
 		Alert.alert('Atenção', 'Digite sua senha');
-		return dispatch =>  false
+		return dispatch => false;
 	}
 
 	let data = {
@@ -36,9 +36,9 @@ export const handlerLogin = async(_props) =>{
 		username: username,
 		password: password
 	};
-	return dispatch => 
-	{
-		dispatch(changeLoading_login(true))
+
+	return dispatch => {
+		dispatch(changeLoading(true))
 
 		RequestPostAuth('oauth/token', data)
 			.then(resp => resp.json())
@@ -54,7 +54,7 @@ export const handlerLogin = async(_props) =>{
 						token_type: resp.token_type,
 						access_token: resp.access_token
 					};
-
+					
 					AsyncStorage.setItem(USER_TOKEN, resp.access_token)
 
 					return resp;
@@ -62,31 +62,28 @@ export const handlerLogin = async(_props) =>{
 			})
 			.then(resp => {
 				if(resp != false){
-					console.log(resp)
 				  dispatch(setUserCurrent(_props))
 				}
-				dispatch(changeLoading_login(false))
 			})
 			.catch(error => {
 				Alert.alert('Atenção', 'Login ou senha inválido');
-				dispatch(changeLoading_login(false))
-			})
+				dispatch(changeLoading(false))
+			});
 	}
 
 }
 
-export const setUserCurrent = async(_props) => {
-   return dispatch =>{
-     	
-   	   RequestGetAuth('users')
-   	   .then(resp => resp.json())
-   		 .then(res => {
-   			AsyncStorage.setItem(USER_INFO, JSON.stringify(res.data))
-   		  console.log(res.data)
-   		 _navigateTo(_props, 'Drawer');
-   	   })  
-   		
-   }
+export const setUserCurrent = (_props) => {
+	return dispatch => {
+		RequestGetAuth('users')
+			.then(resp => resp.json())
+			.then(resp => {
+				AsyncStorage.setItem(USER_INFO, JSON.stringify(resp.data));
+				console.log(resp.data);
+				dispatch(changeLoading(false))
+				_navigateTo(_props, 'Drawer');
+			});
+	}
 }
 
 export const onChangeField = (_value,_obj) => ({

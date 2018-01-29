@@ -25,10 +25,21 @@ export class Login extends Component {
 	
 	constructor(props) {
 		super(props);
-	} 
+	}
+
+	btnLogin(){
+		if(this.props.loading_login_app){
+			return (<Spinner color='black' />);
+		}
+
+		return (
+			<Button block style={[styles.btnPrimary,{marginTop:20}]} onPress={() => {this.props.handlerLogin(this.props)}}>
+				<Text>Entrar</Text>
+			</Button>
+		);
+	}
 
   render() {
-
     return (
 			<Container style={{backgroundColor:'#FFFFFF'}}>
 			  <HeaderExterno item={this.props} title="Login" />
@@ -43,10 +54,6 @@ export class Login extends Component {
 						</View>
 					</ImageBackground>
 
-					<IF visible={this.props.loading_login_app}>
-						<Spinner color='#000000' />
-					</IF>
- 
 					<View style={{padding:20,backgroundColor:'#FFFFFF'}}>
 						<TextInput 
 							underlineColorAndroid='transparent'  
@@ -65,12 +72,12 @@ export class Login extends Component {
 							autoCapitalize='none'
 							secureTextEntry={true} 
 							value={this.props.form.senha}
+							onSubmitEditing={() => this.props.handlerLogin(this.props)}
 							onChangeText={(value) => this.props.onChangeField(value, 'senha')}
 						/>
 						
-						<Button block style={[styles.btnPrimary,{marginTop:20}]} onPress={() => {this.props.handlerLogin(this.props)}}>
-							<Text>Entrar</Text>
-						</Button>
+						{this.btnLogin()}
+
 		     	</View>
 				</Content>
 			</Container>
@@ -78,9 +85,6 @@ export class Login extends Component {
   }
 }
 
-
-const mapStateToProps = state => (state.login)
-const mapDispatchToProps = dispatch => bindActionCreators({handlerLogin,onChangeField},dispatch)
-export default connect(mapStateToProps,mapDispatchToProps)(Login)
-
- 
+const mapStateToProps = state => (state.login);
+const mapDispatchToProps = dispatch => bindActionCreators({handlerLogin,onChangeField},dispatch);
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
