@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch(action.type){
-  	case 'CHANGE_LOADING':
+  	case 'CHANGE_LOADING_LOGIN':
       return {...state, loading_login_app: action.payload}
     case 'CHANGE_FIELD':
       return {...state, form:{...state.form, [action.objectItem]: action.payload}}         
