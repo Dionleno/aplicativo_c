@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import { View, ImageBackground, FlatList } from 'react-native';
+import { View, ImageBackground, FlatList , BackHandler} from 'react-native';
 /*REDUX*/
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -24,14 +24,25 @@ export class Kits extends Component {
   } 
 
   componentWillMount = () =>{
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick.bind(this));
+    
     this.props.fetchGetKit();
+  }
+
+  componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick.bind(this));
+  }
+
+  handleBackButtonClick() {
+    this.props.navigation.goBack(null);
+    return true;
   }
 
   escolherKitMaisTarde(){
     if(this.props.kits.length > 0){
       return (
         <View style={{padding:15}}>
-          <Button block  style={stylesExterno.btnPrimaryOutline}  onPress={() =>  this.props.navigation.navigate('ConfirmacaoCadastro')}>
+          <Button block  style={stylesExterno.btnPrimaryOutline}  onPress={() =>  this.props.navigation.navigate('Confirmacao')}>
             <Icon name='clear' style={{fontSize:25}} />
             <Text style={{color:'#333333'}}>Escolher o kit mais tarde</Text>
           </Button>
