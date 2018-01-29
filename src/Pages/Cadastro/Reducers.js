@@ -26,6 +26,7 @@ const INITIAL_STATE = {
   states: [],
   errors: [],
   coupon: '',
+  couponKey: '',
   coupon_ativo: false,
   overlay: false,
   phone_number: '',

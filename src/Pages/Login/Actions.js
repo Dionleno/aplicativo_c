@@ -8,7 +8,7 @@ import {
 } from '../../Types';
 
  
-export const changeLoading = (_value) => ({
+export const changeLoading_login = (_value) => ({
 	type: CHANGE_LOADING_LOGIN,
 	payload: _value
 })

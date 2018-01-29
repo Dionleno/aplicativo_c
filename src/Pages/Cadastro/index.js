@@ -46,15 +46,7 @@ export class Cadastro extends Component{
   componentDidMount = () => {
     this.props.setPatrocinador();
   }
-
-  cupom(){
-    try{
-      if(this.props.navigation.state.params.origem == 'site'){
-        return (<PatrocionadorByCupom />);
-      }
-    }catch(e){ }
-  }
-
+ 
   render() {
     return ( 
       <Container>
@@ -96,7 +88,9 @@ export class Cadastro extends Component{
           <DadosDeAcesso />
           <DadosContato popupDialogContato={this.popupDialogContato} />
           <Endereco />
-          {this.cupom()}
+
+          <PatrocionadorByCupom />
+          
           <OpcoesEntrega />    
           <TermosDeUso _props={this}/>
 
