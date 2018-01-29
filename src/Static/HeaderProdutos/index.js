@@ -39,7 +39,7 @@ export default props =>{
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#000000',
+    backgroundColor: '#333333',
   },
   icon: {
     fontSize:22,

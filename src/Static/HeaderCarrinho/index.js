@@ -38,7 +38,7 @@ export class HeaderCarrinho extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-    	backgroundColor: '#000000',
+    	backgroundColor: '#333333',
   	},
 });
 

@@ -16,7 +16,7 @@ export default props =>{
         
     return (
     	 
-        <Header style={{backgroundColor:'#000000'}}>
+        <Header style={{backgroundColor:'#333333'}}>
           <StatusBar backgroundColor="#000000" />
           <Left>
             <Button transparent onPress={() => {

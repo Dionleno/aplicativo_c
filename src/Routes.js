@@ -25,20 +25,22 @@ import CupomAtivacao from './Pages/CupomAtivacao';
 import CupomAgradecimento from './Pages/Agradecimentos/Cupom';
 import CadastroAgradecimento from './Pages/Agradecimentos/Cadastro';
 import Checkout from './Pages/Checkout';
+import HomeEv from './Pages/HomeEv';
 
-//Paginas internas
+// Paginas internas
 import Interna from './Pages/Interna';
 
+// Paginas estaticas
+import SideBar from './Static/SideBar';
 
-//Paginas estaticas
-import SideBar from './Static/SideBar'
+// Paginas do EV 
+import SideBarEv from './Static/SideBarEv';
 
 /*
 * @Rotas com sidebar (Auth, internas)
 */
 export const DrawerNav =  DrawerNavigator({
- 
-   Produto: {
+  Produto: {
     screen: Produto,
     navigationOptions : {
       drawerLabel : 'Produtos' 
@@ -65,11 +67,28 @@ export const DrawerNav =  DrawerNavigator({
   drawerToggleRoute: 'DrawerToggle'
 });
 
+export const DrawerNavEv = DrawerNavigator({
+  HomeEv: {
+    screen: HomeEv,
+    navigationOptions: {
+      drawerLabel: 'Escritório Virtual' 
+    }
+  }
+
+}, {
+  contentComponent: SideBarEv,
+  drawerWidth: 300,
+  drawerOpenRoute: 'DrawerOpenEv',  
+  drawerCloseRoute: 'DrawerCloseEv',  
+  drawerToggleRoute: 'DrawerToggleEv'
+});
+
 /*
 * @Rotas sem sidebar (Offline,Externas)
 */
 const NavigatorRouter = StackNavigator({
-  Drawer : {screen: DrawerNav},
+  Drawer: {screen: DrawerNav},
+  DrawerEv: {screen: DrawerNavEv},
   Home: {screen: Home},
   Login: {screen:Login},
   Patrocinador: {screen: Patrocinador},
@@ -83,9 +102,9 @@ const NavigatorRouter = StackNavigator({
   CupomAgradecimento:{screen:CupomAgradecimento},
   Checkout: {screen: Checkout},
   CadastroAgradecimento: {screen: CadastroAgradecimento}
-},{
+}, {
   headerMode: 'none',
-  initialRouteName: 'Cadastro',
+  initialRouteName: 'Home',
   navigationOptions : {}
 });
 
