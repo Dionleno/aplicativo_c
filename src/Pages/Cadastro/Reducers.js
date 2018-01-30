@@ -12,7 +12,8 @@ import {
   CHANGE_PHONE_COMPANY,
   CHANGE_PHONE_TYPE,
   CHANGE_PHONE_TYPE_LABEL,
-  ADD_PHONE
+  ADD_PHONE,
+  CHANGE_CONTATO_LOADING
 } from '../../Types';
 
 const INITIAL_STATE = {
@@ -31,6 +32,7 @@ const INITIAL_STATE = {
   overlay: false,
   phone_number: '',
   whatsappset: false,
+  contato_loading: false,
   phone_types:  {
     data: [{id: 0, description: 'Aguarde...'}],
     selected: 0,
@@ -118,6 +120,8 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, phone_types: {...state.phone_types, selected: action.payload}};
     case CHANGE_PHONE_TYPE_LABEL:
       return {...state, phone_types: {...state.phone_types, description: action.payload}};
+    case CHANGE_CONTATO_LOADING:
+      return {...state, contato_loading: action.payload};
     case ADD_PHONE:
       return {
         ...state, 

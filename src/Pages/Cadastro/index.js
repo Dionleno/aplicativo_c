@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { View, Animated, AsyncStorage } from 'react-native';
-import { Text, Container, CheckBox, Content, Item, Button } from 'native-base';
+import { Text, Container, CheckBox, Content, Item, Button, Spinner } from 'native-base';
 import SpinnerOverlay from 'react-native-loading-spinner-overlay';
 
 /*REDUX*/
@@ -46,6 +46,18 @@ export class Cadastro extends Component{
   componentDidMount = () => {
     this.props.setPatrocinador();
   }
+
+  botaoCadastrarContato(){
+    if(this.props.contato_loading){
+      return (<Spinner color='black' />);
+    }
+
+    return (
+      <Button block style={styleButtons.btnPrimary} onPress={() => this.props.cadastrarContato(this.popupDialogContato)}>
+        <Text>Cadastrar</Text>
+      </Button>
+    );
+  }
  
   render() {
     return ( 
@@ -71,13 +83,11 @@ export class Cadastro extends Component{
           ref={(popupDialogContato) => { this.popupDialogContato = popupDialogContato }}
           animationDuration={500}
           width={0.9}
-          height={0.60}
+          height={0.70}
           containerStyle={{ zIndex: 10, elevation: 10}}
           actions={[
             <View key={0} style={{paddingVertical: 15, paddingHorizontal: 15}}>
-              <Button block style={styleButtons.btnPrimary} onPress={() => this.props.cadastrarContato(this.popupDialogContato)}>
-                <Text>Cadastrar</Text>
-              </Button>
+              {this.botaoCadastrarContato()}
             </View>
           ]} >
           <FormularioContato />

@@ -14,7 +14,8 @@ import {
 	CHANGE_PHONE_COMPANY,
 	CHANGE_PHONE_TYPE,
 	CHANGE_PHONE_TYPE_LABEL,
-	ADD_PHONE
+	ADD_PHONE,
+	CHANGE_CONTATO_LOADING
 } from '../../Types';
 
 export const cadastrarContato = popupDialogContato => {
@@ -35,6 +36,8 @@ export const cadastrarContato = popupDialogContato => {
 			Alert.alert('Atenção', 'Escolha o tipo do telefone de contato');
 			return;
 		}
+
+		dispatch({type: CHANGE_CONTATO_LOADING, payload: true});
 
 		let phone_type_label = '';
 
@@ -58,12 +61,13 @@ export const cadastrarContato = popupDialogContato => {
 			}
 		);
 
+		popupDialogContato.dismiss();
+
+		dispatch({type: CHANGE_CONTATO_LOADING, payload: false});
 		dispatch({type: CHANGE_PHONE_NUMBER, payload: ''});
 		dispatch({type: CHANGE_PHONE_COMPANY, payload: ''});
 		dispatch({type: CHANGE_PHONE_TYPE, payload: ''});
 		dispatch({type: CHANGE_PHONE_TYPE_LABEL, payload: ''});
-
-		popupDialogContato.dismiss();
 	}
 }
 
