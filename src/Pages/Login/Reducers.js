@@ -8,7 +8,7 @@ const INITIAL_STATE = {
     login: '',
     senha: ''
   },
-  loading_login_app: false
+  loading_login_app: true
 }
 
 export default (state = INITIAL_STATE, action) => {

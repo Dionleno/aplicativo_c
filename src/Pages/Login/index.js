@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 /*REDUX*/
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { handlerLogin, onChangeField } from './Actions';
+import { handlerLogin, onChangeField ,changeLoading_login } from './Actions';
 
 /*NATIVE E NATIVE BASE*/
 import { ImageBackground, View, TextInput } from 'react-native';
@@ -27,6 +27,10 @@ export class Login extends Component {
 		super(props);
 	} 
 
+	componentWillUnmount() {
+		console.log('passou aqui')
+     this.props.changeLoading_login(false)
+	}
   render() {
 
     return (
@@ -80,7 +84,7 @@ export class Login extends Component {
 
 
 const mapStateToProps = state => (state.login)
-const mapDispatchToProps = dispatch => bindActionCreators({handlerLogin,onChangeField},dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({handlerLogin,onChangeField,changeLoading_login},dispatch)
 export default connect(mapStateToProps,mapDispatchToProps)(Login)
 
  

@@ -220,11 +220,14 @@ export const addProduto = () => {
 		};
 		
 		dispatch(loadAddProduto(true));
+		console.log(data)
 
 		RequestPostAuth('carts/products', data)
 			.then(resp => resp.json())
 			.then(resp => {
+			
 				if(resp.error){
+					
 					dispatch({ type: CHANGE_FIELD_DETAILS, objectItem: 'quantidade', payload: 1});
 					Alert.alert('', resp.error.message);
 					dispatch(loadAddProduto(false));
@@ -237,9 +240,15 @@ export const addProduto = () => {
 					dispatch(loadAddProduto(false));
 					return;
 				}
+
+				if(resp.message){
+					Alert.alert('', resp.message);
+				  dispatch(loadAddProduto(false));
+				}
 			})
 			.catch(error => {
 				Alert.alert('', 'Erro ao adicionar o item ao carrinho!');
+				dispatch(loadAddProduto(false));
 			});
 	}
 }

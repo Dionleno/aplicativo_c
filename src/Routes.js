@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import { Platform} from 'react-native';
+import { Platform,Animated ,Easing} from 'react-native';
 
 import {DrawerNavigator, StackNavigator} from 'react-navigation';
 
@@ -17,6 +17,7 @@ import Kits from './Pages/Kits';
 import KitDatails from './Pages/Kits/Details'
 import Confirmacao from './Pages/CadastroConfirmacao'
 import Login from './Pages/Login';
+import Logado from './Pages/Login/Logado';
 import Carrinho from './Pages/Carrinho';
 import Produto from './Pages/Produto';
 import Categorias from './Pages/Produto/Categorias';
@@ -91,6 +92,7 @@ const NavigatorRouter = StackNavigator({
   DrawerEv: {screen: DrawerNavEv},
   Home: {screen: Home},
   Login: {screen:Login},
+  Logado:{screen:Logado},
   Patrocinador: {screen: Patrocinador},
   Cadastro: {screen:Cadastro} ,
   Kits: {screen:Kits},
@@ -103,6 +105,7 @@ const NavigatorRouter = StackNavigator({
   Checkout: {screen: Checkout},
   CadastroAgradecimento: {screen: CadastroAgradecimento}
 }, {
+   
   headerMode: 'none',
   initialRouteName: 'Home',
   navigationOptions : {}
