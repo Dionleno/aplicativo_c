@@ -4,6 +4,7 @@ import { Platform, AsyncStorage ,Alert} from 'react-native';
 import { URL_API, headers, LOGIN, USER_TOKEN, USER_INFO } from './Constants';
 import {NavigationActions} from 'react-navigation';
 
+
 export function ApiStatusCode(response){
    
     if (response.errors != undefined) {
@@ -176,4 +177,27 @@ export const RequestAuth = async(url, metodo, _body = {}) => {
 	}
 
   return http;
+}
+
+
+export const LogOutSistem = (props) => {
+        console.log('logout')
+ 
+        AsyncStorage.setItem(USER_INFO, '')
+        AsyncStorage.setItem(USER_TOKEN, '')
+        
+        _navigateTo(props,'Home')
+    
+}
+
+export const AccessFast = async(props) =>{
+      
+           RequestGetAuth('users')
+          .then(response => response.json())
+          .then(response => _navigateTo(props,'Drawer'))
+          .catch(error => {
+               Alert.alert('Atenção', 'Login expirou, acesse novamente!');
+               _navigateTo(props,'Login')
+           });
+        
 }

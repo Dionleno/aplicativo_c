@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 /*REDUX*/
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { handlerLogin, onChangeField } from './Actions';
+import { handlerLogin, onChangeField ,changeLoading_login } from './Actions';
 
 /*NATIVE E NATIVE BASE*/
 import { ImageBackground, View, TextInput } from 'react-native';
@@ -26,7 +26,7 @@ export class Login extends Component {
 	constructor(props) {
 		super(props);
 	}
-
+ 
 	btnLogin(){
 		if(this.props.loading_login_app){
 			return (<Spinner color='black' />);
@@ -38,6 +38,13 @@ export class Login extends Component {
 			</Button>
 		);
 	}
+ 
+	componentWillUnmount() {
+		console.log('passou aqui')
+     this.props.changeLoading_login(false)
+	}
+ 
+ 
 
   render() {
     return (
@@ -85,6 +92,9 @@ export class Login extends Component {
   }
 }
 
-const mapStateToProps = state => (state.login);
-const mapDispatchToProps = dispatch => bindActionCreators({handlerLogin,onChangeField},dispatch);
-export default connect(mapStateToProps,mapDispatchToProps)(Login);
+ 
+
+const mapStateToProps = state => (state.login)
+const mapDispatchToProps = dispatch => bindActionCreators({handlerLogin,onChangeField,changeLoading_login},dispatch)
+export default connect(mapStateToProps,mapDispatchToProps)(Login)
+ 
