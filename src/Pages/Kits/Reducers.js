@@ -8,7 +8,8 @@ const INITIAL_STATE = {
   kit:{
     id:0
   },
-  overlay:false
+  overlay:false,
+  loading_kits: true
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -16,7 +17,7 @@ export default (state = INITIAL_STATE, action) => {
     case CHANGE_FIELD_KIT:
       return {...state, kit:{id: action.payload}}
     case CHANGE_FIELD_KIT_OBJECT:
-      return {...state, [action.objectItem]: action.payload}
+      return {...state, [action.objectItem]: action.payload, loading_kits: false};
     default:
       return state;  
   }

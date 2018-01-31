@@ -21,6 +21,7 @@ const INITIAL_STATE = {
   _slug:'',
   activeSearch:false,
   add_produto_loading: false,
+  informacao: '',
   details:{
     imagemDestaque: 'https://contem1gbeauty.com.br/img/produtos/002677_3_g.jpg',
     code: 0,

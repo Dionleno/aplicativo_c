@@ -71,51 +71,48 @@ export const listarProdutosCategoria = () => {
 }
 
 export const listarProdutos = () => {
-  
-	
-		 return (dispatch,getState) => 
-	   {
-	   	 const state = getState().produto;
-       const URL = 'products?search='+state.search+'&page=' + state.actualPage;
-       console.log(URL)
 
-	   	if(!state.loading){
-      	dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'loading', payload: true })
-       }
-	   
-	   	 /*
-	   * @Listar produtos
-	   */       
-       RequestGet(URL)
-		  .then(resp => resp.json())
-		  .then(resp => {
-         
-			    dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'lastPage', payload: resp.meta.last_page })
-	        const stateUpdated = getState().produto;   
-	         
-	         	dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'showButtonLoading', payload: true })
-	        if(stateUpdated.actualPage <= stateUpdated.lastPage){
-	          let nextPage = stateUpdated.actualPage + 1;
-	          
-	          var a = stateUpdated.produtos;
-	          
-	          var novos = a.concat(resp.data)
+	return (dispatch, getState) => {
+		const state = getState().produto;
+		const URL = 'products?search='+state.search+'&page=' + state.actualPage;
 
-            console.log(novos)
-	          dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'produtos', payload: novos })
-	          dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'actualPage', payload: nextPage })
-	        
-	         }else{
+		if(!state.loading){
+			dispatch({ type: CHANGE_FIELD_PRODUTO, objectItem: 'loading', payload: true});
+		}
 
-	           console.log('fim')
-	           dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'showButtonLoading', payload: false })
-	            
-	        }
-             dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'loading', payload: false })
-          
-	      
-		  })
-	   }
+		RequestGet(URL)
+			.then(resp => resp.json())
+			.then(resp => {
+				try {
+					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'lastPage', payload: resp.meta.last_page });
+					const stateUpdated = getState().produto;   
+
+					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'showButtonLoading', payload: true })
+					if(stateUpdated.actualPage <= stateUpdated.lastPage){
+					let nextPage = stateUpdated.actualPage + 1;
+
+					var a = stateUpdated.produtos;
+
+					var novos = a.concat(resp.data)
+
+					console.log(novos)
+					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'produtos', payload: novos })
+					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'actualPage', payload: nextPage })
+
+					}else{
+
+					console.log('fim')
+					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'showButtonLoading', payload: false })
+
+					}
+					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'loading', payload: false }); 
+				} catch (error) {
+					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'loading', payload: false }); 
+					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'informacao', payload: 'Nenhum produto a ser carregado' }); 
+					console.log('PRODUTOS_ERRO', resp);
+				}
+			});
+	}
 
 }
 

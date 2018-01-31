@@ -30,52 +30,56 @@ const AnimatedTI = Animated.createAnimatedComponent(Item);
 
   constructor(props) {
     super(props); 
-  } 
-  componentDidMount = async() =>{
-     await this.props.listarProdutos()
-      const Userinfo = await AsyncStorage.getItem('@Userinfo');
-      console.log(Userinfo)
   }
+
+  /* componentWillMount = () =>{
+    this.props.listarProdutos();
+  } */
 
   loading = () => {
     if(this.props.loading){
       return (
-         <Spinner color='black' />
-                
-         );
+        <Spinner color='black' />
+      );
     }else{
-      return (<Button full onPress={() => this.props.navigation.navigate('Carrinho')} style={[styleButton.btnPrimary, {marginRight: 5, marginLeft: 5, marginTop: 5, marginBottom: 5}]} >
-                  <Text style={styleButton.btnPrimaryText} >Avançar</Text>
-                </Button>)
+      return (
+        <Button full onPress={() => this.props.navigation.navigate('Carrinho')} style={[styleButton.btnPrimary, {marginRight: 5, marginLeft: 5, marginTop: 5, marginBottom: 5}]} >
+          <Text style={styleButton.btnPrimaryText} >Avançar</Text>
+        </Button>);
     }
   }
 
   renderProducts = ({item, id, index}) => {
     var productDetails = item.product_details[0];
     
-    return ( 
+    return (
       <View style={{flex:1}}>
-
-          <IF visible={this.props.visibleType === 1}>  
-               <ProdutoCard item={item} propriedades={this.props}/>   
-          </IF> 
-
-          <IF visible={this.props.visibleType === 2}>  
-              <VerticalCard item={item} propriedades={this.props}/>   
-          </IF>   
-
+        <IF visible={this.props.visibleType === 1}>  
+          <ProdutoCard item={item} propriedades={this.props}/>   
+        </IF>
+        <IF visible={this.props.visibleType === 2}>  
+          <VerticalCard item={item} propriedades={this.props}/>   
+        </IF>
       </View>
     );
   }
+
+  informacao(){
+    if(this.props.informacao){
+      return (<Text style={{textAlign: 'center', marginTop: 10}}>{this.props.informacao}</Text>);
+    }
+  }
+
   render() {
    
     return (
       <Container>
-          <HeaderProdutos
+        <HeaderProdutos
           item={this.props}
           title="Produtos" />
 
         <Grid>
+          
             <IF visible={!this.props.opensearch}>
                 <Row style={{paddingHorizontal:5,paddingVertical:5,backgroundColor:'#f1f1f1',height:50}}>
                     <Col>
@@ -99,7 +103,6 @@ const AnimatedTI = Animated.createAnimatedComponent(Item);
                     </Col>
                 </Row>
             </IF>
-        
 
             <IF visible={this.props.opensearch}>
                 <Row style={{backgroundColor:'#000000',height:50}}>
@@ -122,8 +125,9 @@ const AnimatedTI = Animated.createAnimatedComponent(Item);
                     </Col>
                 </Row>
             </IF>
-     
-   
+
+          {this.informacao()}
+
          {/*Listar produtos */}
          <Row style={{padding:5}}>
               <Col>
@@ -148,7 +152,8 @@ const AnimatedTI = Animated.createAnimatedComponent(Item);
                   />
               </Col>
             </Row>
-           
+        
+        
       </Grid>
 
       </Container>

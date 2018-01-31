@@ -10,7 +10,7 @@ import { Platform , Dimensions,StyleSheet, AsyncStorage} from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Content,StyleProvider, Container,Header,View,Thumbnail,Button,Text,Icon} from 'native-base';
-import { changeLoading_login } from './Actions'; 
+import { changeLoadingLogado } from './Actions'; 
 import stylesButtons from '../../StyleSheet/Buttons';
 import { USER_INFO} from '../../Helpers/Constants';
 import { _navigateTo , LogOutSistem,AccessFast } from '../../Helpers/Http'
@@ -31,13 +31,13 @@ export class Logado extends Component {
     this.setState({user: JSON.parse(Userinfo)})
 
     setTimeout(() => {
-      this.props.changeLoading_login(false)
+      this.props.changeLoadingLogado(false)
     }, 500)
 
     
   }
   render() {
-     console.log(this.state.user)
+    console.log(this.state.user)
     return (
 
            <Container>
@@ -75,7 +75,7 @@ export class Logado extends Component {
 }
 
 const mapStateToProps = state => (state.login)
-const mapDispatchToProps = dispatch => bindActionCreators({changeLoading_login},dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({changeLoadingLogado},dispatch)
 export default connect(mapStateToProps,mapDispatchToProps)(Logado)
 
 

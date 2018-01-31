@@ -1,17 +1,25 @@
 import {  AsyncStorage, Alert } from 'react-native';
-import { RequestPostAuth, RequestGetAuth } from '../../Helpers/Http';
+import { RequestPostAuth, RequestGetAuth, RequestAuth } from '../../Helpers/Http';
 import { LOGIN, USER_INFO, USER_TOKEN } from '../../Helpers/Constants';
-import { _navigateTo } from '../../Helpers/Http'
+import { _navigateTo } from '../../Helpers/Http';
 import {
 	CHANGE_LOADING_LOGIN,
-	CHANGE_FIELD_LOGIN
+	CHANGE_FIELD_LOGIN,
+	CHANGE_LOADING_LOGADO
 } from '../../Types';
 
  
-export const changeLoading_login = (_value) => ({
+export const changeLoading = (_value) => ({
 	type: CHANGE_LOADING_LOGIN,
 	payload: _value
 })
+
+export const changeLoadingLogado = value => {
+	return {
+		type: CHANGE_LOADING_LOGADO,
+		payload: value
+	};
+}
 
 export const handlerLogin = (_props) => {
 
@@ -41,33 +49,71 @@ export const handlerLogin = (_props) => {
 		dispatch(changeLoading(true))
 
 		RequestPostAuth('oauth/token', data)
-			.then(resp => resp.json())
-			.then(resp => {
-				if(resp.error != null && resp.error == 'invalid_credentials'){
-					Alert.alert('Atenção', 'Login ou senha inválido');
-					return false;
-				}else if(resp.access_token == undefined){
-          Alert.alert('Atenção', 'Erro ao realizar o login, tente novamente!');
-				 	return false;
-				}else{
-					let auth = {
-						token_type: resp.token_type,
-						access_token: resp.access_token
-					};
-					
-					AsyncStorage.setItem(USER_TOKEN, resp.access_token)
+			.then(response => response.json())
+			.then(response => {
 
-					return resp;
+				if(response.error){
+					Alert.alert('Atenção', 'Login ou senha inválido');
+					dispatch(changeLoading(false));
+					return;
 				}
-			})
-			.then(resp => {
-				if(resp != false){
-				  dispatch(setUserCurrent(_props))
+				
+				try {
+					AsyncStorage.setItem(USER_TOKEN, response.access_token)
+						.then(() => {
+							RequestAuth('users', 'GET')
+								.then(response => response.json())
+								.then(response => {
+									try {
+										const status = response.data.status.id;
+										let tela = 'Home';
+
+										// Pré-cadastro
+										if(status == 26){
+											tela = 'Drawer';
+										}
+										
+										// Aguardando ativação
+										if(status == 3){
+											tela = 'AguardandoAtivacao';
+										}
+										
+										// Ativo
+										if(status == 1){
+											tela = 'DrawerEv';
+										}
+										
+										AsyncStorage.setItem(USER_INFO, JSON.stringify(response.data))
+											.then(() => {
+												_navigateTo(_props, tela);
+												dispatch(changeLoading(false));
+											});
+
+									} catch (error) {
+										Alert.alert('Atenção', 'Ocorreu um erro ao realizar o login.\nTente novamente mais tarde.');
+										dispatch(changeLoading(false));
+									}
+									
+								})
+								.catch(error => {
+									Alert.alert('Atenção', 'Ocorreu um erro ao realizar o login.\nTente novamente mais tarde.');
+									dispatch(changeLoading(false));
+								});
+						})
+						.catch(() => {
+							dispatch(changeLoading(false));
+							Alert.alert('Atenção', 'Login ou senha inválido');
+						});
+				} catch (error) {
+					Alert.alert('Atenção', 'Login ou senha inválido');
+					dispatch(changeLoading(false));
+					console.log('LOGIN_ERRO', error);
 				}
+
 			})
 			.catch(error => {
 				Alert.alert('Atenção', 'Login ou senha inválido');
-				dispatch(changeLoading(false))
+				dispatch(changeLoading(false));
 			});
 	}
 

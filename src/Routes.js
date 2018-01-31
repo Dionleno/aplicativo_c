@@ -27,6 +27,7 @@ import CupomAgradecimento from './Pages/Agradecimentos/Cupom';
 import CadastroAgradecimento from './Pages/Agradecimentos/Cadastro';
 import Checkout from './Pages/Checkout';
 import HomeEv from './Pages/HomeEv';
+import AguardandoAtivacao from './Pages/AguardandoAtivacao';
 
 // Paginas internas
 import Interna from './Pages/Interna';
@@ -103,9 +104,9 @@ const NavigatorRouter = StackNavigator({
   CupomAtivacao: {screen:CupomAtivacao} ,
   CupomAgradecimento:{screen:CupomAgradecimento},
   Checkout: {screen: Checkout},
-  CadastroAgradecimento: {screen: CadastroAgradecimento}
+  CadastroAgradecimento: {screen: CadastroAgradecimento},
+  AguardandoAtivacao: {screen: AguardandoAtivacao}
 }, {
-   
   headerMode: 'none',
   initialRouteName: 'Home',
   navigationOptions : {}

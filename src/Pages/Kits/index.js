@@ -39,7 +39,7 @@ export class Kits extends Component {
   }
 
   escolherKitMaisTarde(){
-    if(this.props.kits.length > 0){
+    if(!this.props.loading_kits){
       return (
         <View style={{padding:15}}>
           <Button block  style={stylesExterno.btnPrimaryOutline}  onPress={() =>  this.props.navigation.navigate('Confirmacao')}>
@@ -52,8 +52,14 @@ export class Kits extends Component {
   }
 
   loading(){
-    if(this.props.kits.length == 0){
+    if(this.props.loading_kits){
       return (<Spinner color='black' />);
+    }
+  }
+
+  informacao(){
+    if(this.props.kits.length == 0 && !this.props.loading_kits){
+      return (<Text style={{textAlign: 'center', marginTop: 15}}>Nenhum Kit disponível no momento</Text>);
     }
   }
 
@@ -73,6 +79,8 @@ export class Kits extends Component {
           </ImageBackground>
 
           {this.loading()}
+
+          {this.informacao()}
 
           <FlatList 
             data={this.props.kits}

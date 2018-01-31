@@ -13,10 +13,11 @@ export const changeitem = (_item,_value) => ({
 
 export const fetchGetKit = () => {
 	return dispatch => {  
+		console.log('KITS', 'Carregando kits...');
 		RequestGet('kits')
 			.then(resp => resp.json())
 			.then(resp => {
-				console.log(resp)
+				console.log('KITS', resp);
 				dispatch({ type: CHANGE_FIELD_KIT_OBJECT, objectItem: 'kits', payload: resp.data})
 			})
 	}  

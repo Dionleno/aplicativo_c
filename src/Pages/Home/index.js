@@ -14,7 +14,7 @@ import SpinnerOverlay from 'react-native-loading-spinner-overlay';
 import { View, Image, Dimensions, ImageBackground, StyleSheet,AsyncStorage} from 'react-native';
 import { Container, Button, Text} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { changeLoading_login } from '../Login/Actions';
+import { changeLoadingLogado } from '../Login/Actions';
 import styles from './Style'
 import { USER_INFO} from '../../Helpers/Constants';
 
@@ -33,12 +33,12 @@ export class Home extends Component {
   	console.log(Userinfo)
   	if (Userinfo) {
   		setTimeout(() => {
-  			 this.props.changeLoading_login(true)
+  			 this.props.changeLoadingLogado(true)
   		   this.props.navigation.navigate('Logado')
   		}, 500)
   		
   	}else{
-  		 this.props.changeLoading_login(false)
+  		 this.props.changeLoadingLogado(false)
   	}
   }
 
@@ -49,14 +49,15 @@ export class Home extends Component {
 
 			<Container padder>
 
-        <SpinnerOverlay visible={this.props.login.loading_login_app} 
-                        overlayColor="rgba(255, 255, 255, 1)" 
-                        textContent={"Aguarde..."} 
-                        color="#000" 
-                        textStyle={{color: '#000'}} />
+				<SpinnerOverlay 
+					visible={this.props.login.loading_login_logado} 
+					overlayColor="rgba(255, 255, 255, 1)" 
+					textContent={"Aguarde..."} 
+					color="#000" 
+					textStyle={{color: '#000'}}
+				/>
 
-				
-				  <ImageBackground style={styles.BackgroundView} source={require('../../Images/banner2.jpg')}>
+				<ImageBackground style={styles.BackgroundView} source={require('../../Images/banner2.jpg')}>
 
 					<View  style={styles.ContainerView} >
 
@@ -64,10 +65,10 @@ export class Home extends Component {
 
 							<Image 
 								style={{ width: imageWidth -40, height: imageHeight,resizeMode: Image.resizeMode.contain}}
-							  source={require('../../Images/logo.png')}
+								source={require('../../Images/logo.png')}
 							/>
 
-              <Text style={{color:'#000000',fontSize:18, textAlign: 'center'}}>
+							<Text style={{color:'#000000',fontSize:18, textAlign: 'center'}}>
 								Você fez a escolha certa.{'\n'}
 								Seja bem-vindo(a)!
 							</Text>
@@ -95,5 +96,5 @@ export class Home extends Component {
 
 
 const mapStateToProps = state => (state)
-const mapDispatchToProps = dispatch => bindActionCreators({changeLoading_login},dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({changeLoadingLogado},dispatch)
 export default connect(mapStateToProps,mapDispatchToProps)(Home)
