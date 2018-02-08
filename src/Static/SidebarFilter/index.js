@@ -17,14 +17,14 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import LinkMenu from './Components/LinkMenu'
 import DropdownMenu from './Components/DropdownMenu'
 
-class SideBar extends Component {
+class SideBarFilter extends Component {
   
   constructor(props) {
     super(props);
     this.state = {
-      Userinfo: {name: 'Cliente' },
-      RouteMenu: []
-    }
+        Userinfo: {name: 'Cliente' },
+        RouteMenu: []
+      }
   }
 
   getCategories = async() =>{
@@ -42,15 +42,8 @@ class SideBar extends Component {
   }
 
   componentWillMount = async() => {
-    const Userinfo = await AsyncStorage.getItem(USER_INFO);
-    console.log('USER', Userinfo);
-    
-    await this.getCategories() 
-
-    this.setState({
-      Userinfo: JSON.parse(Userinfo)
-    })
-  }
+       await this.getCategories() 
+   }
      
 
   render() { 
@@ -60,21 +53,7 @@ class SideBar extends Component {
 
   <Container>
         <Content bounces={false} style={{ flex: 1, backgroundColor: "#fff", top: -1 }}>
-          <ImageBackground source={{
-              uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwI1ke65_qgz9cmETDjXrfteGdhH5GOOwCrHU_-cZ5mrXJz7RZ"
-            }} style={styles.drawerCover} >
-
-            <View style={styles.avatarAlfa}></View>
-            <View style={styles.avatarView}>
-              <Thumbnail source={{
-                uri: "https://guiadasempresas.com.br/wp-content/uploads/750x750_13f49be6-2cbf-4665-be16-14f91ee86b13.png"
-              }} large />
-            </View>
-            <View>
-              <Text style={styles.avatarName}>{this.state.Userinfo.name}</Text>
-            </View>
-          </ImageBackground>
-
+       
           <ScrollView>
           <List>
              <ListItem itemDivider onPress={() => this.props.navigation.navigate('Produto') }>
@@ -128,4 +107,4 @@ class SideBar extends Component {
  
 
 
-export default SideBar
+export default SideBarFilter

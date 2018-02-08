@@ -9,9 +9,9 @@ import React, { Component } from 'react';
  import { connect } from 'react-redux'
  import { bindActionCreators } from 'redux'
  import {listarProdutos,changeItem,_onOpenInputSearch,_onClosedInputSearch,searchRequestItem,listarProdutosCategoria} from './Actions'  
- import { AppRegistry, View, Image, FlatList, StyleSheet, AsyncStorage, Alert,TextInput ,Dimensions,Animated,LayoutAnimation} from 'react-native';
+ import { TouchableOpacity,AppRegistry, View, Image, FlatList, StyleSheet, AsyncStorage, Alert,TextInput ,Dimensions,Animated,LayoutAnimation} from 'react-native';
  import { StyleProvider, Container, Button, Text, Header, Spinner, Card, CardItem, Item, Input,List,ListItem, Body, Left,
-  Right, Content,Grid,Row,Col} from 'native-base';
+  Right, Content,Grid,Row,Drawer,Col} from 'native-base';
 
 
  import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -20,7 +20,8 @@ import React, { Component } from 'react';
  import IF from '../../Helpers/if'
  import {ProdutoCard} from './Components/ProdutoCard'
  import {VerticalCard} from './Components/VerticalCard'
-
+// Paginas estaticas
+import SidebarFilter from '../../Static/SidebarFilter';
 const AnimatedTI = Animated.createAnimatedComponent(Item);
  
 
@@ -29,6 +30,14 @@ const AnimatedTI = Animated.createAnimatedComponent(Item);
   constructor(props) {
     super(props); 
   } 
+
+  openDrawer() {
+    this.drawer._root.open()
+}
+closeDrawer = () => {
+  this.drawer._root.close()
+};
+
   componentWillReceiveProps = (nextProps) =>{
        const categoria = nextProps.navigation.state.params
                          ? nextProps.navigation.state.params.categoria
@@ -101,32 +110,41 @@ getNavigationParams() {
           <HeaderProdutos
           item={this.props}
           title={categoria.name} />
-
+<Drawer
+            ref={(_drawer) => this.drawer = _drawer}
+            content={<SidebarFilter  navigation={this.props.navigation}/>}
+            side='right'
+            onClose={() => this.closeDrawer()} >
+ 
         <Grid>
-            <IF visible={!this.props.opensearch}>
-                <Row style={{paddingHorizontal:5,paddingVertical:5,backgroundColor:'#f1f1f1',height:50}}>
+
+        <IF visible={!this.props.opensearch}>
+                <Row style={{paddingHorizontal:5,paddingVertical:5, backgroundColor:'#F2f2f2',height:50}}>
                     <Col>
                         <View style={{flexDirection: 'row',justifyContent: 'flex-start',}}>
-                          <Button style={this.props.visibleType == 1 ? styles.btnActive : styles.btnInative} onPress={() => this.props.changeItem('visibleType', 1)}>
-                             <Icon name='menu' style={{fontSize:24}} />
-                          </Button>
-
-                          <Button style={this.props.visibleType == 2 ? styles.btnActive : styles.btnInative} onPress={() => this.props.changeItem('visibleType', 2)}>
-                             <Icon name='apps' style={{fontSize:24}} />
-                          </Button>
+                          <TouchableOpacity style={this.props.visibleType == 1 ? styles.btnActive : styles.btnInative} onPress={()=> this.props.changeItem('visibleType', 1)}>
+                             <Icon name='format-line-spacing' style={{fontSize:24}} />
+                          </TouchableOpacity>
+                          <TouchableOpacity style={this.props.visibleType == 2 ? styles.btnActive : styles.btnInative} onPress={() => this.props.changeItem('visibleType', 2)}>
+                            <Icon name='widgets' style={{fontSize:22}} />
+                          </TouchableOpacity>
                         </View>
                     </Col>
                     <Col>
                         <View style={{flexDirection: 'row',justifyContent: 'flex-end',}}>
-                      
-                          <Button  style={styles.btnInative} onPress={() => this.props._onOpenInputSearch(this.props)}>
-                            <Icon name='search' style={{fontSize:24}} />
-                          </Button>
+                            <TouchableOpacity style={styles.btnInative} onPress={() => this.props._onOpenInputSearch(this.props)}>
+                             <Icon name='search' style={{fontSize:24}} />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={styles.btnInative} onPress={this.openDrawer.bind(this)}>
+                             <Icon name='tune' style={{fontSize:24}} />
+                            </TouchableOpacity>
                         </View>
                     </Col>
                 </Row>
             </IF>
-        
+
+             
 
             <IF visible={this.props.opensearch}>
                 <Row style={{backgroundColor:'#000000',height:50}}>
@@ -176,7 +194,7 @@ getNavigationParams() {
               </Col>
             </Row>
       </Grid>
-
+      </Drawer>
       </Container>
     )
   }

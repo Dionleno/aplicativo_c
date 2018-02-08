@@ -21,9 +21,9 @@ export default{
      marginHorizontal:3,backgroundColor:'red',justifyContent: 'center',alignSelf:"center"
   },
   btnActive:{
-    marginHorizontal:3,backgroundColor:'#20CDA6',width:40,height:40,justifyContent: 'center',alignItems:"center"
+    marginHorizontal:1,backgroundColor:'#d4d4d4',width:40,height:38,justifyContent: 'center',alignItems:"center"
   },
   btnInative:{
-    width:40,height:40,marginHorizontal:3,backgroundColor:'#FFFFFF',justifyContent: 'center',alignItems:"center"
+    width:40,height:38,marginHorizontal:1,backgroundColor:'transparent',justifyContent: 'center',alignItems:"center"
   }
   };

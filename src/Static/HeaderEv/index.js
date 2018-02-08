@@ -7,9 +7,9 @@
 import React, { Component } from 'react';
 import { StatusBar, StyleSheet } from 'react-native';
 
-import {  Header, Left, Button, Body, Title, Right} from 'native-base';
+import {  Header, Left, Button, Body, Title, Right,View} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
+import styleDefault from '../../StyleSheet/Buttons.js'
 export default props => {
     // const  { state } = props.item.navigation;
         
@@ -17,7 +17,7 @@ export default props => {
       <Header searchBar style={styles.header}>
         <StatusBar backgroundColor="#000000" />
 
-        <Left>
+        <View style={styleDefault.boxBtnMenu}>
           <Button 
             transparent 
             onPress={() => {
@@ -25,11 +25,18 @@ export default props => {
             }}>
             <Icon name='menu' style={styles.icon}/>
           </Button>
-        </Left>
-        <Body>
+        </View>
+        <Body >
           <Title>Escritório Virtual</Title>
         </Body>
-        <Right />
+         <Right>
+            <Button transparent onPress={ () => { props.item.navigation.navigate('Carrinho'); }}>
+              <Icon name='notifications' style={styles.icon} />
+            </Button>
+             <Button transparent onPress={ () => { props.item.navigation.navigate('Carrinho'); }}>
+              <Icon name='shopping-cart' style={styles.icon} />
+            </Button>
+          </Right>
       </Header>
     )
 } 
@@ -41,5 +48,5 @@ const styles = StyleSheet.create({
   icon: {
     fontSize:22,
     color:'#FFFFFF'
-  }
+  } 
 });

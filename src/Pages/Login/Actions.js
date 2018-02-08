@@ -57,20 +57,48 @@ export const handlerLogin = (_props) => {
 					dispatch(changeLoading(false));
 					return;
 				}
+         
+     
+
+
 				
 				try {
 					AsyncStorage.setItem(USER_TOKEN, response.access_token)
 						.then(() => {
+
+							   let cart = 0;
+
+									RequestGetAuth('carts')
+							    .then(resp => resp.json())
+							    .then(resp => {
+							    		console.log("resposta")
+							    	console.log(resp)
+							      if(resp.error) {
+							          cart = 0;
+							      }else{
+							          cart = 1;
+							      }
+							    });
+
 							RequestAuth('users', 'GET')
 								.then(response => response.json())
 								.then(response => {
+                   
+
 									try {
 										const status = response.data.status.id;
 										let tela = 'Home';
-
+                    
+                    console.log(cart)
 										// Pré-cadastro
 										if(status == 26){
-											tela = 'Drawer';
+
+												if(cart == 1){
+	                         tela = 'Drawer';
+												}else{
+	                         tela = 'Kits';
+												}
+											
 										}
 										
 										// Aguardando ativação

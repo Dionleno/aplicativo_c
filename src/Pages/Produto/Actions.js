@@ -80,7 +80,7 @@ export const listarProdutos = () => {
 			dispatch({ type: CHANGE_FIELD_PRODUTO, objectItem: 'loading', payload: true});
 		}
 
-		RequestGet(URL)
+		RequestGetAuth(URL)
 			.then(resp => resp.json())
 			.then(resp => {
 				try {

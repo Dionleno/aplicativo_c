@@ -15,7 +15,7 @@ export default props =>{
     const  { state } = props.item.navigation
         
     return (
-      <Header searchBar style={styles.header}>
+      <Header style={styles.header}>
           <StatusBar backgroundColor="#000000" />
 
           <Left>
