@@ -4,45 +4,49 @@ import { Button, Container, Text, Header, Spinner, Card, CardItem, Body, Left, R
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { MOEDAS } from '../../../Helpers/Constants';
 import { MaskService } from 'react-native-masked-text';
- 
+import { SEM_FOTO } from '../../../Helpers/Constants';
 
 export const VerticalCard  = props => {
     let item = props.item;
     let details = props.item.product_details[0];
-    let img = details.medias[0].url;
-    let preco = MaskService.toMask('money', details.prices[0].value, MOEDAS.BLR);
+    let img = SEM_FOTO;
+    try{
+      img = details.medias[0].url;
+    }catch(e){}
+
+    let price = 0;
+    try {
+      price = details.prices[0].value;
+    } catch (e) {}
+    
+    let preco = MaskService.toMask('money', price, MOEDAS.BLR);
 
     return (
-
       <Grid style={styles.row} onPress={ () => {props.propriedades.navigation.navigate('ProdutoDetails', {produto:item}) }}>
-         <Row >
-           <Col style={styles.viewImage}>
-             <Icon name="visibility" style={{alignSelf:'flex-end',fontSize:20, color: '#20CDA6',}}/>
-             <Image source={{ uri: img }} style={styles.imageProduct} />
+        <Row>
+          <Col style={styles.viewImage}>
+            <Icon name="visibility" style={{alignSelf:'flex-end',fontSize:20, color: '#20CDA6'}}/>
+            <Image source={{ uri:img }} style={styles.imageProduct} />
           </Col>
-         </Row>
-         <Row>
-           <Col style={styles.viewProductDetails}>
-          <View style={styles.viewProductTitle}>
-            <Text style={styles.productTitle}>{item.name}</Text>
-          </View>
-           
-           <View style={styles.viewProductPoints}>
-            <Text style={styles.productPoints}>{details.points[0].value} pts</Text>
-          </View>
+        </Row>
+        <Row>
+          <Col style={styles.viewProductDetails}>
+            <View style={styles.viewProductTitle}>
+              <Text style={styles.productTitle}>{item.name}</Text>
+            </View>
 
-          <View style={styles.viewProductPrice}>
-            <Text style={styles.productPrice}>{preco}</Text>
-          </View>
+            <View style={styles.viewProductPoints}>
+              <Text style={styles.productPoints}>{details.points[0].value} pts</Text>
+            </View>
 
-         
- 
-        </Col>
-         </Row>
+            <View style={styles.viewProductPrice}>
+              <Text style={styles.productPrice}>{preco}</Text>
+            </View>
+          </Col>
+        </Row>
       </Grid>  
     )
 }
- 
 
 const styles = StyleSheet.create({
 	container: {

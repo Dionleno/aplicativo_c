@@ -5,36 +5,29 @@
  */
 
 import React, { Component } from 'react';
- /*REDUX*/
- import { connect } from 'react-redux'
- import { bindActionCreators } from 'redux'
- import {listarProdutos,changeItem,_onOpenInputSearch,_onClosedInputSearch,searchRequestItem} from './Actions'  
- import { AppRegistry, View, Image, FlatList, StyleSheet, AsyncStorage, Alert,TextInput ,Dimensions,Animated,LayoutAnimation} from 'react-native';
- import { StyleProvider, Container, Button, Text, Header, Spinner, Card, CardItem, Item, Input,List,ListItem, Body, Left,
-  Right, Content,Grid,Row,Col} from 'native-base';
+/*REDUX*/
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import {listarProdutos,changeItem,_onOpenInputSearch,_onClosedInputSearch,searchRequestItem} from './Actions'  
+import { AppRegistry, View, Image, FlatList, StyleSheet, AsyncStorage, Alert,TextInput ,Dimensions,Animated,LayoutAnimation} from 'react-native';
+import { Container, Button, Text, Spinner, Item, Input, Grid, Row, Col} from 'native-base';
 
 
- import Icon from 'react-native-vector-icons/MaterialIcons'
- import styles from './Style'
- 
- import HeaderProdutos from '../../Static/HeaderProdutos'
- import IF from '../../Helpers/if'
- import {ProdutoCard} from './Components/ProdutoCard'
- import {VerticalCard} from './Components/VerticalCard'
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import styles from './Style';
+import HeaderProdutos from '../../Static/HeaderProdutos';
+import IF from '../../Helpers/if';
+import {ProdutoCard} from './Components/ProdutoCard';
+import {VerticalCard} from './Components/VerticalCard';
 import styleButton from '../../StyleSheet/Buttons';
 
 const AnimatedTI = Animated.createAnimatedComponent(Item);
- 
 
- export class Produtos extends Component {
+export class Produtos extends Component {
 
   constructor(props) {
     super(props); 
   }
-
-  /* componentWillMount = () =>{
-    this.props.listarProdutos();
-  } */
 
   loading = () => {
     if(this.props.loading){

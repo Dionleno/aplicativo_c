@@ -43,8 +43,18 @@ export class ProdutoDetalhes extends Component {
 	render({ produto } = this.props.navigation.state.params) {
 		let produtoFirst = produto.product_details[0];
 		let allproducts = produto.product_details;
-     
-		let preco = MaskService.toMask('money', produtoFirst.prices[0].value, MOEDAS.BLR);
+		let price = '';
+		let image = 'http://www.steps.com.br/arquivos/produto_sem_foto.gif';
+
+		try {
+			price = produtoFirst.prices[0].value;
+		}catch(e){}
+
+		try{
+			image = this.props.details.imagemDestaque; 
+		}catch(e){}
+
+		let preco = MaskService.toMask('money', price, MOEDAS.BLR);
 
     return (
 			<Container padder style={{backgroundColor:'#FFFFFF'}}>
@@ -60,7 +70,7 @@ export class ProdutoDetalhes extends Component {
 				
 					<Row style={{alignItems:"center",height:190}}>
 						<Col style={{alignItems:"center",height:180,flex:1,alignItems: 'stretch'}}>
-							<ImageBackground style={{flex:1}} source={{ uri: this.props.details.imagemDestaque}} />
+							<ImageBackground style={{flex:1}} source={{ uri: image }} />
 						</Col>
 						
 						<Col style={{alignItems:"center",flex:1}}>
@@ -92,9 +102,13 @@ export class ProdutoDetalhes extends Component {
 							horizontal={true} 
 							style={{flex:1,height:180}}>
 							{allproducts.map((item,key) => {
+								let image = 'http://www.steps.com.br/arquivos/produto_sem_foto.gif';
+								try{
+									image = item.medias[0].url;
+								}catch(e){}
 								return (
 									<Button key={key} style={{width:80,height:80,marginHorizontal:10}}  onPress={() => this.props.onchangeitem(item)}>
-										<Image source={{ uri: item.medias[0].url }} style={item.code === this.props.details.code ? styles.btnActive : styles.btnInative} />
+										<Image source={{ uri: image }} style={item.code === this.props.details.code ? styles.btnActive : styles.btnInative} />
 									</Button>
 								);
 							})}

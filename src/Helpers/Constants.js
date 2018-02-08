@@ -17,6 +17,8 @@ export const MOEDAS = {
   }
 }
 
+export const SEM_FOTO = 'http://www.steps.com.br/arquivos/produto_sem_foto.gif';
+
 export const USER_INFO = '@Userinfo';
 
 export const USER_TOKEN = '@usertoken';

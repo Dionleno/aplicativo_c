@@ -1,5 +1,6 @@
 import { Alert, Dimensions, Animated} from 'react-native';
 import { RequestPostAuth, RequestGetAuth, RequestGet } from '../../Helpers/Http';
+import { SEM_FOTO } from '../../Helpers/Constants';
 import {
 	LISTS_PRODUCTO,
 	CHANGE_FIELD_PRODUTO,
@@ -16,79 +17,27 @@ export const changeItem = (_object, _value) => ({
 })
 
 export const listarProdutosCategoria = () => {
-  
 	
-		 return (dispatch,getState) => 
-	   {
-	   	 const state = getState().produto
-	   	 
-           const URL = state._slug != '' 
-                      ? '/categories/'+ state._slug +'/products?page=' + state.actualPage 
-                      : 'products?search='+state.search+'&page=' + state.actualPage;
-	   	  
-   console.log('url')
-       
-       console.log(URL)
-
-	   	if(!state.loading){
-      	dispatch({ type: CHANGE_FIELD_PRODUTO, objectItem: 'loading', payload: true })
-       }
-	  
-	   	 /*
-	   * @Listar produtos
-	   */       
-       RequestGetAuth(URL)
-		  .then(resp => resp.json())
-		  .then(resp => {
-         console.log(resp)
-			    dispatch({ type: CHANGE_FIELD_PRODUTO, objectItem: 'lastPage', payload: resp.meta.last_page })
-	        const stateUpdated = getState().produto;   
-	        
-	        dispatch({ type: CHANGE_FIELD_PRODUTO, objectItem: 'showButtonLoading', payload: true })
-	        if(stateUpdated.actualPage <= stateUpdated.lastPage){
-	          let nextPage = stateUpdated.actualPage + 1;
-	          
-	          var a = stateUpdated.produtos;
-	          
-	          var novos = a.concat(resp.data)
-
-            console.log(novos)
-	          dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'produtos', payload: novos })
-	          dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'actualPage', payload: nextPage })
-	        
-	         }else{
-
-	           console.log('fim')
-	           dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'showButtonLoading', payload: false })
-	            
-	        }
-             dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'loading', payload: false })
-          
-	      
-		  })
-	   }
-
-}
-
-export const listarProdutos = () => {
-
 	return (dispatch, getState) => {
 		const state = getState().produto;
-		const URL = 'products?search='+state.search+'&page=' + state.actualPage;
+		let slug = state._slug || 'geral';
+		const URL = `/categories/${slug}/products?page=${state.actualPage}`;
 
 		if(!state.loading){
-			dispatch({ type: CHANGE_FIELD_PRODUTO, objectItem: 'loading', payload: true});
+			dispatch({ type: CHANGE_FIELD_PRODUTO, objectItem: 'loading', payload: true })
 		}
 
-		RequestGet(URL)
+		/*
+		* @Listar produtos
+		*/       
+		RequestGetAuth(URL)
 			.then(resp => resp.json())
 			.then(resp => {
-				try {
-					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'lastPage', payload: resp.meta.last_page });
-					const stateUpdated = getState().produto;   
+				dispatch({ type: CHANGE_FIELD_PRODUTO, objectItem: 'lastPage', payload: resp.meta.last_page })
+				const stateUpdated = getState().produto;   
 
-					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'showButtonLoading', payload: true })
-					if(stateUpdated.actualPage <= stateUpdated.lastPage){
+				dispatch({ type: CHANGE_FIELD_PRODUTO, objectItem: 'showButtonLoading', payload: true })
+				if(stateUpdated.actualPage <= stateUpdated.lastPage){
 					let nextPage = stateUpdated.actualPage + 1;
 
 					var a = stateUpdated.produtos;
@@ -98,6 +47,46 @@ export const listarProdutos = () => {
 					console.log(novos)
 					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'produtos', payload: novos })
 					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'actualPage', payload: nextPage })
+
+				}else{
+					console.log('fim')
+					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'showButtonLoading', payload: false })
+				}
+
+				dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'loading', payload: false });
+		})
+	}
+
+}
+
+export const listarProdutos = () => {
+
+	return (dispatch, getState) => {
+		const state = getState().produto;
+		const URL = `products?search=${state.search}&page=${state.actualPage}`;
+
+		if(!state.loading){
+			dispatch({ type: CHANGE_FIELD_PRODUTO, objectItem: 'loading', payload: true});
+		}
+
+		RequestGetAuth(URL)
+			.then(resp => resp.json())
+			.then(resp => {
+				try {
+					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'lastPage', payload: resp.meta.last_page });
+					const stateUpdated = getState().produto;   
+
+					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'showButtonLoading', payload: true })
+					if(stateUpdated.actualPage <= stateUpdated.lastPage){
+						let nextPage = stateUpdated.actualPage + 1;
+
+						var a = stateUpdated.produtos;
+
+						var novos = a.concat(resp.data);
+
+						console.log(novos)
+						dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'produtos', payload: novos });
+						dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'actualPage', payload: nextPage });
 
 					}else{
 
@@ -162,15 +151,19 @@ export const searchRequestItem = async(_props) => {
 
 /*DETAILS*/
 export const initDetails = (_props) =>{
-			const { produto } = _props;
-			const produtoFirst = produto.product_details[0]
-			
-	return dispatch => 
-		{
-			dispatch({ type: CHANGE_FIELD_DETAILS, objectItem: 'quantidade', payload: 1 })
-			dispatch({ type: CHANGE_FIELD_DETAILS, objectItem: 'imagemDestaque', payload: produtoFirst.medias[0].url })
-			dispatch({ type: CHANGE_FIELD_DETAILS, objectItem: 'code', payload: produtoFirst.code })
-			dispatch({ type: CHANGE_FIELD_DETAILS, objectItem: 'idDetails', payload: produtoFirst.id })
+	const { produto } = _props;
+	const produtoFirst = produto.product_details[0];
+	let url = SEM_FOTO;
+
+	try{
+		url = produtoFirst.medias[0].url;
+	}catch(e){}
+
+	return dispatch => {
+		dispatch({ type: CHANGE_FIELD_DETAILS, objectItem: 'quantidade', payload: 1 })
+		dispatch({ type: CHANGE_FIELD_DETAILS, objectItem: 'imagemDestaque', payload: url })
+		dispatch({ type: CHANGE_FIELD_DETAILS, objectItem: 'code', payload: produtoFirst.code })
+		dispatch({ type: CHANGE_FIELD_DETAILS, objectItem: 'idDetails', payload: produtoFirst.id })
 	}
 }
 

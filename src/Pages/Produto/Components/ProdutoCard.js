@@ -4,36 +4,43 @@ import { Button, Container, Text, Header, Spinner, Card, CardItem, Body, Left, R
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { MOEDAS } from '../../../Helpers/Constants';
 import { MaskService } from 'react-native-masked-text';
+import { SEM_FOTO } from '../../../Helpers/Constants';
 
 export const ProdutoCard  = props => {
     let item = props.item;
     let details = props.item.product_details[0];
-    let img = details.medias[0].url;
-    let preco = MaskService.toMask('money', details.prices[0].value, MOEDAS.BLR);
+    let img = SEM_FOTO;
+
+    try{
+      img = details.medias[0].url;
+    } catch (e) {}
+    
+    let price = 0;
+    try {
+      price = details.prices[0].value;
+    } catch (e) {}
+
+    let preco = MaskService.toMask('money', price, MOEDAS.BLR);
 
     return (
-    <Row style={styles.row} onPress={ () => {props.propriedades.navigation.navigate('ProdutoDetalhes', {produto:item}) }}>
+      <Row style={styles.row} onPress={ () => {props.propriedades.navigation.navigate('ProdutoDetalhes', {produto:item}) }}>
         <Col style={styles.viewImage}>
-             <Image source={{ uri: img }} style={styles.imageProduct} />
+          <Image source={{ uri:img }} style={styles.imageProduct} />
         </Col>
 
         <Col style={styles.viewProductDetails}>
-         <Icon name="visibility" style={{alignSelf:'flex-end',fontSize:20, color: '#20CDA6',}}/>
+          <Icon name="visibility" style={{alignSelf:'flex-end',fontSize:20, color: '#20CDA6',}}/>
           <View style={styles.viewProductTitle}>
             <Text style={styles.productTitle}>{item.name}</Text>
           </View>
-           
-           <View style={styles.viewProductPoints}>
+          <View style={styles.viewProductPoints}>
             <Text style={styles.productPoints}>{details.points[0].value} pts</Text>
           </View>
           <View style={styles.viewProductPrice}>
-             <Text style={styles.productPrice}>{preco}</Text>
+            <Text style={styles.productPrice}>{preco}</Text>
           </View>
-
-         
- 
         </Col>
-    </Row>
+      </Row>
     )
 }
 
