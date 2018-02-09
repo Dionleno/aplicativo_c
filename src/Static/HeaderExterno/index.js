@@ -9,7 +9,7 @@ import { Platform, AppRegistry, Text, StatusBar,TouchableHighlight,StyleSheet,Vi
 
 import {Container,Header, Left, Button,Body,Title,Right} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons'; 
- 
+import styleDefault from '../../StyleSheet/Buttons.js'
 
 export default props =>{
     const  { state } = props.item.navigation
@@ -18,13 +18,13 @@ export default props =>{
     	 
         <Header style={{backgroundColor:'#333333'}}>
           <StatusBar backgroundColor="#000000" />
-          <Left>
+          <View style={styleDefault.boxBtnMenu}>
             <Button transparent onPress={() => {
             	 props.item.navigation.goBack()
             }}>
               <Icon name='keyboard-arrow-left' style={{fontSize:25,color:'#FFFFFF'}}/>
             </Button>
-          </Left> 
+          </View> 
           <Body>
             <Title>{ props.title}</Title>
           </Body>

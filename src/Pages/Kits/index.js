@@ -58,6 +58,8 @@ export class Kits extends Component {
   }
 
   informacao(){
+    console.log(this.props.kits);
+    
     if(this.props.kits.length == 0 && !this.props.loading_kits){
       return (<Text style={{textAlign: 'center', marginTop: 15}}>Nenhum Kit disponível no momento</Text>);
     }

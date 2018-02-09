@@ -26,8 +26,10 @@ import CupomAtivacao from './Pages/CupomAtivacao';
 import CupomAgradecimento from './Pages/Agradecimentos/Cupom';
 import CadastroAgradecimento from './Pages/Agradecimentos/Cadastro';
 import Checkout from './Pages/Checkout';
-import HomeEv from './Pages/HomeEv';
 import AguardandoAtivacao from './Pages/AguardandoAtivacao';
+
+//Rotas EV
+import HomeEv from './Ev/Home';
 
 // Paginas internas
 import Interna from './Pages/Interna';
@@ -45,7 +47,8 @@ export const DrawerNav =  DrawerNavigator({
   Produto: {
     screen: Produto,
     navigationOptions : {
-      drawerLabel : 'Produtos' 
+      drawerLabel : 'Produtos' ,
+     
     }
   },
   Categorias: {
@@ -84,6 +87,8 @@ export const DrawerNavEv = DrawerNavigator({
   drawerCloseRoute: 'DrawerCloseEv',  
   drawerToggleRoute: 'DrawerToggleEv'
 });
+
+
 
 /*
 * @Rotas sem sidebar (Offline,Externas)

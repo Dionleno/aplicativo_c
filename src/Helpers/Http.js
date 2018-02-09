@@ -194,7 +194,65 @@ export const AccessFast = async(props) =>{
       
            RequestGetAuth('users')
           .then(response => response.json())
-          .then(response => _navigateTo(props,'Drawer'))
+          .then(response => {
+                  
+                   let cart = 0;
+
+                  RequestGetAuth('carts')
+                  .then(resp => resp.json())
+                  .then(resp => {
+                      console.log("resposta")
+                    console.log(resp)
+                    if(resp.error) {
+                        cart = 0;
+                    }else{
+                        cart = 1;
+                    }
+
+
+                    try {
+                      const status = response.data.status.id;
+                      let tela = 'Home';
+                      console.log(cart);
+                      
+                      console.log(cart)
+                      // Pré-cadastro
+                      if(status == 26){
+  
+                          if(cart == 1){
+                             tela = 'Drawer';
+                          }else{
+                             tela = 'Kits';
+                          }
+                        
+                      }
+                      
+                      // Aguardando ativação
+                      if(status == 3){
+                        tela = 'AguardandoAtivacao';
+                      }
+                      
+                      // Ativo
+                      if(status == 1){
+                        tela = 'DrawerEv';
+                      }
+                      
+                      AsyncStorage.setItem(USER_INFO, JSON.stringify(response.data))
+                        .then(() => {
+                          _navigateTo(props, tela);
+                         
+                        });
+  
+                    } catch (error) {
+                      Alert.alert('Atenção', 'Ocorreu um erro ao realizar o login.\nTente novamente mais tarde.');
+                       _navigateTo(props,'Login')
+                    }
+                  });
+
+
+                  
+            
+          })
           .catch(error => {
                Alert.alert('Atenção', 'Login expirou, acesse novamente!');
                _navigateTo(props,'Login')

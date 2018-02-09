@@ -10,7 +10,7 @@ import styles from "./Style";
 
 import { Content, Text, List, ListItem, Container, View, Thumbnail, Body } from 'native-base';
 import { USER_INFO } from '../../Helpers/Constants';
-
+import { RequestGet,LogOutSistem } from '../../Helpers/Http';  
 class SideBarEv extends Component {
   
   constructor(props) {
@@ -55,6 +55,14 @@ class SideBarEv extends Component {
                 </Body>
               </ListItem> 
             </List>
+
+            <List>
+             <ListItem itemDivider onPress={() => LogOutSistem(this.props)}>
+                <Body>
+                  <Text>Logout</Text>
+                </Body>
+              </ListItem> 
+              </List>
           </ScrollView>
         </Content>
       </Container>

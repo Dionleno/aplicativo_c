@@ -28,5 +28,9 @@ export default {
     fontSize: 15,
     fontWeight: 'bold',
     textAlign: 'center'
+  },
+   boxBtnMenu:{
+     paddingVertical:5,
+     paddingRight:10
   }
 };
