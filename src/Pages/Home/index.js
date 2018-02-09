@@ -30,7 +30,6 @@ export class Home extends Component {
 
   isLogin = async() => {
   	const Userinfo = await AsyncStorage.getItem(USER_INFO);
-  	console.log(Userinfo)
   	if (Userinfo) {
   		setTimeout(() => {
   			 this.props.changeLoadingLogado(true)

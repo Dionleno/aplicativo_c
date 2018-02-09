@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { Platform, AsyncStorage ,Alert} from 'react-native';
 import { URL_API, headers, LOGIN, USER_TOKEN, USER_INFO } from './Constants';
@@ -18,7 +17,7 @@ export function ApiStatusCode(response){
   
 };
 
- export const _navigateTo = (props, routeName: string) => {
+ export const _navigateTo = (props, routeName) => {
 
         const actionToDispatch = NavigationActions.reset({
           index: 0,
@@ -179,83 +178,61 @@ export const RequestAuth = async(url, metodo, _body = {}) => {
   return http;
 }
 
-
-export const LogOutSistem = (props) => {
-        console.log('logout')
- 
-        AsyncStorage.setItem(USER_INFO, '')
-        AsyncStorage.setItem(USER_TOKEN, '')
-        
-        _navigateTo(props,'Home')
-    
+export const LogOutSistem = () => {
+  return AsyncStorage.multiSet([[USER_INFO, ''], [USER_TOKEN, '']]);
 }
 
-export const AccessFast = async(props) =>{
+export const AccessFast = (_error = () => {}, _success = () => {}) => {
+  RequestGetAuth('users')
+    .then(response => response.json())
+    .then(response => {
       
-           RequestGetAuth('users')
-          .then(response => response.json())
-          .then(response => {
-                  
-                   let cart = 0;
+      RequestGetAuth('carts')
+        .then(resp => resp.json())
+        .then(resp => {
+          console.log('RESPOSTA', resp);
+          let cart = 1;
+          if(resp.error) {
+            cart = 0;
+          }
 
-                  RequestGetAuth('carts')
-                  .then(resp => resp.json())
-                  .then(resp => {
-                      console.log("resposta")
-                    console.log(resp)
-                    if(resp.error) {
-                        cart = 0;
-                    }else{
-                        cart = 1;
-                    }
+          try {
+            const status = response.data.status.id;
+            let tela = 'Home';
 
-
-                    try {
-                      const status = response.data.status.id;
-                      let tela = 'Home';
-                      console.log(cart);
-                      
-                      console.log(cart)
-                      // Pré-cadastro
-                      if(status == 26){
-  
-                          if(cart == 1){
-                             tela = 'Drawer';
-                          }else{
-                             tela = 'Kits';
-                          }
-                        
-                      }
-                      
-                      // Aguardando ativação
-                      if(status == 3){
-                        tela = 'AguardandoAtivacao';
-                      }
-                      
-                      // Ativo
-                      if(status == 1){
-                        tela = 'DrawerEv';
-                      }
-                      
-                      AsyncStorage.setItem(USER_INFO, JSON.stringify(response.data))
-                        .then(() => {
-                          _navigateTo(props, tela);
-                         
-                        });
-  
-                    } catch (error) {
-                      Alert.alert('Atenção', 'Ocorreu um erro ao realizar o login.\nTente novamente mais tarde.');
-                       _navigateTo(props,'Login')
-                    }
-                  });
-
-
-                  
+            // Pré-cadastro
+            if(status == 26){
+              if(cart == 1){
+                tela = 'Drawer';
+              }else{
+                tela = 'Kits';
+              }
+            }
             
-          })
-          .catch(error => {
-               Alert.alert('Atenção', 'Login expirou, acesse novamente!');
-               _navigateTo(props,'Login')
-           });
+            // Aguardando ativação
+            if(status == 3){
+              tela = 'AguardandoAtivacao';
+            }
+            
+            // Ativo
+            if(status == 1){
+              tela = 'DrawerEv';
+            }
+            
+            AsyncStorage.setItem(USER_INFO, JSON.stringify(response.data))
+              .then(() => {
+                _success(tela);
+              });
+
+          } catch (error) {
+            Alert.alert('Atenção', 'Ocorreu um erro ao realizar o login.\nTente novamente mais tarde.');
+            _error(error);
+          }
+        });
+    })
+    .catch(error => {
+      Alert.alert('Atenção', 'Login expirou, acesse novamente!');
+      _error(error);
+    });
         
 }

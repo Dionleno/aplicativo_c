@@ -9,17 +9,19 @@ import { Platform , Dimensions,StyleSheet, AsyncStorage} from 'react-native';
 /*REDUX*/
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Content,StyleProvider, Container,Header,View,Thumbnail,Button,Text,Icon} from 'native-base';
+import { Content, Container, View, Thumbnail, Button, Text, Icon, Spinner } from 'native-base';
 import { changeLoadingLogado } from './Actions'; 
 import stylesButtons from '../../StyleSheet/Buttons';
 import { USER_INFO} from '../../Helpers/Constants';
-import { _navigateTo , LogOutSistem,AccessFast } from '../../Helpers/Http'
+import { _navigateTo , LogOutSistem, AccessFast } from '../../Helpers/Http'
 
 export class Logado extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user:{}
+      user:{},
+      buttonAccessFastLoading: false,
+      buttonLogoutSistemLoading: false
     }
   }
 
@@ -33,43 +35,78 @@ export class Logado extends Component {
     setTimeout(() => {
       this.props.changeLoadingLogado(false)
     }, 500)
-
-    
   }
+
+  buttonAccessFast = () => {
+    if(this.state.buttonAccessFastLoading){
+      return (<Spinner color='black' />);
+    }
+
+    return (
+      <Button
+        block 
+        style={[stylesButtons.btnPrimary,{borderRadius: 0,paddingHorizontal: 0,marginTop:19}]}
+        onPress={() => {
+          this.setState({...this.state, buttonAccessFastLoading: true});
+          
+          AccessFast(
+          (error) => {
+            this.setState({...this.state, buttonAccessFastLoading: false});
+            _navigateTo(this.props, 'Login');
+          },
+          (tela) => {
+            this.setState({...this.state, buttonAccessFastLoading: false});
+            _navigateTo(this.props, tela);
+          });
+        }}>
+        <Text>Continuar</Text>
+        <Icon name='arrow-forward' style={{fontSize:25,color:'#FFFFFF', justifyContent: 'center'}} />
+      </Button>
+    );
+  }
+
+  buttonLogoutSistem = () => {
+    if(this.state.buttonLogoutSistemLoading){
+      return (<Spinner color='black' />);
+    }
+
+    return (
+      <Button
+        block 
+        style={[stylesButtons.btnPrimary,{borderRadius: 0,paddingHorizontal: 0,marginVertical:10}]}
+        onPress={() => {
+          this.setState({...this.state, buttonLogoutSistemLoading: true});
+          LogOutSistem()
+            .then(() => {
+              this.setState({...this.state, buttonLogoutSistemLoading: false});
+              _navigateTo(this.props, 'Home')
+            });
+        }}>
+        <Text>Acessar outra conta</Text>
+      </Button>
+    );
+  }
+
   render() {
     console.log(this.state.user)
     return (
-
-           <Container>
-              <Content bounces={false} style={{ flex: 1, backgroundColor: "#fff",paddingVertical:20 }}>
-              <View style={styles.drawerCover} >
- 
-                <View style={styles.boxitem}>
-                <View style={[styles.avatarView,{width:80}]}>
-                   <Thumbnail source={{
-                    uri: 'https://guiadasempresas.com.br/wp-content/uploads/750x750_13f49be6-2cbf-4665-be16-14f91ee86b13.png'
-                  }} large />
-                </View>
-                <View style={{flex:1}}>
-                  <Text note style={[styles.avatarName,{fontSize:17,color:"#888888",marginTop:8}]}>Acessar com:</Text>
-                  <Text style={styles.avatarName}>{this.state.user.name}</Text>
-                  <Button block style={[stylesButtons.btnPrimary,{borderRadius: 0,paddingHorizontal: 0,marginTop:19}]}
-                          onPress={() => AccessFast(this.props)}>
-                         <Text>Continuar</Text>
-                        <Icon name='arrow-forward' style={{fontSize:25,color:'#FFFFFF', justifyContent: 'center'}} />
-                    </Button>
-
-                     <Button block style={[stylesButtons.btnPrimary,{borderRadius: 0,paddingHorizontal: 0,marginVertical:10}]}
-                       onPress={() => LogOutSistem(this.props)}>
-                         <Text>Acessar outra conta</Text>
-                     </Button>
-                </View>
-                </View>
+      <Container>
+        <Content bounces={false} style={{ flex: 1, backgroundColor: "#fff",paddingVertical:20 }}>
+          <View style={styles.drawerCover} >
+            <View style={styles.boxitem}>
+              <View style={[styles.avatarView,{width:80}]}>
+                <Thumbnail source={{uri: 'https://guiadasempresas.com.br/wp-content/uploads/750x750_13f49be6-2cbf-4665-be16-14f91ee86b13.png'}} large />
               </View>
-  
-          </Content>
+              <View style={{flex:1}}>
+                <Text note style={[styles.avatarName,{fontSize:17,color:"#888888",marginTop:8}]}>Acessar com:</Text>
+                <Text style={styles.avatarName}>{this.state.user.name}</Text>
+                {this.buttonAccessFast()}
+                {this.buttonLogoutSistem()}
+              </View>
+            </View>
+          </View>
+        </Content>
       </Container>
-
     )
   }
 }
