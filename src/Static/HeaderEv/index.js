@@ -12,7 +12,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import styleDefault from '../../StyleSheet/Buttons.js'
 export default props => {
     // const  { state } = props.item.navigation;
-        
+    
+    let title = props.title || 'Escritório Virtual';
+
     return (
       <Header searchBar style={styles.header}>
         <StatusBar backgroundColor="#000000" />
@@ -27,7 +29,7 @@ export default props => {
           </Button>
         </View>
         <Body >
-          <Title>Escritório Virtual</Title>
+          <Title>{title}</Title>
         </Body>
          <Right>
             <Button transparent onPress={ () => { props.item.navigation.navigate('Carrinho'); }}>
