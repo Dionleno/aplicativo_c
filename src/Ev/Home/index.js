@@ -14,7 +14,7 @@ export default class HomeEv extends Component {
   render(){
     return (
       <Container>
-      <EvDrawer ref="evDrawer">
+        <EvDrawer ref="evDrawer">
                  <HeaderEv
                     item={this.props}
                     opendrawer={() => this.refs.evDrawer.openDrawer()}

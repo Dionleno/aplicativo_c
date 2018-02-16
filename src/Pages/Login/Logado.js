@@ -32,9 +32,7 @@ export class Logado extends Component {
     console.log(JSON.parse(Userinfo))
     this.setState({user: JSON.parse(Userinfo)})
 
-    setTimeout(() => {
-      this.props.changeLoadingLogado(false)
-    }, 500)
+ 
   }
 
   buttonAccessFast = () => {

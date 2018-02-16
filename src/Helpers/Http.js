@@ -182,57 +182,79 @@ export const LogOutSistem = () => {
   return AsyncStorage.multiSet([[USER_INFO, ''], [USER_TOKEN, '']]);
 }
 
-export const AccessFast = (_error = () => {}, _success = () => {}) => {
-  RequestGetAuth('users')
+const getUserAuth = () => {
+
+  return new Promise((resolve, reject) => {
+    RequestGetAuth('users')
     .then(response => response.json())
     .then(response => {
-      
-      RequestGetAuth('carts')
-        .then(resp => resp.json())
-        .then(resp => {
-          console.log('RESPOSTA', resp);
-          let cart = 1;
-          if(resp.error) {
-            cart = 0;
-          }
-
-          try {
-            const status = response.data.status.id;
-            let tela = 'Home';
-
-            // Pré-cadastro
-            if(status == 26){
-              if(cart == 1){
-                tela = 'Produto';
-              }else{
-                tela = 'Kits';
-              }
-            }
-            
-            // Aguardando ativação
-            if(status == 3){
-              tela = 'AguardandoAtivacao';
-            }
-            
-            // Ativo
-            if(status == 1){
-              tela = 'HomeEv';
-            }
-            
-            AsyncStorage.setItem(USER_INFO, JSON.stringify(response.data))
-              .then(() => {
-                _success(tela);
-              });
-
-          } catch (error) {
-            Alert.alert('Atenção', 'Ocorreu um erro ao realizar o login.\nTente novamente mais tarde.');
-            _error(error);
-          }
-        });
+      resolve(response)
+    }).catch(error => {
+      reject(error);
     })
-    .catch(error => {
-      Alert.alert('Atenção', 'Login expirou, acesse novamente!');
-      _error(error);
-    });
+  })
+
+}
+
+
+export const AccessFast = (_error = () => {}, _success = () => {}) => {
+
+
+  getUserAuth()
+  .then(response => {
+    RequestGetAuth('carts')
+    .then(resp => resp.json())
+    .then(resp => {
+      
+      let cart = 1;
+      if(resp.error) {
+        cart = 0;
+      }
+
+      try {
+        const status = response.data.status.id;
+        let tela = 'Home';
+
+        // Pré-cadastro
+        if(status == 26){
+          if(cart == 1){
+            tela = 'Produto';
+          }else{
+            tela = 'Kits';
+          }
+        }
         
+        // Aguardando ativação
+        if(status == 3){
+          tela = 'AguardandoAtivacao';
+        }
+        
+        // Ativo
+        if(status == 1){
+          tela = 'HomeEv';
+        }
+        
+        AsyncStorage.setItem(USER_INFO, JSON.stringify(response.data))
+          .then(() => {
+            console.log(tela);
+            
+            _success(tela);
+          });
+
+      } catch (error) {
+        console.log(error);
+        
+        Alert.alert('Atenção', 'Ocorreu um erro ao realizar o login.\nTente novamente mais tarde.');
+        _error(error);
+      }
+    })
+  })
+  .catch(error => {
+    console.log(error);
+    
+    Alert.alert('Atenção', 'Login expirou, acesse novamente!');
+  })
+ 
+      
+       
 }
