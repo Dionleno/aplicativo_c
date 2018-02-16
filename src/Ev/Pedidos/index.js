@@ -19,7 +19,6 @@ export default class Pedidos extends Component{
                     item={this.props}
                     opendrawer={() => this.refs.evDrawer.openDrawer()}
                     title="Novo pedido" />
- 
                         <LsProdutos />
                     </EvDrawer>    
 

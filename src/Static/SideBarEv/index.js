@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 import styles from "./Style";
-
+import { withNavigation } from 'react-navigation';
 import { Content, Text, List, ListItem, Container, View, Thumbnail, Body } from 'native-base';
 import { USER_INFO } from '../../Helpers/Constants';
 import { RequestGet,LogOutSistem } from '../../Helpers/Http';  
@@ -75,4 +75,4 @@ class SideBarEv extends Component {
   }
 }
 
-export default SideBarEv;
+export default withNavigation(SideBarEv);

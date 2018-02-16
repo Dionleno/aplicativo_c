@@ -15,6 +15,7 @@ import { View, Image, Dimensions, ImageBackground, StyleSheet,AsyncStorage} from
 import { Container, Button, Text} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { changeLoadingLogado } from '../Login/Actions';
+import {_navigateTo} from '../../Helpers/Http'
 import styles from './Style'
 import { USER_INFO} from '../../Helpers/Constants';
 
@@ -32,9 +33,9 @@ export class Home extends Component {
   	const Userinfo = await AsyncStorage.getItem(USER_INFO);
   	if (Userinfo) {
   		setTimeout(() => {
-  			 this.props.changeLoadingLogado(true)
-  		   this.props.navigation.navigate('Logado')
-  		}, 500)
+			   this.props.changeLoadingLogado(true)
+			   _navigateTo( this.props, 'Logado') 
+  		}, 700)
   		
   	}else{
   		 this.props.changeLoadingLogado(false)
