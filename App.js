@@ -27,7 +27,7 @@ import Reducers from './src/Reducers'
 
 const store = applyMiddleware(thunk,promise)(createStore)(Reducers)
 
-export default class App extends Component<{}> {
+export default class App extends Component {
   render() {
     return (<Provider store={store}><Route /></Provider>)
   }

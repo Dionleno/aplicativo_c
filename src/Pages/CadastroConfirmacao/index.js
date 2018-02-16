@@ -56,7 +56,7 @@ export class ConfirmacaoCadastro extends Component {
     if(this.props.issetCart == 1){
       return (
         <View style={{ padding:15 }}>
-          <Button block style={stylesButton.btnPrimary} onPress={() => _navigateTo(this.props, 'Drawer') }>
+          <Button block style={stylesButton.btnPrimary} onPress={() => _navigateTo(this.props, 'Produto') }>
             <Text style={stylesButton.btnPrimaryText}>Acessar a loja</Text>
           </Button>
         </View>

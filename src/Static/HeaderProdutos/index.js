@@ -9,7 +9,7 @@ import {  Platform, AppRegistry, Text, StatusBar, TouchableHighlight, StyleSheet
 
 import {Container, Header, Left, Button, Body, Title, Right} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
- 
+import styleDefault from '../../StyleSheet/Buttons'
 
 export default props =>{
     const  { state } = props.item.navigation
@@ -18,11 +18,11 @@ export default props =>{
       <Header style={styles.header}>
           <StatusBar backgroundColor="#000000" />
 
-          <Left>
-            <Button transparent onPress={ () => {  props.item.navigation.navigate('DrawerOpen'); }}>
+          <View style={styleDefault.boxBtnMenu}>
+            <Button transparent onPress={ props.opendrawer}>
               <Icon name='menu' style={styles.icon}/>
             </Button>
-          </Left>
+          </View>
           <Body>
             <Title>{ props.title }</Title>
           </Body>

@@ -20,14 +20,12 @@ export default props => {
         <View style={styleDefault.boxBtnMenu}>
           <Button 
             transparent 
-            onPress={() => {
-              props.item.navigation.navigate('DrawerOpenEv') 
-            }}>
+            onPress={ props.opendrawer}>
             <Icon name='menu' style={styles.icon}/>
           </Button>
         </View>
         <Body >
-          <Title>Escritório Virtual</Title>
+          <Title>{props.title}</Title>
         </Body>
          <Right>
             <Button transparent onPress={ () => { props.item.navigation.navigate('Carrinho'); }}>

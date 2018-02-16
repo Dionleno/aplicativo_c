@@ -94,9 +94,9 @@ export const handlerLogin = (_props) => {
 										if(status == 26){
 
 												if(cart == 1){
-	                         tela = 'Drawer';
+	                       							tela = 'Produto';
 												}else{
-	                         tela = 'Kits';
+	                         						tela = 'Kits';
 												}
 											
 										}
@@ -108,7 +108,7 @@ export const handlerLogin = (_props) => {
 										
 										// Ativo
 										if(status == 1){
-											tela = 'DrawerEv';
+											tela = 'HomeEv';
 										}
 										
 										AsyncStorage.setItem(USER_INFO, JSON.stringify(response.data))
@@ -155,7 +155,7 @@ export const setUserCurrent = (_props) => {
 				AsyncStorage.setItem(USER_INFO, JSON.stringify(resp.data));
 				console.log(resp.data);
 				dispatch(changeLoading(false))
-				_navigateTo(_props, 'Drawer');
+				_navigateTo(_props, 'Produto');
 			});
 	}
 }

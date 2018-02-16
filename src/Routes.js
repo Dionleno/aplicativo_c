@@ -20,6 +20,7 @@ import Login from './Pages/Login';
 import Logado from './Pages/Login/Logado';
 import Carrinho from './Pages/Carrinho';
 import Produto from './Pages/Produto';
+import Pedidos from './Ev/Pedidos';
 import Categorias from './Pages/Produto/Categorias';
 import ProdutoDetails from './Pages/Produto/Details';
 import CupomAtivacao from './Pages/CupomAtivacao';
@@ -39,63 +40,13 @@ import SideBar from './Static/SideBar';
 
 // Paginas do EV 
 import SideBarEv from './Static/SideBarEv';
-
-/*
-* @Rotas com sidebar (Auth, internas)
-*/
-export const DrawerNav =  DrawerNavigator({
-  Produto: {
-    screen: Produto,
-    navigationOptions : {
-      drawerLabel : 'Produtos' ,
-     
-    }
-  },
-  Categorias: {
-    screen: Categorias,
-    navigationOptions : {
-      drawerLabel : 'Categorias' 
-    } 
-  },
-  Logout: {
-    screen: Home,
-    navigationOptions : {
-      drawerLabel : 'Sair' 
-    }
-  }    
  
-}, {
-  contentComponent: SideBar,
-  drawerWidth: 300,
-  drawerOpenRoute: 'DrawerOpen',  
-  drawerCloseRoute: 'DrawerClose',  
-  drawerToggleRoute: 'DrawerToggle'
-});
-
-export const DrawerNavEv = DrawerNavigator({
-  HomeEv: {
-    screen: HomeEv,
-    navigationOptions: {
-      drawerLabel: 'Escritório Virtual' 
-    }
-  }
-
-}, {
-  contentComponent: SideBarEv,
-  drawerWidth: 300,
-  drawerOpenRoute: 'DrawerOpenEv',  
-  drawerCloseRoute: 'DrawerCloseEv',  
-  drawerToggleRoute: 'DrawerToggleEv'
-});
-
-
-
 /*
 * @Rotas sem sidebar (Offline,Externas)
 */
 const NavigatorRouter = StackNavigator({
-  Drawer: {screen: DrawerNav},
-  DrawerEv: {screen: DrawerNavEv},
+  Produto: {screen: Produto},
+  Categorias: {screen: Categorias},
   Home: {screen: Home},
   Login: {screen:Login},
   Logado:{screen:Logado},
@@ -110,7 +61,9 @@ const NavigatorRouter = StackNavigator({
   CupomAgradecimento:{screen:CupomAgradecimento},
   Checkout: {screen: Checkout},
   CadastroAgradecimento: {screen: CadastroAgradecimento},
-  AguardandoAtivacao: {screen: AguardandoAtivacao}
+  AguardandoAtivacao: {screen: AguardandoAtivacao},
+  Pedidos: {screen: Pedidos},
+  HomeEv:{screen:HomeEv}
 }, {
   headerMode: 'none',
   initialRouteName: 'Home',

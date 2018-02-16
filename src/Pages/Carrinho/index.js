@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { carregarCarrinho } from './Actions';
 import styleButton from '../../StyleSheet/Buttons';
-
+import ProdutosDrawer from '../../Components/Drawers/ProdutosDrawer'
 export class Carrinho extends Component {
 
   constructor(props){
@@ -48,6 +48,7 @@ export class Carrinho extends Component {
   render(){
     return (
       <Container>
+     
         <HeaderCarrinho
           title='Carrinho'
           navigation={this.props.navigation}
@@ -69,7 +70,7 @@ export class Carrinho extends Component {
           {this.btnCheckout()}
           
         </Content>
-
+        
       </Container>
     )
   }

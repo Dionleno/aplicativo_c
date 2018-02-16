@@ -6,7 +6,9 @@ import { MOEDAS } from '../../../Helpers/Constants';
 import { MaskService } from 'react-native-masked-text';
 import { SEM_FOTO } from '../../../Helpers/Constants';
 
-export const VerticalCard  = props => {
+import { withNavigation } from 'react-navigation';
+
+const VerticalCard  = props => {
     let item = props.item;
     let details = props.item.product_details[0];
     let img = SEM_FOTO;
@@ -22,7 +24,7 @@ export const VerticalCard  = props => {
     let preco = MaskService.toMask('money', price, MOEDAS.BLR);
 
     return (
-      <Grid style={styles.row} onPress={ () => {props.propriedades.navigation.navigate('ProdutoDetails', {produto:item}) }}>
+      <Grid style={styles.row} onPress={ () => {props.navigation.navigate('ProdutoDetails', {produto:item}) }}>
         <Row>
           <Col style={styles.viewImage}>
             <Icon name="visibility" style={{alignSelf:'flex-end',fontSize:20, color: '#20CDA6'}}/>
@@ -47,6 +49,8 @@ export const VerticalCard  = props => {
       </Grid>  
     )
 }
+
+export default withNavigation(VerticalCard)
 
 const styles = StyleSheet.create({
 	container: {

@@ -5,8 +5,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { MOEDAS } from '../../../Helpers/Constants';
 import { MaskService } from 'react-native-masked-text';
 import { SEM_FOTO } from '../../../Helpers/Constants';
+import { withNavigation } from 'react-navigation';
 
-export const ProdutoCard  = props => {
+const ProdutoCard  = props => {
     let item = props.item;
     let details = props.item.product_details[0];
     let img = SEM_FOTO;
@@ -23,7 +24,7 @@ export const ProdutoCard  = props => {
     let preco = MaskService.toMask('money', price, MOEDAS.BLR);
 
     return (
-      <Row style={styles.row} onPress={ () => {props.propriedades.navigation.navigate('ProdutoDetails', {produto:item}) }}>
+      <Row style={styles.row} onPress={ () => {props.navigation.navigate('ProdutoDetails', {produto:item}) }}>
         <Col style={styles.viewImage}>
           <Image source={{ uri:img }} style={styles.imageProduct} />
         </Col>
@@ -44,7 +45,7 @@ export const ProdutoCard  = props => {
     )
 }
 
-
+export default withNavigation(ProdutoCard)
  
 const styles = StyleSheet.create({
 	container: {

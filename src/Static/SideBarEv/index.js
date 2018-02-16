@@ -54,6 +54,11 @@ class SideBarEv extends Component {
                   <Text>Home</Text>
                 </Body>
               </ListItem> 
+              <ListItem itemDivider onPress={() => this.props.navigation.navigate('Pedidos') }>
+                <Body>
+                  <Text>Pedidos</Text>
+                </Body>
+              </ListItem> 
             </List>
 
             <List>

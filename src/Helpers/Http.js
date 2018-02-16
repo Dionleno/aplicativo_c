@@ -203,7 +203,7 @@ export const AccessFast = (_error = () => {}, _success = () => {}) => {
             // Pré-cadastro
             if(status == 26){
               if(cart == 1){
-                tela = 'Drawer';
+                tela = 'Produto';
               }else{
                 tela = 'Kits';
               }
@@ -216,7 +216,7 @@ export const AccessFast = (_error = () => {}, _success = () => {}) => {
             
             // Ativo
             if(status == 1){
-              tela = 'DrawerEv';
+              tela = 'HomeEv';
             }
             
             AsyncStorage.setItem(USER_INFO, JSON.stringify(response.data))
