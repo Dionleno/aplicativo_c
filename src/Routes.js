@@ -6,7 +6,6 @@
 
 import React, { Component } from 'react';
 import { Platform,Animated ,Easing} from 'react-native';
-
 import {DrawerNavigator, StackNavigator} from 'react-navigation';
 
 //Paginas externas
@@ -20,7 +19,6 @@ import Login from './Pages/Login';
 import Logado from './Pages/Login/Logado';
 import Carrinho from './Pages/Carrinho';
 import Produto from './Pages/Produto';
-import Pedidos from './Ev/Pedidos';
 import Categorias from './Pages/Produto/Categorias';
 import ProdutoDetails from './Pages/Produto/Details';
 import CupomAtivacao from './Pages/CupomAtivacao';
@@ -28,6 +26,8 @@ import CupomAgradecimento from './Pages/Agradecimentos/Cupom';
 import CadastroAgradecimento from './Pages/Agradecimentos/Cadastro';
 import Checkout from './Pages/Checkout';
 import AguardandoAtivacao from './Pages/AguardandoAtivacao';
+import Pedidos from './Ev/Pedidos';
+import PedidosLista from './Ev/Pedidos/Lista';
 
 //Rotas EV
 import HomeEv from './Ev/Home';
@@ -63,6 +63,7 @@ const NavigatorRouter = StackNavigator({
   CadastroAgradecimento: {screen: CadastroAgradecimento},
   AguardandoAtivacao: {screen: AguardandoAtivacao},
   Pedidos: {screen: Pedidos},
+  PedidosLista: {screen: PedidosLista},
   HomeEv:{screen:HomeEv}
 }, {
   headerMode: 'none',

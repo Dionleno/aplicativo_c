@@ -11,6 +11,8 @@ import styles from "./Style";
 import { Content, Text, List, ListItem, Container, View, Thumbnail, Body } from 'native-base';
 import { USER_INFO } from '../../Helpers/Constants';
 import { RequestGet,LogOutSistem } from '../../Helpers/Http';  
+import { withNavigation } from 'react-navigation';
+
 class SideBarEv extends Component {
   
   constructor(props) {
@@ -56,6 +58,11 @@ class SideBarEv extends Component {
               </ListItem> 
               <ListItem itemDivider onPress={() => this.props.navigation.navigate('Pedidos') }>
                 <Body>
+                  <Text>Novo pedido</Text>
+                </Body>
+              </ListItem> 
+              <ListItem itemDivider onPress={() => this.props.navigation.navigate('PedidosLista') }>
+                <Body>
                   <Text>Pedidos</Text>
                 </Body>
               </ListItem> 
@@ -75,4 +82,4 @@ class SideBarEv extends Component {
   }
 }
 
-export default SideBarEv;
+export default withNavigation(SideBarEv);

@@ -16,6 +16,7 @@ import IF from '../../Helpers/if'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import LinkMenu from './Components/LinkMenu'
 import DropdownMenu from './Components/DropdownMenu'
+import { withNavigation } from 'react-navigation';
 
 class SideBar extends Component {
   
@@ -128,4 +129,4 @@ class SideBar extends Component {
  
 
 
-export default SideBar
+export default withNavigation(SideBar); 
