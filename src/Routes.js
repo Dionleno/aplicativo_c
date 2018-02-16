@@ -6,7 +6,6 @@
 
 import React, { Component } from 'react';
 import { Platform,Animated ,Easing} from 'react-native';
-
 import {DrawerNavigator, StackNavigator} from 'react-navigation';
 
 //Paginas externas
@@ -63,8 +62,7 @@ export const DrawerNav =  DrawerNavigator({
     navigationOptions : {
       drawerLabel : 'Sair' 
     }
-  }    
- 
+  }
 }, {
   contentComponent: SideBar,
   drawerWidth: 300,
@@ -88,8 +86,6 @@ export const DrawerNavEv = DrawerNavigator({
   drawerCloseRoute: 'DrawerCloseEv',  
   drawerToggleRoute: 'DrawerToggleEv'
 });
-
-
 
 /*
 * @Rotas sem sidebar (Offline,Externas)

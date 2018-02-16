@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
-import { Container, Text, Content, ListItem, Body, Right, Button, Icon } from 'native-base';
+import { 
+  Container, 
+  Text, 
+  Content, 
+  ListItem, 
+  Body, 
+  Right, 
+  Button, 
+  Icon,
+  Spinner
+} from 'native-base';
 import HeaderEv from '../../Static/HeaderEv';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { loadPedidos } from './Actions';
+import { loadPedidos, dialog } from './Actions';
 import styles from './Style';
+import { MaskService } from 'react-native-masked-text';
+import { MOEDAS } from '../../Helpers/Constants';
+import PopupDialog, { DialogTitle, DialogButton } from 'react-native-popup-dialog';
+import Dialog from './Dialog';
 
 class Pedidos extends Component {
 
@@ -14,31 +28,39 @@ class Pedidos extends Component {
     this.state = {};
   }
 
-  componentWillMount = () => {
+  componentWillMount(){
     this.props.loadPedidos();
-    
   }
-
+  
   _keyExtractor = (item, index) => item.order;
   
   _renderItem = ({item}) => {
-    const { address, price } = item;
+    const { address, price, order } = item;
     const endereco = `${address.street} - ${address.number}, ${address.city.name}, ${address.city.state.name}`; 
-    
+    const valor = MaskService.toMask('money', price, MOEDAS.BLR);
+
     return (
-      <ListItem>
+      <ListItem style={styles.item} onPress={() => this.openDialog(order)}>
         <Body>
           <Text>{item.order}</Text>
           <Text note>{endereco}</Text>
         </Body>
         <Right>
-          <Text note>R$ {price}</Text>
-          <Button transparent info iconRight>
-            <Icon name='md-open' />
-          </Button>
+          <Text note>{valor}</Text>
         </Right>
       </ListItem>
     );
+  }
+
+  loading = () => {
+    if(this.props.loading){
+      return (<Spinner color='black' />);
+    }
+  }
+
+  openDialog = order => {
+    this.popupDialogOrder.show();
+    this.props.dialog(order);
   }
 
   render(){
@@ -47,6 +69,7 @@ class Pedidos extends Component {
         <HeaderEv title='Lista de Pedidos' item={this.props} />
 
         <Content style={styles.content} >
+          {this.loading()}
           <FlatList
             data={this.props.pedidos}
             extraData={this.state}
@@ -55,12 +78,21 @@ class Pedidos extends Component {
           />
         </Content>
 
+        <PopupDialog
+          dialogTitle={<DialogTitle title="Detalhes do Pedido" />}
+          ref={(popupDialog) => { this.popupDialogOrder = popupDialog; }}
+          width={0.90}
+          height={0.80}
+          containerStyle={{zIndex: 10, elevation: 10}}
+          actions={[<DialogButton key={0} text="Fechar" align="center" onPress={() => this.popupDialogOrder.dismiss()}/>]}>
+          <Dialog />
+        </PopupDialog>
+
       </Container>
     );
   }
-
 }
 
 const mapStateToProps = state => (state.pedidos);
-const mapDispatchToProps = dispatch => bindActionCreators({ loadPedidos }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ loadPedidos, dialog }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Pedidos);
