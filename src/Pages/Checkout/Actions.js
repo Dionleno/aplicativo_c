@@ -8,6 +8,7 @@ import { RequestAuth } from '../../Helpers/Http';
 import AdyenCse from '../../Helpers/AdyenCse';
 import { ADYEN_KEY } from '../../Helpers/Constants';
 import { MaskService } from 'react-native-masked-text';
+import { MOEDAS } from '../../Helpers/Constants';
 import {
   LISTAR_ENDERECOS,
   CHANGE_ADDRESS,
@@ -86,7 +87,10 @@ export const getCart = () => {
 
         console.log('Carrinho', response);
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        // console.log(error);
+        // console.log('Kits não está definido');
+      });
   };
 }
 
@@ -103,7 +107,7 @@ export const setKit = products => {
   
   const titulo = kit.detail.kits[0].name;
   const descricao = kit.detail.kits[0].description;
-  const valor = 'R$ ' + kit.price.value;
+  const valor = MaskService.toMask('money', kit.price.value, MOEDAS.BLR);
   const imagem = kit.detail.medias[0].url;
   const pontos = kit.detail.points[0].value;
 

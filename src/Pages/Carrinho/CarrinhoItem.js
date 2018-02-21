@@ -16,9 +16,10 @@ import {
 	Card,
 	CardItem
 } from 'native-base';
-
 import { connect } from 'react-redux';
 import { check } from './Actions';
+import { MaskService } from 'react-native-masked-text';
+import { MOEDAS } from '../../Helpers/Constants';
 
 export class CarrinhoItem extends Component {
 
@@ -54,6 +55,8 @@ export class CarrinhoItem extends Component {
 		if(item.detail.kits.length > 0){
 			nome = item.detail.kits[0].name;
 		}
+
+		const price = MaskService.toMask('money', item.price.value, MOEDAS.BLR);
 		
 		return (
 			<List style={styles.view}>
@@ -68,7 +71,7 @@ export class CarrinhoItem extends Component {
 
 					<View style={styles.textStyle}>
 						<Text style={styles.textProductName}>{nome}</Text>
-						<Text style={styles.textPrice}>R$ {item.price.value}</Text>
+						<Text style={styles.textPrice}>{price}</Text>
 						<Text style={styles.textQuantidade}>Quant.: {item.amount}</Text>
 					</View>
 				</ListItem>

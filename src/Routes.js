@@ -28,6 +28,7 @@ import Checkout from './Pages/Checkout';
 import AguardandoAtivacao from './Pages/AguardandoAtivacao';
 import Pedidos from './Ev/Pedidos';
 import PedidosLista from './Ev/Pedidos/Lista';
+import Retirada from './Ev/Retirada/index';
 
 //Rotas EV
 import HomeEv from './Ev/Home';
@@ -66,8 +67,6 @@ const transitionConfig = () => {
   }
 }
 
-
-
 const NavigatorRouter = StackNavigator({
   Produto: {screen: Produto},
   Categorias: {screen: Categorias},
@@ -88,6 +87,7 @@ const NavigatorRouter = StackNavigator({
   AguardandoAtivacao: {screen: AguardandoAtivacao},
   Pedidos: {screen: Pedidos},
   PedidosLista: {screen: PedidosLista},
+  Retirada: {screen: Retirada},
   HomeEv:{screen:HomeEv}
 }, {
   headerMode: 'none',

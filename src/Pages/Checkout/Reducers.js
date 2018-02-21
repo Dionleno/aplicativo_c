@@ -63,7 +63,8 @@ const INITIAL_STATE = {
   loading: {
     btnFinalizarCadastro: false,
     formasEntrega: 0
-  }
+  },
+  kit_visible: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -119,7 +120,7 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, produtos: action.payload};
 
     case KIT:
-      return {...state, kit: action.payload};
+      return {...state, kit_visible: true, kit: action.payload};
     
     case TOTAL:
       return {...state, total: action.payload};

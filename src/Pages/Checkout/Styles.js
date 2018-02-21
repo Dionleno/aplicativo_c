@@ -138,7 +138,7 @@ export default {
 		color: '#000000'
 	},
 	viewRadioEndereco: {
-        flexDirection: 'row',
+    flexDirection: 'row',
 		alignItems: 'flex-start'
 	},
 	cardEndereco: {

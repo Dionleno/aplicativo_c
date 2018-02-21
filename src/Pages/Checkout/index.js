@@ -21,9 +21,9 @@ export class Checkout extends Component {
     super(props);
     
   }
-
+  
   verificaEntregaCd(){
-    if(this.props.factory == '1'){
+    if(this.props.factory == 1){
       return (
         <View>
           <FormularioEntrega />
@@ -57,7 +57,7 @@ export class Checkout extends Component {
           animationDuration={500}
           width={0.9}
           height={0.9}
-          containerStyle={{ zIndex: 10, elevation: 10}}
+          containerStyle={{zIndex: 10, elevation: 10}}
           actions={
             [
               <Button 

@@ -32,6 +32,10 @@ export const carregarCarrinho = () => {
         } catch (e) {
 
         }
+
+        if(response.data.products.length == 0){
+          dispatch(informacao('Você ainda não possui nenhum produto no seu carrinho'));
+        }
         
         dispatch(loadCarrinho(false));
       })

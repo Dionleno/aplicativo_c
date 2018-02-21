@@ -64,7 +64,7 @@ export class Carrinho extends Component {
           <FlatList
             data={this.props.produtos}
             keyExtractor={(item, index) => item.id}
-            renderItem={({item, index}) => this.renderCarrinhoItem({item, index})}
+            renderItem={this.renderCarrinhoItem}
           />
 
           {this.btnCheckout()}

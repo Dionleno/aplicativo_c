@@ -15,6 +15,7 @@ import carrinhoReducers from './Pages/Carrinho/Reducers';
 import produtoReducers from './Pages/Produto/Reducers';
 import checkoutReducers from './Pages/Checkout/Reducers';
 import pedidosReducers from './Ev/Pedidos/Reducers';
+import retiradaReducers from './Ev/Retirada/Reducers';
 
 const rootReducer = combineReducers({
 	home: homeReducers,
@@ -26,7 +27,8 @@ const rootReducer = combineReducers({
 	carrinho: carrinhoReducers,
 	produto: produtoReducers,
 	checkout: checkoutReducers,
-	pedidos: pedidosReducers
+	pedidos: pedidosReducers,
+	retirada: retiradaReducers
 })
 
 export default rootReducer

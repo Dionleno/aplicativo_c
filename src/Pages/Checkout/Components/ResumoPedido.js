@@ -32,18 +32,12 @@ class ResumoPedido extends Component {
     }
   }
 
-  render() {
-    const kitValor = MaskService.toMask('money', this.props.kit.valor, MOEDAS.BLR);
-    const pedidoValor = MaskService.toMask('money', this.props.total, MOEDAS.BLR);
-
-    return (
-      <View>
-        <Row style={styles.title} >
-          <Text style={styles.titleText}>Resumo do pedido</Text>
-        </Row>
-    
-        <View style={styles.resumo}>
-    
+  kit = () => {
+    if(this.props.kit_visible){
+      const kitValor = MaskService.toMask('money', this.props.kit.valor, MOEDAS.BLR);
+      
+      return (
+        <View>
           <View style={styles.resumoKit}>
             <Text style={styles.resumoTitle}>{this.props.kit.titulo}</Text>
             <Text style={styles.resumoTexto}>Pontos: {this.props.kit.pontos}</Text>
@@ -54,6 +48,23 @@ class ResumoPedido extends Component {
           <View style={styles.resumoValores}>
             <Text style={styles.resumoTexto}>Valor do Kit: {kitValor}</Text>
           </View>
+        </View>
+      );
+    }
+  }
+
+  render() {
+    const pedidoValor = MaskService.toMask('money', this.props.total, MOEDAS.BLR);
+
+    return (
+      <View>
+        <Row style={styles.title} >
+          <Text style={styles.titleText}>Resumo do pedido</Text>
+        </Row>
+    
+        <View style={styles.resumo}>
+    
+          {this.kit()}
     
           <FlatList
             style={styles.listProdutos}
@@ -62,7 +73,7 @@ class ResumoPedido extends Component {
             renderItem={this.renderListProdutos}
           />
     
-          <View style={styles.resumoValores}>
+          <View style={styles.resumoValores}> 
             <Text style={styles.resumoTexto}>Valor do Pedido: {pedidoValor}</Text>
           </View>
         </View>
@@ -70,7 +81,7 @@ class ResumoPedido extends Component {
         <View>
           <View style={styles.bottom}>
             <Button block style={stylesGlobal.btnPrimary} onPress={() => {this.props.finalizarCadastro(this.props)}}>
-              <Text style={stylesGlobal.btnPrimaryText} >Finalizar Cadastro</Text>
+              <Text style={stylesGlobal.btnPrimaryText} >Finalizar Pedido</Text>
             </Button>
           </View>
         </View>
