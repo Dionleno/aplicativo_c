@@ -9,7 +9,7 @@ import { withNavigation } from 'react-navigation';
 
 class Pedidos extends Component{
   constructor(props) {
-    super(props); 
+    super(props)
   }
   
   render(){
