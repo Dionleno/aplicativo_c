@@ -57,7 +57,7 @@ class LsProdutos extends Component{
                         
                             if(!this.props.showButtonLoading) return;
                                 setTimeout(() => {
-                                  //  this.props.listarProdutos()
+                                   this.props.listarProdutos()
                                 }, 1000)
                             
                         }}

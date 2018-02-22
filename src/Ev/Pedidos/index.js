@@ -8,10 +8,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default class Pedidos extends Component{
   constructor(props) {
-    super(props); 
+    super(props)
   }
-
-<<<<<<< HEAD
   render(){
     return(
       <Container>
@@ -20,20 +18,8 @@ export default class Pedidos extends Component{
             item={this.props}
             opendrawer={() => this.refs.evDrawer.openDrawer()}
             title="Novo pedido" />
-=======
-      render(){
-          return(
-            <Container>
-                 <EvDrawer ref="evDrawer">
-                 <HeaderProdutos
-                    item={this.props}
-                    opendrawer={() => this.refs.evDrawer.openDrawer()}
-                    title="Novo pedido" />
-                        <LsProdutos />
-                    </EvDrawer>    
->>>>>>> dion
 
-          <LsProdutos />
+            <LsProdutos />
         </EvDrawer>
       </Container>      
     )
