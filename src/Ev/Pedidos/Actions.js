@@ -2,9 +2,11 @@ import {
   PEDIDOS_LOAD,
   PEDIDOS_DIALOG,
 } from '../../Types';
+import { Alert } from 'react-native';
 import { RequestAuth } from '../../Helpers/Http';
 import { MaskService } from 'react-native-masked-text';
 import { MOEDAS } from '../../Helpers/Constants';
+import _ from 'lodash';
 
 export const loadPedidos = () => {
   return dispatch => {
@@ -27,6 +29,9 @@ export const dialog = order => {
         status: '',
         value: '',
         products: [],
+        shipping: '',
+        shipping_company: {},
+        cycle: '',
         visible: false
       }
     });
@@ -34,7 +39,19 @@ export const dialog = order => {
     RequestAuth(`orders?uid=${order}`, 'GET')
       .then(response => response.json())
       .then(response => {
-        const { order, address, status, price, products } = response.data[0];
+        const item = _.first(response.data);
+
+        const { 
+          order, 
+          address, 
+          status, 
+          price, 
+          products, 
+          shipping,
+          shipping_company,
+          cycle
+        } = item;
+
         dispatch({
           type: PEDIDOS_DIALOG,
           payload: {
@@ -43,11 +60,27 @@ export const dialog = order => {
             status: status.description,
             value: MaskService.toMask('money', price, MOEDAS.BLR),
             products,
+            shipping: MaskService.toMask('money', parseFloat(shipping).toFixed(2), MOEDAS.BLR),
+            shipping_company,
+            cycle: cycle.description,
             visible: true
           }
         });
-        console.log('ORDER', response.data[0]);
       })
       .catch(error => console.log(error));
+  }
+}
+
+export const cancelar = () => {
+  return dispatch => {
+    Alert.alert(
+      'Atenção',
+      'Deseja cancelar este pedido?',
+      [
+        {text: 'Não', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        {text: 'Sim', onPress: () => console.log('OK Pressed')},
+      ],
+      { cancelable: false }
+    );
   }
 }

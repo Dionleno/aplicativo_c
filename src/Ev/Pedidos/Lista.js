@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import { 
+  Content,
   Container, 
   Text, 
-  Content, 
   ListItem, 
   Body, 
   Right, 
-  Button, 
-  Icon,
   Spinner
 } from 'native-base';
 import HeaderEv from '../../Static/HeaderEv';
@@ -18,8 +16,6 @@ import { loadPedidos, dialog } from './Actions';
 import styles from './Style';
 import { MaskService } from 'react-native-masked-text';
 import { MOEDAS } from '../../Helpers/Constants';
-import PopupDialog, { DialogTitle, DialogButton } from 'react-native-popup-dialog';
-import Dialog from './Dialog';
 import EvDrawer from '../../Components/Drawers/EvDrawer';
 
 class Lista extends Component {
@@ -60,8 +56,8 @@ class Lista extends Component {
   }
 
   openDialog = order => {
-    this.popupDialogOrder.show();
     this.props.dialog(order);
+    this.props.navigation.navigate('PedidoDetalhes');
   }
 
   render(){
@@ -82,16 +78,6 @@ class Lista extends Component {
               renderItem={this._renderItem}
             />
           </Content>
-
-          <PopupDialog
-            dialogTitle={<DialogTitle title="Detalhes do Pedido" />}
-            ref={(popupDialog) => { this.popupDialogOrder = popupDialog; }}
-            width={0.90}
-            height={0.80}
-            containerStyle={{zIndex: 10, elevation: 10}}
-            actions={[<DialogButton key={0} text="Fechar" align="center" onPress={() => this.popupDialogOrder.dismiss()}/>]}>
-            <Dialog />
-          </PopupDialog>
         </EvDrawer>
       </Container>
     );

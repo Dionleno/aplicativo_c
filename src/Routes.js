@@ -29,6 +29,7 @@ import AguardandoAtivacao from './Pages/AguardandoAtivacao';
 import Pedidos from './Ev/Pedidos';
 import PedidosLista from './Ev/Pedidos/Lista';
 import Retirada from './Ev/Retirada/index';
+import PedidoDetalhes from './Ev/Pedidos/Detalhes';
 
 //Rotas EV
 import HomeEv from './Ev/Home';
@@ -87,6 +88,7 @@ const NavigatorRouter = StackNavigator({
   AguardandoAtivacao: {screen: AguardandoAtivacao},
   Pedidos: {screen: Pedidos},
   PedidosLista: {screen: PedidosLista},
+  PedidoDetalhes: {screen: PedidoDetalhes},
   Retirada: {screen: Retirada},
   HomeEv:{screen:HomeEv}
 }, {
