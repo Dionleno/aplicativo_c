@@ -8,15 +8,21 @@ import {
   CARREGAR_CARRINHO,
   CHECK_ITEM,
   LOAD_CARRINHO,
-  INFORMACAO_CARRINHO
+  INFORMACAO_CARRINHO,
+  CARRINHO_CHECKOUT
 } from '../../Types';
 
-export const carregarCarrinho = () => {
+export const changeCarrinhoCheckout = b => ({
+  type: CARRINHO_CHECKOUT,
+  payload: b
+});
+
+export const carregarCarrinho = (cb = () => {}) => {
   return (dispatch, getState) => {
     
     dispatch(loadCarrinho(true));
     dispatch({ type: CARREGAR_CARRINHO, payload: [] });
-    dispatch(informacao(''));
+    // dispatch(informacao(''));
 
     RequestAuth('carts', 'GET')
       .then(response => response.json())
@@ -38,10 +44,12 @@ export const carregarCarrinho = () => {
         }
         
         dispatch(loadCarrinho(false));
+
+        cb();
       })
       .catch(error => {
         console.log(error);
-        disatch(loadCarrinho(false));
+        dispatch(loadCarrinho(false));
       });
   }
 }
@@ -76,7 +84,7 @@ export const check = (value, checked) => {
   }
 }
 
-export const excluir = () => {
+export const excluir = navigation => {
   return (dispatch, getState) => {
     let checked = getState().carrinho.checked;
 		let message = 'este produto';
@@ -97,21 +105,22 @@ export const excluir = () => {
                     .then(response => {
                       dispatch({ type: CARREGAR_CARRINHO, payload: response.data.products });
                       dispatch({ type: CHECK_ITEM, payload: [] });
+                      if(response.data.products.length == 0){
+                        navigation.navigate('Retirada');
+                      }
                     })
                     .catch(error => console.log(error));
                 });
+                
+                dispatch(carregarCarrinho());
               }
             } 
           }
 				],
-					{cancelable: false}
-				);
+				{cancelable: false}
+			);
 		} else {
 			Alert.alert('Atenção', 'Escolha pelo menos um produto');
     }
   }
 }
-
-/* export const reset = () => {
-
-} */

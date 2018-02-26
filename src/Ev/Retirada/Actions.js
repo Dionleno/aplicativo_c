@@ -9,7 +9,8 @@ import {
   RETIRADA_CD_RESET,
   RETIRADA_CD_PICKER_VISIBLE,
   RETIRADA_ERRO,
-  RETIRADA_LOADING
+  RETIRADA_LOADING,
+  RETIRADA_OVERLAY
 } from '../../Types';
 
 export const avancar = props => {
@@ -133,5 +134,22 @@ export const carregarCDs = value => {
           console.log(error);
         });
     }
+  }
+}
+
+// Faz a verificação de carrinho existente. 
+// Se o carrinho existir, o usuário será direcionado para a tela de seleção de produtos
+export const verificarCarrinhoAtivo = navigation => {
+  return dispatch => {
+    dispatch({type: RETIRADA_OVERLAY, payload: true});
+    RequestAuth('carts', 'GET')
+      .then(response => response.json())
+      .then(response => {
+        dispatch({type: RETIRADA_OVERLAY, payload: false});
+        if(response.data){
+          navigation.navigate('Pedidos');
+        }
+      })
+      .catch(error => console.log(error));
   }
 }

@@ -14,9 +14,7 @@ export default props => {
   let title = props.title || 'Escritório Virtual';
 
   return (
-    <Header searchBar style={styles.header}>
-      <StatusBar backgroundColor="#000000" />
-
+    <Header searchBar androidStatusBarColor='#000000' style={styles.header}>
       <View style={styleDefault.boxBtnMenu}>
         <Button 
           transparent 

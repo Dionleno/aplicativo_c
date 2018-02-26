@@ -9,7 +9,8 @@ import EvDrawer from '../../Components/Drawers/EvDrawer';
 import FormularioCD from './FormularioCD';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { avancar, check } from './Actions';
+import { avancar, check, verificarCarrinhoAtivo } from './Actions';
+import SpinnerOverlay from 'react-native-loading-spinner-overlay';
 
 class Retirada extends Component {
 
@@ -19,6 +20,10 @@ class Retirada extends Component {
     this.state = {};
   }
 
+  componentWillMount(){
+    this.props.verificarCarrinhoAtivo(this.props.navigation);
+  }
+  
   _keyExtractor = (item) => item.id; 
 
   _renderItem = ({item, index}) => {
@@ -60,7 +65,7 @@ class Retirada extends Component {
     return (
       <Container>
         <EvDrawer ref='evDrawer' >
-          <HeaderEv
+          <HeaderEv 
             item={this.props}
             opendrawer={() => this.refs.evDrawer.openDrawer()}
             title="Modo de Retirada" />
@@ -83,6 +88,9 @@ class Retirada extends Component {
           <View style={styles.footer}>
             {this.button()}
           </View>
+
+          <SpinnerOverlay visible={this.props.overlay} textContent={"Aguarde..."} textStyle={{color: '#ffffff'}} />
+      
         </EvDrawer>
       </Container>
     );
@@ -90,5 +98,5 @@ class Retirada extends Component {
 }
 
 const mapStateToProps = state => (state.retirada);
-const mapDispatchToProps = dispatch => bindActionCreators({ avancar, check }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ avancar, check, verificarCarrinhoAtivo }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Retirada);

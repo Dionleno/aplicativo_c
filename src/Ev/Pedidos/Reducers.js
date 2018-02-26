@@ -30,6 +30,9 @@ export default (state = INITIAL_STATE, action) => {
           address: action.payload.address,
           value: action.payload.value,
           products: action.payload.products,
+          shipping: action.payload.shipping,
+          shipping_company: action.payload.shipping_company,
+          cycle: action.payload.cycle,
           visible: action.payload.visible
         }
       };
