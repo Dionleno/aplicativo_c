@@ -9,6 +9,7 @@ import AdyenCse from '../../Helpers/AdyenCse';
 import { ADYEN_KEY } from '../../Helpers/Constants';
 import { MaskService } from 'react-native-masked-text';
 import { MOEDAS } from '../../Helpers/Constants';
+import _ from 'lodash';
 import {
   LISTAR_ENDERECOS,
   CHANGE_ADDRESS,
@@ -399,7 +400,7 @@ export const verificarValorCartao = () => {
   }
 }
 
-export const finalizarCadastro = _this => {
+export const finalizarCadastro = props => {
 
   return (dispatch, getState) => {
     const { checkout } = getState();
@@ -433,20 +434,19 @@ export const finalizarCadastro = _this => {
     }
     
     dispatch(loadFinalizarCadastro(true));
-    dispatch(enviarCadastroParaApi(_this));
+    dispatch(enviarCadastroParaApi(props));
     
   };
 
 }
+
 
 /**
  * Enviar um POST para carts/checkout com os parâmetros:
  * payment_method_id = 1 para Boleto ou 2 para Cartão de Crédito
  * Se o pagamento for com o cartão, enviar um array com os valores ['string_adyen', 'valor', 'installments_id'] -> O installment_id é o retorno do GET 'carts/installments/{value}'
  */
-export const enviarCadastroParaApi = (_this, encrypt = '') => {
-  let data = {};
-
+export const enviarCadastroParaApi = (props, encrypt = '') => {
   return (dispatch, getState) => {
     const { checkout } = getState();
     let data = {};
@@ -462,26 +462,51 @@ export const enviarCadastroParaApi = (_this, encrypt = '') => {
       }
     }
 
-    RequestAuth('carts/checkout', 'POST', data)
+    RequestAuth('carts', 'GET')
       .then(response => response.json())
       .then(response => {
-        if(response.error){
-          Alert.alert('Atenção', response.error.message);
-          console.log(response);
-          dispatch(loadFinalizarCadastro(false));
-        }
-        
-        if(response.data){
-          dispatch(loadFinalizarCadastro(false));
-          _this.navigation.navigate('CadastroAgradecimento', {response: response.data});
+        const products = response.data.products;
+        let checkout = true;
+
+        for(let i = 0; i < products.length; i++){
+          const { detail } = products[i];
+          const stock = _.first(detail.stocks).amount_virtual;
+          if(stock <= 0){
+            checkout = false;
+            break;
+          }
         }
 
-        dispatch(loadFinalizarCadastro(false));
-      })
-      .catch(error => {
-        Alert.alert('Atenção', 'Ocorreu um erro ao gerar o pedido.\nTente novamente mais tarde');
-        dispatch(loadFinalizarCadastro(false));
-        console.log(error);
-      });
+        if(!checkout){
+          dispatch(loadFinalizarCadastro(false));
+          props.navigation.navigate('Carrinho');
+          return;
+        }
+
+        RequestAuth('carts/checkout', 'POST', data)
+          .then(response => response.json())
+          .then(response => {
+            if(response.error){
+              Alert.alert('Atenção', response.error.message);
+              console.log(response);
+              dispatch(loadFinalizarCadastro(false));
+            }
+            
+            if(response.data){
+              dispatch(loadFinalizarCadastro(false));
+              props.navigation.navigate('CadastroAgradecimento', {response: response.data});
+            }
+
+            dispatch(loadFinalizarCadastro(false));
+          })
+          .catch(error => {
+            Alert.alert('Atenção', 'Ocorreu um erro ao gerar o pedido.\nTente novamente mais tarde');
+            dispatch(loadFinalizarCadastro(false));
+            console.log(error);
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
   }
 }

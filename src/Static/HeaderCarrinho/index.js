@@ -27,7 +27,7 @@ export class HeaderCarrinho extends Component {
 				</Body>
 				
 				<Right>
-					<Button transparent onPress={() => this.props.excluir()}>
+					<Button transparent onPress={() => this.props.excluir(this.props.navigation)}>
 						<Icon name="delete" style={{fontSize:22,color:'#FFFFFF'}} />
 					</Button>
 				</Right>
@@ -38,8 +38,8 @@ export class HeaderCarrinho extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-    	backgroundColor: '#333333',
-  	},
+		backgroundColor: '#333333',
+	},
 });
 
 const mapStateToProps = state => (state.carrinho);

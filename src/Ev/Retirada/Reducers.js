@@ -8,7 +8,8 @@ import {
   RETIRADA_CD_RESET,
   RETIRADA_CD_PICKER_VISIBLE,
   RETIRADA_ERRO,
-  RETIRADA_LOADING
+  RETIRADA_LOADING,
+  RETIRADA_OVERLAY
 } from '../../Types';
 
 const INITIAL_STATE = {
@@ -29,7 +30,8 @@ const INITIAL_STATE = {
     estado: 0
   },
   error: '',
-  loading: false
+  loading: false,
+  overlay: true
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -50,6 +52,8 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, error: action.payload};
     case RETIRADA_LOADING:
       return {...state, loading: action.payload};
+    case RETIRADA_OVERLAY:
+      return {...state, overlay: action.payload};
     case RETIRADA_CD_RESET:
       return {
         ...state, 
