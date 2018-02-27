@@ -19,7 +19,7 @@ import HeaderProdutos from '../../Static/HeaderProdutos'
 import IF from '../../Helpers/if'
 import styleButton from '../../StyleSheet/Buttons';
 // Paginas estaticas
-import LsProdutos from '../../Components/produtos'
+import LsProdutos from '../../Components/Produtos'
 import FilterProdutosDrawer from '../../Components/Drawers/FilterProdutosDrawer'
 import ProdutosDrawer from '../../Components/Drawers/ProdutosDrawer'
 

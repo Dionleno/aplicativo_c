@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { listarProdutos } from '../Pages/Produto/Actions';
+import { listarProdutos } from '../../Pages/Produto/Actions';
 import { TouchableOpacity,AppRegistry,FlatList} from 'react-native';
 import { Row, Col ,Spinner,Button,Text,View } from 'native-base';
-import ProdutoCard from '../Pages/Produto/Components/ProdutoCard';
-import VerticalCard from '../Pages/Produto/Components/VerticalCard';
-import IF from '../Helpers/if';
-import styleButton from '../StyleSheet/Buttons';
+import ProdutoCard from '../../Pages/Produto/Components/ProdutoCard';
+import VerticalCard from '../../Pages/Produto/Components/VerticalCard';
+import IF from '../../Helpers/if';
+import styleButton from '../../StyleSheet/Buttons';
 
 class LsProdutos extends Component{
 
@@ -52,6 +52,7 @@ class LsProdutos extends Component{
 
   render(){
     return(
+      
       <FlatList
         data={this.props.produtos}
         extraData={this.props}
@@ -62,7 +63,7 @@ class LsProdutos extends Component{
         renderItem={this._renderItem}
         onEndReachedThreshold={0.001}
         refreshing={true}
-        onEndReached={this._onEndReached}s
+        onEndReached={this._onEndReached}
       />
     )
   }
