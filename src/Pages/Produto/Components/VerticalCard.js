@@ -11,11 +11,8 @@ import { withNavigation } from 'react-navigation';
 const VerticalCard  = props => {
     let item = props.item;
     let details = props.item.product_details[0];
-    let img = SEM_FOTO;
-    try{
-      img = details.medias[0].url;
-    }catch(e){}
-
+    let img = details.medias[0].url || SEM_FOTO;
+    
     let price = 0;
     try {
       price = details.prices[0].value;

@@ -93,7 +93,7 @@ const NavigatorRouter = StackNavigator({
   HomeEv:{screen:HomeEv}
 }, {
   headerMode: 'none',
-  initialRouteName: 'Pedidos',
+  initialRouteName: 'Home',
   transitionConfig,
   navigationOptions : {}
 });
