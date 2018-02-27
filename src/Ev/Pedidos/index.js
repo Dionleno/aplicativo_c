@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {AppRegistry,TouchableOpacity} from 'react-native';
-import {Text, Container} from 'native-base';
-import LsProdutos from '../../Components/produtos';
+import {Text, Container,Row,Col} from 'native-base';
+import LsProdutos from '../../Components/Produtos';
 import HeaderProdutos from '../../Static/HeaderProdutos';
 import EvDrawer from '../../Components/Drawers/EvDrawer';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -19,9 +19,13 @@ class Pedidos extends Component{
           <HeaderProdutos
             item={this.props}
             opendrawer={() => this.refs.evDrawer.openDrawer()}
-            title="Produtos" />
+            title="Pedidos" />
 
-          <LsProdutos navigation={this.props.navigation} />
+                <Row style={{padding:5}}>
+                    <Col>
+                      <LsProdutos />
+                    </Col>
+                </Row>
         </EvDrawer>
       </Container>      
     )

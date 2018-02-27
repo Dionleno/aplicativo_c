@@ -22,10 +22,17 @@ const VerticalCard  = props => {
 
     return (
       <Grid style={styles.row} onPress={ () => {props.navigation.navigate('ProdutoDetails', {produto:item}) }}>
+       <Row>
+          <Col>
+            <Text style={styles.productPoints}>{details.points[0].value} pts</Text>
+          </Col>
+          <Col >
+             <Icon name="visibility" style={{alignSelf:'flex-end',fontSize:20, color: '#20CDA6', flex:1,}}/>
+          </Col>
+        </Row>
         <Row>
           <Col style={styles.viewImage}>
-            <Icon name="visibility" style={{alignSelf:'flex-end',fontSize:20, color: '#20CDA6'}}/>
-            <Image source={{ uri:img }} style={styles.imageProduct} />
+             <Image source={{ uri:img }} style={styles.imageProduct} />
           </Col>
         </Row>
         <Row>
@@ -33,11 +40,7 @@ const VerticalCard  = props => {
             <View style={styles.viewProductTitle}>
               <Text style={styles.productTitle}>{item.name}</Text>
             </View>
-
-            <View style={styles.viewProductPoints}>
-              <Text style={styles.productPoints}>{details.points[0].value} pts</Text>
-            </View>
-
+ 
             <View style={styles.viewProductPrice}>
               <Text style={styles.productPrice}>{preco}</Text>
             </View>
@@ -73,7 +76,7 @@ const styles = StyleSheet.create({
   },
   imageProduct: {
     width: 115,
-    height: 145,
+    height: 135,
    
   },
   viewProductDetails: {
@@ -84,28 +87,32 @@ const styles = StyleSheet.create({
   productTitle: {
     color: '#656D82',
     fontWeight: '400',
-    fontSize: 14,
-    textAlign: 'center',
+    fontSize: 12,
+    
   },
   viewProductTitle: {
-    height: 40,
+    height: 50,
+ 
+    marginTop:10,
     justifyContent: 'center',
   },
   productPrice: {
     color: '#3F4453',
     fontWeight: '500',
-    fontSize: 20,
-    textAlign: 'center'
+    fontSize: 14,
   },
   viewProductPrice: {
-    height: 20,
-    justifyContent: 'center'
+    height: 30,
+    justifyContent:'flex-end',
+    
+    alignSelf:'flex-start',
   },
   productPoints: {
     color: '#656D82',
     fontWeight: '400',
     fontSize: 12,
-    textAlign: 'center'
+    width:100,
+    alignSelf:'flex-start',
   },
   viewProductPoints: {
     height: 20,
