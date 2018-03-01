@@ -1,0 +1,11 @@
+export const verdeClaro = '#91AF00'
+export const verdeInativo = '#CEF6D8';
+export const branco = '#F6F6F9';
+export const branco_0 = '#FFFFFF';
+export const azulClaro = '#8DD7F7';
+export const azulEscuro = '#3D5367';
+export const cinzaClaro = '#B0A69B';
+export const cinzaEscuro = '#16191C';
+export const cinzaMedio = '#3E3E3F';
+export const preto = '#000000';
+export const preto_0 = '#333333';

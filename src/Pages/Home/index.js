@@ -11,13 +11,15 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import SpinnerOverlay from 'react-native-loading-spinner-overlay';
 /*NATIVE E NATIVE BASE*/
-import { View, Image, Dimensions, ImageBackground, StyleSheet,AsyncStorage} from 'react-native';
-import { Container, Button, Text} from 'native-base';
+import { View, Image, Dimensions, ImageBackground, StyleSheet, AsyncStorage } from 'react-native';
+import { Container, Button, Text } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { changeLoadingLogado } from '../Login/Actions';
-import {_navigateTo} from '../../Helpers/Http'
-import styles from './Style'
+import { _navigateTo } from '../../Helpers/Http';
+import styles from './Style';
+import buttons from '../../StyleSheet/Buttons';
 import { USER_INFO} from '../../Helpers/Constants';
+import { branco } from '../../StyleSheet/Cores';
 
 const dimensions = Dimensions.get('window');
 const imageHeight = Math.round(dimensions.width  * 9 / 16);
@@ -73,13 +75,20 @@ export class Home extends Component {
 								Seja bem-vindo(a)!
 							</Text>
 
-							<Button block dark style={{marginTop:30}} onPress={() => this.props.navigation.navigate('Login')}>
-								<Icon name='lock-outline' style={{fontSize:25,color:'#FFFFFF'}} />
-								<Text>Log In</Text>
+							<Button 
+								block 
+								iconLeft
+								style={[buttons.btnPreto, {marginTop: 30}]} 
+								onPress={() => this.props.navigation.navigate('Login')}>
+								<Icon style={{color: branco, fontSize: 23}} name='lock-outline' />
+								<Text style={buttons.btnPretoText}>Log In</Text>
 							</Button>
 
-							<Button block dark style={{marginTop:30}} onPress={() => this.props.navigation.navigate('Patrocinador')}>
-								<Icon name='group' style={{fontSize:25,color:'#FFFFFF'}} />
+							<Button 
+								block 
+								style={[buttons.btnPreto, {marginTop:30}]} 
+								onPress={() => this.props.navigation.navigate('Patrocinador')}>
+								<Icon name='group' style={{fontSize:25, color:'#FFFFFF'}} />
 								<Text>Cadastre-se</Text>
 							</Button>
 

@@ -16,19 +16,17 @@ import HeaderExterno from '../../Static/HeaderExterno';
 import IF from '../../Helpers/if';
 import PatrocionadorBySite from './Components/FormBySite';
 import PatrocionadorByCep from './Components/FormByCep'; 
-
 import ListPatrocinador from './Components/Lists';
-import stylesButtons, {verdeClaro, verdeInativo} from '../../StyleSheet/Buttons';
+import buttons from '../../StyleSheet/Buttons';
 import { onSelectedTypeSearch, onChangeField } from './Actions';
 import SpinnerOverlay from 'react-native-loading-spinner-overlay';
 
-export class Patrocionador extends Component{
+export class Patrocionador extends Component {
 	constructor(props) {
 		super(props);
 	}
 	
 	render() {
-		   
     const { navigate } = this.props.navigation;
 			return ( 
 				<ScrollView style={{paddingBottom:20}}>
@@ -42,20 +40,24 @@ export class Patrocionador extends Component{
 						</Text>
 
 						<Grid style={{marginBottom:20}}>
-							<Col style={{ height: 40 }}>
-								<Button block  
-									style={{marginRight:10 , backgroundColor: this.props.typeForm ? verdeClaro : verdeInativo}} 
+							<Col style={{marginRight: 5}}>
+								<Button 
+									block  
+									iconLeft
+									style={this.props.typeForm ? buttons.btnPrimary : buttons.btnPrimaryOutline} 
 									onPress={() => {this.props.onSelectedTypeSearch(true)}}>
-										<Icon name='thumb-up' style={{fontSize:20,color:'#FFFFFF'}} />       
-										<Text>Sim</Text>
+										<Icon name='thumb-up' style={[this.props.typeForm ? buttons.btnPrimaryText : buttons.btnPrimaryOutlineText, {fontSize:20}]} />       
+										<Text style={this.props.typeForm ? buttons.btnPrimaryText : buttons.btnPrimaryOutlineText}>Sim</Text>
 								</Button>
 							</Col>
-							<Col style={{ height: 40 }}>
-								<Button block 
-									style={{marginLeft:10 , backgroundColor: this.props.typeForm ? verdeInativo : this.props.typeForm == null ? verdeInativo : verdeClaro}} 
+							<Col style={{marginLeft: 5}}>
+								<Button 
+									block
+									iconLeft 
+									style={!this.props.typeForm ? buttons.btnPrimary : buttons.btnPrimaryOutline} 
 									onPress={() => { this.props.onSelectedTypeSearch(false)}} >
-										<Icon name='thumb-down' style={{fontSize:20,color:'#FFFFFF'}} />    
-										<Text>Não</Text>
+										<Icon name='thumb-down' style={[this.props.typeForm ? buttons.btnPrimaryOutlineText : buttons.btnPrimaryText, {fontSize:20}]} />    
+										<Text style={this.props.typeForm ? buttons.btnPrimaryOutlineText : buttons.btnPrimaryText}>Não</Text>
 								</Button>
 							</Col>
 						</Grid>

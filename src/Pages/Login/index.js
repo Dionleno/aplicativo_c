@@ -13,8 +13,9 @@ import { handlerLogin, onChangeField ,changeLoading } from './Actions';
 
 /*NATIVE E NATIVE BASE*/
 import { ImageBackground, View, TextInput } from 'react-native';
-import { Container, Content, Item, Button, Text, Spinner } from 'native-base';
+import { Container, Content, Item, Button, Text, Spinner, Icon } from 'native-base';
 import styles from './Style';
+import button from '../../StyleSheet/Buttons';
 import HeaderExterno from '../../Static/HeaderExterno';
 
 /*Helpers*/
@@ -33,18 +34,20 @@ export class Login extends Component {
 		}
 
 		return (
-			<Button block style={[styles.btnPrimary,{marginTop:20}]} onPress={() => {this.props.handlerLogin(this.props)}}>
+			<Button 
+				block 
+				iconLeft
+				style={button.btnPreto} 
+				onPress={() => {this.props.handlerLogin(this.props)}}>
+				<Icon name='md-lock' />
 				<Text>Entrar</Text>
 			</Button>
 		);
 	}
  
 	componentWillUnmount() {
-		console.log('passou aqui')
-     this.props.changeLoading(false)
+    this.props.changeLoading(false);
 	}
- 
- 
 
   render() {
     return (
@@ -83,7 +86,18 @@ export class Login extends Component {
 							onChangeText={(value) => this.props.onChangeField(value, 'senha')}
 						/>
 						
-						{this.btnLogin()}
+						<View style={{marginVertical: 15}}>
+							{this.btnLogin()}
+
+							<Button 
+								block 
+								iconLeft
+								style={[button.btnPretoOutline, {marginTop: 15}]} 
+								onPress={() => {this.props.navigation.navigate('Patrocinador')}}>
+								<Icon style={button.btnPretoOutlineText} name='md-person-add' />
+								<Text style={button.btnPretoOutlineText}>Quero ser um(a) consultor(a)</Text>
+							</Button>
+						</View>
 
 		     	</View>
 				</Content>

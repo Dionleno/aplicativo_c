@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Platform, AsyncStorage ,Alert} from 'react-native';
 import { URL_API, headers, LOGIN, USER_TOKEN, USER_INFO } from './Constants';
-import {NavigationActions} from 'react-navigation';
-
+import { NavigationActions } from 'react-navigation';
+import { redirecionarUsuarioComBaseStatus } from './Functions';
 
 export function ApiStatusCode(response){
    
@@ -17,14 +17,13 @@ export function ApiStatusCode(response){
   
 };
 
- export const _navigateTo = (props, routeName) => {
-
-        const actionToDispatch = NavigationActions.reset({
-          index: 0,
-          actions: [NavigationActions.navigate({ routeName })]
-        })
-       props.navigation.dispatch(actionToDispatch)
- }
+export const _navigateTo = (props, routeName) => {
+  const actionToDispatch = NavigationActions.reset({
+    index: 0,
+    actions: [NavigationActions.navigate({ routeName })]
+  })
+  props.navigation.dispatch(actionToDispatch);
+}
   
 
 export const RequestGet = (_url) => {
@@ -76,16 +75,16 @@ export const RequestPostAuth = async(_url,_body) => {
 
 export const doLogin = (_username,_password) =>{
 
-      let username = _username;
-      let password = _password;
+    let username = _username;
+    let password = _password;
 
-      if(!username){
-        Alert.alert('Atenção', 'Digite o seu login');
-       }
-
-      if(!password){
-        Alert.alert('Atenção', 'Digite sua senha');
+    if(!username){
+      Alert.alert('Atenção', 'Digite o seu login');
       }
+
+    if(!password){
+      Alert.alert('Atenção', 'Digite sua senha');
+    }
 
          
     let data = {
@@ -178,12 +177,12 @@ export const RequestAuth = async(url, metodo, _body = {}) => {
   return http;
 }
 
-export const LogOutSistem = () => {
-  return AsyncStorage.multiSet([[USER_INFO, ''], [USER_TOKEN, '']]);
+export const LogOutSistem = props => {
+  AsyncStorage.multiSet([[USER_INFO, ''], [USER_TOKEN, '']]);
+  _navigateTo(props, 'Home');
 }
 
 const getUserAuth = () => {
-
   return new Promise((resolve, reject) => {
     RequestGetAuth('users')
     .then(response => response.json())
@@ -192,69 +191,35 @@ const getUserAuth = () => {
     }).catch(error => {
       reject(error);
     })
-  })
-
+  });
 }
 
-
 export const AccessFast = (_error = () => {}, _success = () => {}) => {
-
-
   getUserAuth()
-  .then(response => {
-    RequestGetAuth('carts')
-    .then(resp => resp.json())
-    .then(resp => {
-      
-      let cart = 1;
-      if(resp.error) {
-        cart = 0;
-      }
+    .then(response => {
+      RequestGetAuth('carts')
+        .then(resp => resp.json())
+        .then(resp => {
+          
+          try {
+            const status = response.data.status.id;
+            let tela = redirecionarUsuarioComBaseStatus(status);
+            AsyncStorage.setItem(USER_INFO, JSON.stringify(response.data))
+              .then(() => {
+                _success(tela);
+              });
 
-      try {
-        const status = response.data.status.id;
-        let tela = 'Home';
-
-        // Pré-cadastro
-        if(status == 26){
-          if(cart == 1){
-            tela = 'Produto';
-          }else{
-            tela = 'Kits';
-          }
-        }
-        
-        // Aguardando ativação
-        if(status == 3){
-          tela = 'AguardandoAtivacao';
-        }
-        
-        // Ativo
-        if(status == 1){
-          tela = 'HomeEv';
-        }
-        
-        AsyncStorage.setItem(USER_INFO, JSON.stringify(response.data))
-          .then(() => {
-            console.log(tela);
+          } catch (error) {
+            console.log(error);
             
-            _success(tela);
-          });
-
-      } catch (error) {
+            Alert.alert('Atenção', 'Ocorreu um erro ao realizar o login.\nTente novamente mais tarde.');
+            _error(error);
+          }
+        })
+      })
+      .catch(error => {
         console.log(error);
-        
-        Alert.alert('Atenção', 'Ocorreu um erro ao realizar o login.\nTente novamente mais tarde.');
-        _error(error);
-      }
-    })
-  })
-  .catch(error => {
-    console.log(error);
-    
-    Alert.alert('Atenção', 'Login expirou, acesse novamente!');
-  })
- 
-      
+        Alert.alert('Atenção', 'Login expirou, acesse novamente!');
+      }); 
        
 }

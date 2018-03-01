@@ -21,15 +21,19 @@ import stylesButton from '../../StyleSheet/Buttons';
 
 /*Helpers*/
 import { RequestAuth, RequestGetAuth, _navigateTo } from '../../Helpers/Http';
+import { verdeClaro } from '../../StyleSheet/Cores';
 
 export class ConfirmacaoCadastro extends Component {
   
   constructor(props) {
     super(props);
-  }
-  
 
-  componentDidMount(){
+    this.state = {
+      escolherKitDepois: 0
+    }
+  }
+
+  /* componentDidMount(){
     RequestGetAuth('carts')
     .then(resp => resp.json())
     .then(resp => {
@@ -39,11 +43,17 @@ export class ConfirmacaoCadastro extends Component {
         this.props.changeIsCart(1);
       }
     });
+  } */
+
+  componentWillMount(){
+    try{
+      this.setState({escolherKitDepois: this.props.navigation.state.params.escolherKitDepois});
+    }catch(e){}
   }
 
   botaoProximaPagina = () => {
-
-    if(this.props.issetCart == 0){
+    
+    if(this.state.escolherKitDepois){
       return (
         <View style={{ padding:15 }}>
           <Button block style={stylesButton.btnPrimary}  onPress={() => _navigateTo(this.props, 'Login') }>
@@ -51,9 +61,7 @@ export class ConfirmacaoCadastro extends Component {
           </Button>
         </View>
       );
-    }
-
-    if(this.props.issetCart == 1){
+    }else{
       return (
         <View style={{ padding:15 }}>
           <Button block style={stylesButton.btnPrimary} onPress={() => _navigateTo(this.props, 'Produto') }>
@@ -87,8 +95,8 @@ export class ConfirmacaoCadastro extends Component {
           </ImageBackground>
             
           <View style={{padding:15,marginTop:25}}>
-            <Button rounded  style={styles.btnOutline} >
-              <Icon name='done' style={{fontSize:45,color:'#20CDA6'}} />
+            <Button rounded style={styles.btnOutline} >
+              <Icon name='done' style={{fontSize:45, color: verdeClaro}} />
             </Button>
           </View>
           

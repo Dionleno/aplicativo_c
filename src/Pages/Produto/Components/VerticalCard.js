@@ -5,8 +5,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { MOEDAS } from '../../../Helpers/Constants';
 import { MaskService } from 'react-native-masked-text';
 import { SEM_FOTO } from '../../../Helpers/Constants';
-
 import { withNavigation } from 'react-navigation';
+import { verdeClaro } from '../../../StyleSheet/Cores';
 
 const VerticalCard  = props => {
     let item = props.item;
@@ -27,7 +27,7 @@ const VerticalCard  = props => {
             <Text style={styles.productPoints}>{details.points[0].value} pts</Text>
           </Col>
           <Col >
-             <Icon name="visibility" style={{alignSelf:'flex-end',fontSize:20, color: '#20CDA6', flex:1,}}/>
+             <Icon name="visibility" style={{alignSelf:'flex-end',fontSize:20, color: verdeClaro, flex:1,}}/>
           </Col>
         </Row>
         <Row>

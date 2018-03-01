@@ -1,7 +1,8 @@
 import {
   CHANGE_LOADING_LOGIN,
   CHANGE_FIELD_LOGIN,
-  CHANGE_LOADING_LOGADO
+  CHANGE_LOADING_LOGADO,
+  LOGIN_FIELD_RESET
 } from '../../Types';
 
 const INITIAL_STATE = {
@@ -21,7 +22,9 @@ export default (state = INITIAL_STATE, action) => {
     case CHANGE_LOADING_LOGADO:
     return {...state, loading_login_logado: action.payload};
     case CHANGE_FIELD_LOGIN:
-      return {...state, form:{...state.form, [action.objectItem]: action.payload}};    
+      return {...state, form:{...state.form, [action.objectItem]: action.payload}};
+    case LOGIN_FIELD_RESET:
+      return {...state, form: {...state.form, login: '', senha: ''}};
     default:
       return state;  
   }

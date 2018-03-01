@@ -12,6 +12,7 @@ import {BuscarPatrocinador,onSelectedTypeSearch,onChangeField} from '../Actions'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { TextInputMask } from 'react-native-masked-text';
 import StyleInput from '../../../StyleSheet/Input';
+import buttons from '../../../StyleSheet/Buttons';
 
 class PatrocionadorBySite extends Component {
 
@@ -42,14 +43,18 @@ class PatrocionadorBySite extends Component {
 					</View>
 				</View>
 	
-				<Button full style={{backgroundColor: "#000000"}} onPress={() => this.props.BuscarPatrocinador()}>
+				<Button 
+					full 
+					iconLeft
+					style={buttons.btnPreto} 
+					
+					onPress={() => this.props.BuscarPatrocinador()}>
 					<Icon name='search' style={{fontSize:25,color:'#FFFFFF'}} />
 					<Text>Buscar Patrocionador</Text>
 				</Button>
 			</View>
 		)
 	}
-
 }
 
 const mapStateToProps = state => (state.patrocionador)

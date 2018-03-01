@@ -2,10 +2,12 @@ import {  AsyncStorage, Alert } from 'react-native';
 import { RequestPostAuth, RequestGetAuth, RequestAuth } from '../../Helpers/Http';
 import { LOGIN, USER_INFO, USER_TOKEN } from '../../Helpers/Constants';
 import { _navigateTo } from '../../Helpers/Http';
+import { redirecionarUsuarioComBaseStatus } from '../../Helpers/Functions';
 import {
 	CHANGE_LOADING_LOGIN,
 	CHANGE_FIELD_LOGIN,
-	CHANGE_LOADING_LOGADO
+	CHANGE_LOADING_LOGADO,
+	LOGIN_FIELD_RESET
 } from '../../Types';
 
  
@@ -22,7 +24,7 @@ export const changeLoadingLogado = value => {
 }
 
 export const handlerLogin = (_props) => {
-
+	
 	let username = _props.form.login;
 	let password = _props.form.senha;
 	
@@ -57,64 +59,23 @@ export const handlerLogin = (_props) => {
 					dispatch(changeLoading(false));
 					return;
 				}
-         
-     
 
-
-				
 				try {
 					AsyncStorage.setItem(USER_TOKEN, response.access_token)
 						.then(() => {
 
-							   let cart = 0;
-
-									RequestGetAuth('carts')
-							    .then(resp => resp.json())
-							    .then(resp => {
-							    		console.log("resposta")
-							    	console.log(resp)
-							      if(resp.error) {
-							          cart = 0;
-							      }else{
-							          cart = 1;
-							      }
-							    });
-
 							RequestAuth('users', 'GET')
 								.then(response => response.json())
 								.then(response => {
-                   
-
 									try {
 										const status = response.data.status.id;
-										let tela = 'Home';
-                    
-                    console.log(cart)
-										// Pré-cadastro
-										if(status == 26){
-
-												if(cart == 1){
-	                       							tela = 'Produto';
-												}else{
-	                         						tela = 'Kits';
-												}
-											
-										}
-										
-										// Aguardando ativação
-										if(status == 3){
-											tela = 'AguardandoAtivacao';
-										}
-										
-										// Ativo
-										if(status == 1){
-											tela = 'HomeEv';
-										}
+										let tela = redirecionarUsuarioComBaseStatus(status);
 										
 										AsyncStorage.setItem(USER_INFO, JSON.stringify(response.data))
 											.then(() => {
 												_navigateTo(_props, tela);
 												dispatch(changeLoading(false));
+												dispatch({type: LOGIN_FIELD_RESET});
 											});
 
 									} catch (error) {

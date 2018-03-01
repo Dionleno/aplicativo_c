@@ -12,6 +12,7 @@ import {BuscarPatrocinadorCep,onSelectedTypeSearch,onChangeField} from '../Actio
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { TextInputMask } from 'react-native-masked-text';
 import StyleInput from '../../../StyleSheet/Input';
+import buttons from '../../../StyleSheet/Buttons';
 
 export const PatrocionadorByCep  = props => {
     return (
@@ -29,7 +30,10 @@ export const PatrocionadorByCep  = props => {
 				maxLength={9}
 			/>
 
-			<Button full style={{backgroundColor: "#000000"}} onPress={() => props.BuscarPatrocinadorCep()}>
+			<Button 
+				full 
+				style={buttons.btnPreto} 
+				onPress={() => props.BuscarPatrocinadorCep()}>
 				<Icon name='location-on' style={{fontSize:20,color:'#FFFFFF'}} />   
 				<Text>Encontrar endereço</Text>
 			</Button>

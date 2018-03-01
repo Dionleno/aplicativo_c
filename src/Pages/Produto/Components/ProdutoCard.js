@@ -6,6 +6,7 @@ import { MOEDAS } from '../../../Helpers/Constants';
 import { MaskService } from 'react-native-masked-text';
 import { SEM_FOTO } from '../../../Helpers/Constants';
 import { withNavigation } from 'react-navigation';
+import { verdeClaro } from '../../../StyleSheet/Cores';
 
 const ProdutoCard  = props => {
     let item = props.item;
@@ -26,7 +27,7 @@ const ProdutoCard  = props => {
         </Col>
 
         <Col style={styles.viewProductDetails}>
-          <Icon name="visibility" style={{alignSelf:'flex-end',fontSize:20, color: '#20CDA6',}}/>
+          <Icon name="visibility" style={{alignSelf:'flex-end',fontSize:20, color: verdeClaro}}/>
           <View style={styles.viewProductTitle}>
             <Text style={styles.productTitle}>{item.name}</Text>
           </View>

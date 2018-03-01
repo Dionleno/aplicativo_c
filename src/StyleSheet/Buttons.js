@@ -1,12 +1,16 @@
-export const verdeClaro = '#20CDA6';
-export const verdeInativo = '#CEF6D8';
-export const branco = '#FFFFFF';
+import { 
+  verdeClaro,
+  branco,
+  azulClaro,
+  cinzaClaro,
+  preto,
+  branco_0
+} from './Cores';
 
 export default {
   btnPrimary: {
     backgroundColor: verdeClaro,
     borderRadius: 4,
-    paddingHorizontal: 20,
     alignItems: 'center'
   },
   btnPrimaryText: {
@@ -18,7 +22,6 @@ export default {
   btnPrimaryOutline: {
     backgroundColor: branco,
     borderRadius: 4,
-    paddingHorizontal: 20,
     alignItems: 'center',
     borderWidth: 1.7,
     borderColor: verdeClaro
@@ -30,7 +33,41 @@ export default {
     textAlign: 'center'
   },
    boxBtnMenu:{
-     paddingVertical:5,
-     paddingRight:10
-  }
+    paddingVertical:5,
+    paddingRight:10
+  },
+  btnAzulClaro: {
+    backgroundColor: azulClaro,
+    borderRadius: 4,
+    alignItems: 'center'
+  },
+  btnCinzaClaro: {
+    backgroundColor: cinzaClaro,
+    borderRadius: 4,
+    alignItems: 'center'
+  },
+  btnPreto: {
+    backgroundColor: preto,
+    borderRadius: 4,
+    alignItems: 'center'
+  },
+  btnPretoText: {
+    color: branco_0,
+    fontSize: 15,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  btnPretoOutline: {
+    backgroundColor: branco_0,
+    borderRadius: 4,
+    alignItems: 'center',
+    borderWidth: 1.7,
+    borderColor: preto
+  },
+  btnPretoOutlineText: {
+    color: preto,
+    fontSize: 15,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
 };

@@ -23,24 +23,20 @@ export const fetchGetKit = () => {
 	}  
 }
 
-export const onSetKit = async(kit,_props) => {
-	 return dispatch => 
-	 {
+export const onSetKit = async(kit, props) => {
+	return dispatch => {
+		dispatch(onChangeFieldKit(kit.detail.id))
 
-	 	   dispatch(onChangeFieldKit(kit.detail.id))
-
-          Alert.alert(
-	          null,
-	          'Confirme a escolha do kit de adesão '+kit.name+' e comece agora mesmo.',
-	          [
-	            {text: 'Cancelar', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-	            {text: 'Confirmar', onPress: () =>  dispatch(addProduto(kit.detail.id,_props))},
-	          ],
-	          { cancelable: false }
-	        )
-	 }
-       
-       
+		Alert.alert(
+			null,
+			'Confirme a escolha do kit de adesão '+kit.name+' e comece agora mesmo.',
+			[
+				{text: 'Cancelar', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+				{text: 'Confirmar', onPress: () =>  dispatch(addProduto(kit.detail.id, props))},
+			],
+			{ cancelable: false }
+		)
+	}    
 } 
 
 export const addProduto = async(kitID, _props) => {

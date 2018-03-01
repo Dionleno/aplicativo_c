@@ -17,7 +17,8 @@ export const MOEDAS = {
   }
 }
 
-export const SEM_FOTO = 'http://www.steps.com.br/arquivos/produto_sem_foto.gif';
+// export const SEM_FOTO = 'http://www.steps.com.br/arquivos/produto_sem_foto.gif';
+export const SEM_FOTO = 'https://s3-sa-east-1.amazonaws.com/paymundiedev/product-media/xcompany/28/000028_1_g.jpg';
 
 export const USER_INFO = '@Userinfo';
 

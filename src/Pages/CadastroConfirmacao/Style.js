@@ -1,17 +1,17 @@
 const React = require("react-native");
 
 const { StyleSheet, Platform ,Dimensions} = React;
+import { verdeClaro } from '../../StyleSheet/Cores';
 
 
 const dimensions = Dimensions.get('window');
 const imageHeight = Math.round(dimensions.width  * 9 / 16);
 const imageWidth = dimensions.width;
-const verdeClaro = '#20CDA6';
 const branco = '#FFFFFF';
 
 export default {
   H3: {
-    color:'#20CDA6',  alignSelf: 'center',alignItems:'center',justifyContent: 'center',
+    alignSelf: 'center',alignItems:'center',justifyContent: 'center',
   },
   ContainerView: {
             position: 'absolute',
@@ -47,7 +47,7 @@ export default {
       paddingHorizontal: 20,
       alignItems: 'center',
       borderWidth: 1.7,alignSelf: 'center',justifyContent: 'center',
-      borderColor: '#20CDA6'
+      borderColor: verdeClaro
     },
       btnPrimary: {
         backgroundColor: verdeClaro,

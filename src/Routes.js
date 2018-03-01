@@ -5,8 +5,8 @@
  */
 
 import React, { Component } from 'react';
-import { Platform,Animated ,Easing} from 'react-native';
-import {DrawerNavigator, StackNavigator} from 'react-navigation';
+import { Platform,Animated, Easing } from 'react-native';
+import { DrawerNavigator, StackNavigator } from 'react-navigation';
 
 //Paginas externas
 import Home from './Pages/Home';
@@ -42,7 +42,6 @@ import SideBar from './Static/SideBar';
 
 // Paginas do EV 
 import SideBarEv from './Static/SideBarEv';
- 
 
 const transitionConfig = () => {
   return {

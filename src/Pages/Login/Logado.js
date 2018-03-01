@@ -12,8 +12,8 @@ import { bindActionCreators } from 'redux';
 import { Content, Container, View, Thumbnail, Button, Text, Icon, Spinner } from 'native-base';
 import { changeLoadingLogado } from './Actions'; 
 import stylesButtons from '../../StyleSheet/Buttons';
-import { USER_INFO} from '../../Helpers/Constants';
-import { _navigateTo , LogOutSistem, AccessFast } from '../../Helpers/Http'
+import { USER_INFO } from '../../Helpers/Constants';
+import { _navigateTo, LogOutSistem, AccessFast } from '../../Helpers/Http';
 
 export class Logado extends Component {
   constructor(props) {
@@ -26,13 +26,23 @@ export class Logado extends Component {
   }
 
   componentDidMount = async() => {
-
     const Userinfo = await AsyncStorage.getItem(USER_INFO);
  
-    console.log(JSON.parse(Userinfo))
-    this.setState({user: JSON.parse(Userinfo)})
+    console.log(JSON.parse(Userinfo));
+    this.setState({user: JSON.parse(Userinfo)});
+  }
 
- 
+  accessFastAction = () => {
+    this.setState({...this.state, buttonAccessFastLoading: true});
+    AccessFast(
+    (error) => {
+      this.setState({...this.state, buttonAccessFastLoading: false});
+      _navigateTo(this.props, 'Login');
+    },
+    (tela) => {
+      this.setState({...this.state, buttonAccessFastLoading: false});
+      _navigateTo(this.props, tela);
+    });
   }
 
   buttonAccessFast = () => {
@@ -43,22 +53,11 @@ export class Logado extends Component {
     return (
       <Button
         block 
-        style={[stylesButtons.btnPrimary,{borderRadius: 0,paddingHorizontal: 0,marginTop:19}]}
-        onPress={() => {
-          this.setState({...this.state, buttonAccessFastLoading: true});
-          
-          AccessFast(
-          (error) => {
-            this.setState({...this.state, buttonAccessFastLoading: false});
-            _navigateTo(this.props, 'Login');
-          },
-          (tela) => {
-            this.setState({...this.state, buttonAccessFastLoading: false});
-            _navigateTo(this.props, tela);
-          });
-        }}>
+        iconRight 
+        style={[stylesButtons.btnPrimary, {marginVertical: 10}]}
+        onPress={() => {this.accessFastAction()}}>
         <Text>Continuar</Text>
-        <Icon name='arrow-forward' style={{fontSize:25,color:'#FFFFFF', justifyContent: 'center'}} />
+        <Icon name='arrow-forward' />
       </Button>
     );
   }
@@ -71,16 +70,11 @@ export class Logado extends Component {
     return (
       <Button
         block 
-        style={[stylesButtons.btnPrimary,{borderRadius: 0,paddingHorizontal: 0,marginVertical:10}]}
-        onPress={() => {
-          this.setState({...this.state, buttonLogoutSistemLoading: true});
-          LogOutSistem()
-            .then(() => {
-              this.setState({...this.state, buttonLogoutSistemLoading: false});
-              _navigateTo(this.props, 'Home')
-            });
-        }}>
+        iconRight
+        style={[stylesButtons.btnPrimary, {marginVertical: 10}]}
+        onPress={() => {LogOutSistem(this.props);}}>
         <Text>Acessar outra conta</Text>
+        <Icon name='md-people' />
       </Button>
     );
   }
