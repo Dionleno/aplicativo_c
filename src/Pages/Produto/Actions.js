@@ -16,6 +16,16 @@ export const changeItem = (_object, _value) => ({
 	payload: _value
 })
 
+export const changeDisplayTemplateProduto = () =>{
+	return (dispatch, getState)  => {
+		const state = getState().produto;
+		dispatch({
+			type: CHANGE_FIELD_PRODUTO,
+			objectItem: 'visibleType',
+			payload: state.visibleType == 1 ? 2 : 1
+		})
+	}
+}
 export const listarProdutosCategoria = () => {
 	
 	return (dispatch, getState) => {
@@ -44,7 +54,7 @@ export const listarProdutosCategoria = () => {
 
 					var novos = a.concat(resp.data)
 
-					console.log(novos)
+					 
 					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'produtos', payload: novos })
 					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'actualPage', payload: nextPage })
 
@@ -63,7 +73,10 @@ export const listarProdutos = () => {
 
 	return (dispatch, getState) => {
 		const state = getState().produto;
-		const URL = `products?search=${state.search}&page=${state.actualPage}`;
+		let slug = state._slug || 'geral';
+		const URL = `/categories/${slug}/products?page=${state.actualPage}`;
+
+		//const URL = `products?search=${state.search}&page=${state.actualPage}`;
 
 		if(!state.loading){
 			dispatch({ type: CHANGE_FIELD_PRODUTO, objectItem: 'loading', payload: true});
@@ -83,8 +96,7 @@ export const listarProdutos = () => {
 						var a = stateUpdated.produtos;
 
 						var novos = a.concat(resp.data);
-
-						console.log(novos)
+						
 						dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'produtos', payload: novos });
 						dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'actualPage', payload: nextPage });
 
@@ -98,7 +110,7 @@ export const listarProdutos = () => {
 				} catch (error) {
 					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'loading', payload: false }); 
 					dispatch({ type: CHANGE_FIELD_PRODUTO,objectItem: 'informacao', payload: 'Nenhum produto a ser carregado' }); 
-					console.log('PRODUTOS_ERRO', resp);
+					 
 				}
 			});
 	}
@@ -110,7 +122,7 @@ export const _onOpenInputSearch = (_props) => {
 
 		
 			const dimensions = Dimensions.get('window');
-			const imageWidth =  dimensions.width ;
+			const imageWidth =  dimensions.width - 20;
 
 			return dispatch => 
 			{
@@ -129,8 +141,8 @@ export const _onClosedInputSearch = (_props) => {
 
 	return dispatch => 
 		{
-			dispatch({ type: STATE_DEFAULT })
-			_props.listarProdutos()
+			dispatch({ type: 'STATE_DEFAULT_ANIMATION' })
+			//_props.listarProdutos()
 		} 
 } 
 

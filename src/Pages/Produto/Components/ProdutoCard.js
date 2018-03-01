@@ -26,7 +26,7 @@ const ProdutoCard  = props => {
         </Col>
 
         <Col style={styles.viewProductDetails}>
-          <Icon name="visibility" style={{alignSelf:'flex-end',fontSize:20, color: '#20CDA6',}}/>
+          
           <View style={styles.viewProductTitle}>
             <Text style={styles.productTitle}>{item.name}</Text>
           </View>
@@ -56,20 +56,20 @@ const styles = StyleSheet.create({
     marginHorizontal: 0,
     marginBottom: 10,
     borderRadius: 4,
-    padding: 5,
+    padding: 15,
     backgroundColor: '#FFFFFF'
   },
   viewImage: {
     flex: 1,
     alignItems:'flex-start',
-
+    justifyContent: 'center'
   },
   imageProduct: {
-    width: 115,
-    height: 130,
+    width: 100,
+    height: 100,
     borderColor: '#CCCCCC',
-    borderWidth: 1,
-    borderRadius: 4 
+    borderRightWidth: 1,
+    
   },
   viewProductDetails: {
     flex:2,
@@ -79,11 +79,10 @@ const styles = StyleSheet.create({
   productTitle: {
     color: '#656D82',
     fontWeight: '400',
-    fontSize: 17,
+    fontSize: 12,
     textAlign: 'center',
   },
   viewProductTitle: {
-    height: 40,
     justifyContent: 'center',
   },
   productPrice: {
@@ -93,13 +92,13 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   viewProductPrice: {
-    height: 20,
+    height: 16,
     justifyContent: 'center'
   },
   productPoints: {
     color: '#656D82',
     fontWeight: '400',
-    fontSize: 17,
+    fontSize: 11,
     textAlign: 'center'
   },
   viewProductPoints: {

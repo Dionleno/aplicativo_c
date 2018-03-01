@@ -13,8 +13,9 @@ class LsProdutos extends Component{
 
   constructor(props){
     super(props);
+     
   }
-
+ 
   loading = () => {
     if(this.props.loading){
       return (
@@ -22,11 +23,7 @@ class LsProdutos extends Component{
       );
     }
 
-    return (
-      <Button full onPress={() => this.props.navigation.navigate('Carrinho')} style={[styleButton.btnPrimary, {marginRight: 5, marginLeft: 5, marginTop: 5, marginBottom: 5}]} >
-        <Text style={styleButton.btnPrimaryText} >Avançar</Text>
-      </Button>
-    );
+    return false;
   }
 
   _renderItem = ({item, id, index}) => (
@@ -43,14 +40,13 @@ class LsProdutos extends Component{
   _keyExtractor = (item, index) => index;
 
   _onEndReached = ({distanceFromEnd}) => {
-    if(!this.props.showButtonLoading) return;
-    
-    setTimeout(() => {
+     if(!this.props.showButtonLoading) return;
       this.props.listarProdutos()
-    }, 1000);
+      
   }
 
   render(){
+ 
     return(
       
       <FlatList
@@ -62,7 +58,6 @@ class LsProdutos extends Component{
         keyExtractor={this._keyExtractor}
         renderItem={this._renderItem}
         onEndReachedThreshold={0.001}
-        refreshing={true}
         onEndReached={this._onEndReached}
       />
     )

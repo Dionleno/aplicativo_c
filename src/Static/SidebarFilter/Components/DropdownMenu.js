@@ -21,7 +21,7 @@ class DropdownMenu extends Component {
      
      onClickCategoria = (categoria) => {
      		const navigateAction = NavigationActions.navigate({
-				  routeName: 'Categorias',
+				  routeName: 'Produto',
 				  params: {
 				  	categoria: categoria
 				  },
