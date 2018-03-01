@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
   imageProduct: {
     width: 115,
-    height: 135,
+    height: 115,
    
   },
   viewProductDetails: {

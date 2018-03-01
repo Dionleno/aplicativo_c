@@ -48,7 +48,16 @@ export default (state = INITIAL_STATE, action) => {
         actualPage: 1,
         slideAnim: new Animated.Value(0),
         search: '' 
-      };
+      };  
+    case 'STATE_DEFAULT_ANIMATION':
+      return {
+        ...state,
+        activeSearch: false,
+        opensearch: false,
+        showButtonLoading:true,
+        slideAnim: new Animated.Value(0),
+        search: '' 
+      };  
     case STATE_SEARCH:
       return {...state, produtos: [], lastPage: 0, actualPage: 1 };
     case CHANGE_FIELD_DETAILS:

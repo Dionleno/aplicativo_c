@@ -5,46 +5,40 @@
  */
 
 import React, { Component } from 'react';
- /*REDUX*/
- import { connect } from 'react-redux'
- import { bindActionCreators } from 'redux'
- import {listarProdutos,changeItem,_onOpenInputSearch,_onClosedInputSearch,searchRequestItem,listarProdutosCategoria} from './Actions'  
- import { TouchableOpacity,AppRegistry, View, Image, FlatList, StyleSheet, AsyncStorage, Alert,TextInput ,Dimensions,Animated,LayoutAnimation} from 'react-native';
- import { StyleProvider, Container, Button, Text, Header, Spinner, Card, CardItem, Item, Input,List,ListItem, Body, Left,
-  Right, Content,Grid,Row,Drawer,Col} from 'native-base';
 
-
- import Icon from 'react-native-vector-icons/MaterialIcons'
- import styles from './Style'
- import HeaderProdutos from '../../Static/HeaderProdutos'
- import IF from '../../Helpers/if'
- import {ProdutoCard} from './Components/ProdutoCard'
- import {VerticalCard} from './Components/VerticalCard'
+/*REDUX*/
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { listarProdutos, changeItem, _onOpenInputSearch, _onClosedInputSearch, searchRequestItem,changeDisplayTemplateProduto } from './Actions'
+import { TouchableOpacity, AppRegistry, View, StyleSheet } from 'react-native';
+import { Container, Button, Text, Header, Item, Content, Grid, Row, Col, Fab } from 'native-base';
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import styles from './Style'
+import HeaderProdutos from '../../Static/HeaderProdutos'
+import IF from '../../Helpers/if'
+import styleButton from '../../StyleSheet/Buttons';
 // Paginas estaticas
-import SidebarFilter from '../../Static/SidebarFilter';
-const AnimatedTI = Animated.createAnimatedComponent(Item);
- 
+import LsProdutos from '../../Components/Produtos'
+import FilterProdutosDrawer from '../../Components/Drawers/FilterProdutosDrawer'
+import ProdutosDrawer from '../../Components/Drawers/ProdutosDrawer'
+import Filter from '../../Components/Produtos/filter'
 
- export class Produtos extends Component {
+
+ export class Categorias extends Component {
 
   constructor(props) {
     super(props); 
   } 
-
-  openDrawer() {
-    this.drawer._root.open()
-}
-closeDrawer = () => {
-  this.drawer._root.close()
-};
-
+ 
   componentWillReceiveProps = (nextProps) =>{
        const categoria = nextProps.navigation.state.params
                          ? nextProps.navigation.state.params.categoria
                          : false
-        
+                         console.log('slug');
+                         console.log(this.props._slug);
        if(categoria){
-
+        console.log('Will');
+        console.log(categoria);
          if(this.props._slug !== categoria.slug){
                console.log('ok')
                this.props.changeItem('_slug', categoria.slug)
@@ -52,7 +46,7 @@ closeDrawer = () => {
                this.props.changeItem('produtos', [])
                this.props.changeItem('lastPage', 0)
                
-               this.props.listarProdutosCategoria()
+               this.props.listarProdutos()
          }
 
        }
@@ -62,13 +56,15 @@ closeDrawer = () => {
     
     
     if(this.getNavigationParams()){
+     
+      
       const categoria  = this.props.navigation.state.params.categoria
+      console.log('did');
+      console.log(categoria);
       this.props.changeItem('_slug', categoria.slug)
-      await this.props.listarProdutosCategoria()
+      await this.props.listarProdutos()
     } 
-      
-      const Userinfo = await AsyncStorage.getItem('@Userinfo');
-      
+         
   }
 
 
@@ -82,125 +78,51 @@ closeDrawer = () => {
 getNavigationParams() {
     return this.props.navigation.state.params || false
   }
-  renderProducts = ({item, id, index}) => {
-    var productDetails = item.product_details[0];
-    
-    return ( 
-      <View style={{flex:1}}>
 
-          <IF visible={this.props.visibleType === 1}>  
-               <ProdutoCard item={item} propriedades={this.props}/>   
-          </IF> 
-
-          <IF visible={this.props.visibleType === 2}>  
-              <VerticalCard item={item} propriedades={this.props}/>   
-          </IF>   
-
-      </View>
-    );
-  } 
-  render() { 
-        const categoria = this.getNavigationParams()
-                          ? this.props.navigation.state.params.categoria
-                          : {name: 'Produtos'}
-        console.log(categoria)
-
+ 
+  render() {
     return (
       <Container>
+        <ProdutosDrawer ref="menuDrawer">
+
           <HeaderProdutos
-          item={this.props}
-          title={categoria.name} />
-<Drawer
-            ref={(_drawer) => this.drawer = _drawer}
-            content={<SidebarFilter  navigation={this.props.navigation}/>}
-            side='right'
-            onClose={() => this.closeDrawer()} >
- 
-        <Grid>
+            item={this.props}
+            opendrawer={() => this.refs.menuDrawer.openDrawer()}
+            title="Produtos" />
 
-        <IF visible={!this.props.opensearch}>
-                <Row style={{paddingHorizontal:5,paddingVertical:5, backgroundColor:'#F2f2f2',height:50}}>
-                    <Col>
-                        <View style={{flexDirection: 'row',justifyContent: 'flex-start',}}>
-                          <TouchableOpacity style={this.props.visibleType == 1 ? styles.btnActive : styles.btnInative} onPress={()=> this.props.changeItem('visibleType', 1)}>
-                             <Icon name='format-line-spacing' style={{fontSize:24}} />
-                          </TouchableOpacity>
-                          <TouchableOpacity style={this.props.visibleType == 2 ? styles.btnActive : styles.btnInative} onPress={() => this.props.changeItem('visibleType', 2)}>
-                            <Icon name='widgets' style={{fontSize:22}} />
-                          </TouchableOpacity>
-                        </View>
-                    </Col>
-                    <Col>
-                        <View style={{flexDirection: 'row',justifyContent: 'flex-end',}}>
-                            <TouchableOpacity style={styles.btnInative} onPress={() => this.props._onOpenInputSearch(this.props)}>
-                             <Icon name='search' style={{fontSize:24}} />
-                            </TouchableOpacity>
+          <FilterProdutosDrawer ref="FilterDrawer">
+            <Grid>
+              <Filter FilterDrawer={() => this.refs.FilterDrawer.openDrawer()} />
+              <IF visible={this.props.informacao}>
+                <Text style={{ textAlign: 'center', marginTop: 10 }}>{this.props.informacao}</Text>
+              </IF>
+              <Row style={{ padding: 5 }}>
+                <Col>
+                  <LsProdutos />
+                </Col>
+              </Row>
+            </Grid>
 
-                            <TouchableOpacity style={styles.btnInative} onPress={this.openDrawer.bind(this)}>
-                             <Icon name='tune' style={{fontSize:24}} />
-                            </TouchableOpacity>
-                        </View>
-                    </Col>
-                </Row>
-            </IF>
+            <Fab active={true}
+              direction="up"
+              containerStyle={{}}
+              style={{ backgroundColor: '#20CDA6' }}
+              position="bottomRight"
+              onPress={() => this.props.navigation.navigate('Carrinho')}>
 
-             
+              <Icon name='shopping-cart' style={{ fontSize: 22, color: '#FFFFFF' }} />
 
-            <IF visible={this.props.opensearch}>
-                <Row style={{backgroundColor:'#000000',height:50}}>
-                    <Col>
-                        <AnimatedTI style={{height:47,width: this.props.slideAnim,backgroundColor:'#FFFFFF',paddingHorizontal:5,flexDirection: 'row',justifyContent: 'flex-end',alignSelf:'flex-end'}}>
-                          <Icon active name='arrow-back' onPress={() => this.props._onClosedInputSearch(this.props)} style={{fontSize:24,color:'#888888'}}/>        
-                          <Input
-                              style={styles.StyleInputText}
-                              autoFocus={true}
-                              keyboardType='web-search'
-                              returnKeyType="search"
-                              underlineColorAndroid='transparent' 
-                              onSubmitEditing={() =>this.props.searchRequestItem(this.props) }
-                              placeholder="Buscar..." 
-                              onChangeText={(value) => this.props.changeItem('search', value) }
-                          />
-                          <Icon active name='search' style={{fontSize:24,color:'#888888'}} onPress={() => this.props.searchRequestItem(this.props)} />         
-                        </AnimatedTI>
+            </Fab>
+          </FilterProdutosDrawer>
 
-                    </Col>
-                </Row>
-            </IF>
-     
-   
-         {/*Listar produtos */}
-         <Row style={{padding:5}}>
-              <Col>
-                <FlatList
-                    data={this.props.produtos}
-                    extraData={this.props}
-                    ListFooterComponent={this.loading.bind(this)}
-                    numColumns={this.props.visibleType  == 1 ? 1 : 2}
-                    key = {( this.props.visibleType == 1 ) ? 'v' : 'h' }
-                    keyExtractor={(item,index) => index}
-                    renderItem={this.renderProducts}
-                    onEndReachedThreshold={0.001}
-                    refreshing={true}
-                    onEndReached={({ distanceFromEnd }) => {
-                    
-                       if(!this.props.showButtonLoading) return;
-                            setTimeout(() => {
-                               this.props.listarProdutosCategoria()
-                            }, 1000)
-                          
-                      }}
-                  />
-              </Col>
-            </Row>
-      </Grid>
-      </Drawer>
+        </ProdutosDrawer>
+
       </Container>
     )
   }
 }
 
 
- const mapStateToProps = state => (state.produto)
- const mapDispatchToProps = dispatch => bindActionCreators({listarProdutos,changeItem,_onOpenInputSearch,_onClosedInputSearch,searchRequestItem,listarProdutosCategoria},dispatch)
- export default connect(mapStateToProps,mapDispatchToProps)(Produtos)  
+const mapStateToProps = state => (state.produto)
+const mapDispatchToProps = dispatch => bindActionCreators({ listarProdutos, changeItem, _onOpenInputSearch, _onClosedInputSearch, searchRequestItem,changeDisplayTemplateProduto }, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(Categorias)  
