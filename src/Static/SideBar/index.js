@@ -24,30 +24,15 @@ class SideBar extends Component {
     super(props);
     this.state = {
       Userinfo: {name: 'Cliente' },
-      RouteMenu: []
+      
     }
   }
 
-  getCategories = async() =>{
-
-  
-      RequestGet('categories/')
-      .then(resp => resp.json())
-      .then(resp => {
-           
-             this.setState({
-                RouteMenu: resp.data
-              })
-      })
-      .catch(error => console.log(error))
-  }
+   
 
   componentWillMount = async() => {
     const Userinfo = await AsyncStorage.getItem(USER_INFO);
-    console.log('USER', Userinfo);
     
-    await this.getCategories() 
-
     this.setState({
       Userinfo: JSON.parse(Userinfo)
     })
@@ -84,31 +69,6 @@ class SideBar extends Component {
                 </Body>
               </ListItem> 
               </List>
-            <List
-            dataArray={this.state.RouteMenu}
-            renderRow={data => {   
-              return (
-
-                 <View>
-                  
-                      <IF visible={data.children.length > 0}>
-                          <DropdownMenu menu={data} />
-                      </IF>   
-                      
-                      <IF visible={data.children.length === 0}>
-                         <LinkMenu name={data} />
-                      </IF>
-
-                   
-                  </View>
-
-
-                 
-                
-              );
-            }}
-          />
-
           <List>
              <ListItem itemDivider onPress={() => LogOutSistem(this.props)}>
                 <Body>

@@ -142,7 +142,7 @@ export class ProdutoDetalhes extends Component {
                             <Text style={{fontSize:14}}>{produto.description}</Text>
                         </Col>
                     </Row>
-
+            {/* Produtos relacionados
                     <Row style={styles.title} >
                             <Text style={styles.titleText}>Produtos relacionados:</Text>
                     </Row>
@@ -152,7 +152,7 @@ export class ProdutoDetalhes extends Component {
                         <Col>
                              <Related item={this.props}/>
                         </Col>
-                    </Row>
+			</Row> */}
                     </Grid>
 			
                 </ScrollView>

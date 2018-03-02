@@ -55,13 +55,7 @@ class SideBarFilter extends Component {
         <Content bounces={false} style={{ flex: 1, backgroundColor: "#fff", top: -1 }}>
        
           <ScrollView>
-          <List>
-             <ListItem itemDivider onPress={() => this.props.navigation.navigate('Produto') }>
-                <Body>
-                  <Text>Produtos</Text>
-                </Body>
-              </ListItem> 
-              </List>
+           
             <List
             dataArray={this.state.RouteMenu}
             renderRow={data => {   
