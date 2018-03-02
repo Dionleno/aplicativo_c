@@ -68,7 +68,7 @@ export const addProduto = async(kitID, _props) => {
 		      })
 		     .then(resp =>  {
             dispatch(changeitem('overlay',false))
-		     	_props.navigation.navigate('Confirmacao')
+		     	_props.navigation.navigate('Produto')
 		     })
 		     .catch((error) => {
 		     	 dispatch(changeitem('overlay',false))
