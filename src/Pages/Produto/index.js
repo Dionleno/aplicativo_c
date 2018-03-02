@@ -10,7 +10,7 @@ import React, { Component } from 'react';
 /*REDUX*/
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { listarProdutos, changeItem, _onOpenInputSearch, _onClosedInputSearch, searchRequestItem,changeDisplayTemplateProduto } from './Actions'
+import { listarProdutos, changeItem, _onOpenInputSearch, _onClosedInputSearch, searchRequestItem, changeDisplayTemplateProduto } from './Actions'
 import { TouchableOpacity, AppRegistry, View, StyleSheet } from 'react-native';
 import { Container, Button, Text, Header, Item, Content, Grid, Row, Col, Fab } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -28,7 +28,19 @@ export class Produtos extends Component {
   constructor(props) {
     super(props);
   }
-  
+
+  componentWillReceiveProps = (nextProps) => {
+     
+    if (this.props._slug !== nextProps._slug) {
+      console.log('ok')
+      this.props.changeItem('_slug', nextProps._slug)
+      this.props.changeItem('actualPage', 1)
+      this.props.changeItem('produtos', [])
+      this.props.changeItem('lastPage', 0)
+      this.refs.FilterDrawer.closeDrawer()
+      this.props.listarProdutos()
+    }
+  }
 
   render() {
     return (
@@ -74,5 +86,5 @@ export class Produtos extends Component {
 
 
 const mapStateToProps = state => (state.produto)
-const mapDispatchToProps = dispatch => bindActionCreators({ listarProdutos, changeItem, _onOpenInputSearch, _onClosedInputSearch, searchRequestItem,changeDisplayTemplateProduto }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ listarProdutos, changeItem, _onOpenInputSearch, _onClosedInputSearch, searchRequestItem, changeDisplayTemplateProduto }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Produtos)  

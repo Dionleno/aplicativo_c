@@ -19,7 +19,6 @@ import Login from './Pages/Login';
 import Logado from './Pages/Login/Logado';
 import Carrinho from './Pages/Carrinho';
 import Produto from './Pages/Produto';
-import Categorias from './Pages/Produto/Categorias';
 import ProdutoDetails from './Pages/Produto/Details';
 import CupomAtivacao from './Pages/CupomAtivacao';
 import CupomAgradecimento from './Pages/Agradecimentos/Cupom';
@@ -69,7 +68,6 @@ const transitionConfig = () => {
 
 const NavigatorRouter = StackNavigator({
   Produto: {screen: Produto},
-  Categorias: {screen: Categorias},
   Home: {screen: Home},
   Login: {screen:Login},
   Logado:{screen:Logado},

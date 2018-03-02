@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { withNavigation , NavigationActions } from 'react-navigation'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { changeItem } from '../../../Pages/Produto/Actions'
 
 
 import { AppRegistry, View, Image, FlatList, StyleSheet, AsyncStorage, Alert,TouchableOpacity } from 'react-native';
@@ -18,17 +20,7 @@ class DropdownMenu extends Component {
 		  openItenMenu = () => {
 		  	 this.setState({OpenMenu: !this.state.OpenMenu})
 		  }
-     
-     onClickCategoria = (categoria) => {
-     		const navigateAction = NavigationActions.navigate({
-				  routeName: 'Produto',
-				  params: {
-				  	categoria: categoria
-				  },
-        })
-
-        this.props.navigation.dispatch(navigateAction)
-     }
+      
   	render() {
 
   	
@@ -49,7 +41,7 @@ class DropdownMenu extends Component {
 				            dataArray={this.props.menu.children}
 				            renderRow={data => {
 				              return ( 
-				                 <ListItem onPress={() => this.onClickCategoria(data)}>
+				                 <ListItem onPress={() => this.props.changeItem("_slug",data.slug)}>
 				                    <Body>
 				                      <Text>{data.name}</Text>
 				                    </Body>
@@ -64,4 +56,8 @@ class DropdownMenu extends Component {
     )
   }
 }
-export default withNavigation(DropdownMenu)
+
+const mapStateToProps = state => (state.produto)
+const mapDispatchToProps = dispatch => bindActionCreators({ changeItem }, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(DropdownMenu)  
+ 

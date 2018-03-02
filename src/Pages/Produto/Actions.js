@@ -74,9 +74,12 @@ export const listarProdutos = () => {
 	return (dispatch, getState) => {
 		const state = getState().produto;
 		let slug = state._slug || 'geral';
-		const URL = `/categories/${slug}/products?page=${state.actualPage}`;
+	
+		const URL = state.search != '' ? `products?search=${state.search}&page=${state.actualPage}` : `/categories/${slug}/products?page=${state.actualPage}`
+		 
+		
 
-		//const URL = `products?search=${state.search}&page=${state.actualPage}`;
+	 
 
 		if(!state.loading){
 			dispatch({ type: CHANGE_FIELD_PRODUTO, objectItem: 'loading', payload: true});
