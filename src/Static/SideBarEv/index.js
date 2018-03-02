@@ -25,8 +25,6 @@ class SideBarEv extends Component {
 
   componentWillMount = async() => {
     const Userinfo = await AsyncStorage.getItem(USER_INFO);
-    console.log('USER', Userinfo);
-
     this.setState({
       Userinfo: JSON.parse(Userinfo)
     })

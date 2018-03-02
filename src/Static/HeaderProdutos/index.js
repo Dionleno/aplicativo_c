@@ -21,62 +21,49 @@ class HeaderProdutos extends Component {
     super(props);
   }
 
-  componentWillMount(){
-    
-  }
-
-  botaoMenu = () => {
-    let menu = this.props.menu || false;
-
-    if(menu){
-      return (
-        <Button transparent onPress={this.props.opendrawer}>
-          <Icon name='menu' style={styles.icon} />
-        </Button>
-      );
-    }
-  }
-
   render(){
-    const { props } = this;
-    const { state } = props.item.navigation;
+    const { state } = this.props.item.navigation;
 
     return (
       <Header androidStatusBarColor={preto} style={styles.header}>
   
         <View style={styleDefault.boxBtnMenu}>
-          {this.botaoMenu()}
+          <Button transparent onPress={this.props.opendrawer}>
+            <Icon name='menu' style={styles.icon} />
+          </Button>
         </View>
         
-        <IF visible={!props.item.opensearch}>
+        <IF visible={!this.props.item.opensearch}>
           <Body>
-            <Title>{props.title}</Title>
+            <Title>{this.props.title}</Title>
           </Body>
           <Right>
-            <Button transparent style={props.item.visibleType == 1 ? styles.btnActive : {}} onPress={() => { props.item.changeDisplayTemplateProduto() }}>
+            <Button transparent style={this.props.item.visibleType == 1 ? styles.btnActive : {}} onPress={() => { this.props.item.changeDisplayTemplateProduto() }}>
               <Icon name='format-line-spacing' style={styles.icon} />
-            </Button>
-            <Button transparent onPress={() => props.item._onOpenInputSearch(props.item)}>
+            </Button> 
+            <Button 
+              transparent 
+              onPress={() => this.props.item._onOpenInputSearch(this.props.item) }>
               <Icon name='search' style={styles.icon} />
             </Button>
   
           </Right>
         </IF>
-        <IF visible={props.item.opensearch}>
+        <IF visible={this.props.item.opensearch}>
           <Body>
-            <AnimatedTI style={{ height: 47, width: props.item.slideAnim, backgroundColor: '#FFFFFF', paddingHorizontal: 5, flexDirection: 'row', justifyContent: 'flex-end', alignSelf: 'flex-end' }}>
-              <Icon active name='close' onPress={() => props.item._onClosedInputSearch(props.item)} style={{ fontSize: 24, color: '#888888' }} />
+            <AnimatedTI style={{ height: 47, width: this.props.item.slideAnim, backgroundColor: '#FFFFFF', paddingHorizontal: 5, flexDirection: 'row', justifyContent: 'flex-end', alignSelf: 'flex-end' }}>
+              <Icon active name='close' onPress={() => this.props.item._onClosedInputSearch(this.props.item)} style={{ fontSize: 24, color: '#888888' }} />
               <Input
                 style={styles.StyleInputText}
                 autoFocus={true}
                 keyboardType='web-search'
                 returnKeyType="search"
                 underlineColorAndroid='transparent'
-                onSubmitEditing={() => props.item.searchRequestItem(props.item)}
+                onSubmitEditing={() => this.props.item.searchRequestItem(this.props.item)}
                 placeholder="Buscar..."
-                onChangeText={(value) => props.item.changeItem('search', value)}
+                onChangeText={(value) => this.props.item.changeItem('search', value)}
               />
-              <Icon active name='search' style={{ fontSize: 24, color: '#888888' }} onPress={() => props.item.searchRequestItem(props.item)} />
+              <Icon active name='search' style={{ fontSize: 24, color: '#888888' }} onPress={() => this.props.item.searchRequestItem(this.props.item)} />
             </AnimatedTI>
           </Body>
         </IF>

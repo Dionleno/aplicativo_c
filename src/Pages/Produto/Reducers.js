@@ -36,8 +36,7 @@ export default (state = INITIAL_STATE, action) => {
     case LISTS_PRODUCTO:
       return state;
     case CHANGE_FIELD_PRODUTO:
-    console.log(action.payload);
-    
+      console.log(action.payload);
       return {...state, [action.objectItem]: action.payload};
     case STATE_DEFAULT:
       return {
