@@ -34,7 +34,7 @@ const INITIAL_STATE = {
   enderecos: [],
   formas_entrega: [],
   address_id: '',
-  frete: '',
+  frete: -1,
   forma_pagamento: '',
   produtos: [],
   parcelas: [{key: 0, label: 'Aguarde...'}],

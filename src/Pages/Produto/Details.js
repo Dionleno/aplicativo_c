@@ -15,7 +15,8 @@ import HeaderExterno from '../../Static/HeaderExterno'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { MOEDAS } from '../../Helpers/Constants';
 import { MaskService } from 'react-native-masked-text';
-import Related from '../../Components/Produtos/related'
+import Related from '../../Components/Produtos/related';
+import { verdeClaro } from '../../StyleSheet/Cores';
 
 export class ProdutoDetalhes extends Component {
 
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
   btnActive:{
 		borderWidth:2.7,
 		borderRadius:3,
-		borderColor:'#20CDA6',
+		borderColor:verdeClaro,
 		width:50,
 		height:50
   },

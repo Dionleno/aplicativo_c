@@ -86,14 +86,7 @@ class SideBarFilter extends Component {
               );
             }}
           />
-
-          <List>
-             <ListItem itemDivider onPress={() => LogOutSistem(this.props)}>
-                <Body>
-                  <Text>Logout</Text>
-                </Body>
-              </ListItem> 
-              </List>
+          
           </ScrollView>
           
         </Content>

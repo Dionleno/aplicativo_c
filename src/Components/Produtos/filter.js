@@ -1,33 +1,34 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import {TouchableOpacity} from 'react-native'
-import {Row,Col,View,Text,Button} from 'native-base'
-import Icon from 'react-native-vector-icons/MaterialIcons'
-import styles from '../../Pages/Produto/Style'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { TouchableOpacity } from 'react-native';
+import { Row, Col, View, Text, Button } from 'native-base';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { bindActionCreators } from 'redux';
+import styles from './Style';
 
 export class filter extends Component {
-    constructor(props) {
-        super(props)
-    }
+  constructor(props) {
+    super(props)
+  }
 
-    render() {
-        return (
-            <Row style={{ paddingHorizontal: 5, paddingVertical: 5, backgroundColor: '#F2f2f2',height: 40 }}>
-               
-                <Col>
-                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end',alignItems:'center',height: 30 }}>
-                        <TouchableOpacity small iconLeft style={{backgroundColor:'transparent',flexDirection: 'row',alignItems:'center',paddingRight:10}}
-                                                onPress={this.props.FilterDrawer}>
-                            <Icon name='tune' style={{ fontSize: 24, marginRight:6 }} />
-                            <Text style={{color:"#333333",fontSize:13}}>Categorias</Text>
-                        </TouchableOpacity>
-
-                    </View>
-                </Col>
-            </Row>
-        )
-    }
+  render() {
+    return (
+      <Row style={styles.row}>
+        <Col>
+          <View style={styles.view}>
+            <TouchableOpacity 
+              small 
+              iconLeft 
+              style={styles.touchButton}
+              onPress={this.props.FilterDrawer}>
+              <Icon name='tune' style={styles.icon} />
+              <Text style={styles.text}>Categorias</Text>
+            </TouchableOpacity>
+          </View>
+        </Col>
+      </Row>
+    )
+  }
 }
 
 const mapStateToProps = (state) => (state.produto)

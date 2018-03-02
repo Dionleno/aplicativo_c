@@ -50,7 +50,7 @@ const VerticalCard  = props => {
     )
 }
 
-export default withNavigation(VerticalCard)
+  export default withNavigation(VerticalCard)
 
 const styles = StyleSheet.create({
 	container: {
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
   imageProduct: {
     width: 115,
-    height: 115,
+    height: 135,
    
   },
   viewProductDetails: {

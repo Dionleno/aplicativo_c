@@ -19,10 +19,11 @@ import HeaderProdutos from '../../Static/HeaderProdutos'
 import IF from '../../Helpers/if'
 import styleButton from '../../StyleSheet/Buttons';
 // Paginas estaticas
-import LsProdutos from '../../Components/Produtos'
-import FilterProdutosDrawer from '../../Components/Drawers/FilterProdutosDrawer'
-import ProdutosDrawer from '../../Components/Drawers/ProdutosDrawer'
-import Filter from '../../Components/Produtos/filter'
+import LsProdutos from '../../Components/Produtos';
+import FilterProdutosDrawer from '../../Components/Drawers/FilterProdutosDrawer';
+import ProdutosDrawer from '../../Components/Drawers/ProdutosDrawer';
+import Filter from '../../Components/Produtos/filter';
+import { verdeClaro } from '../../StyleSheet/Cores';
 
 export class Produtos extends Component {
   constructor(props) {
@@ -68,7 +69,7 @@ export class Produtos extends Component {
             <Fab active={true}
               direction="up"
               containerStyle={{}}
-              style={{ backgroundColor: '#20CDA6' }}
+              style={{ backgroundColor: verdeClaro }}
               position="bottomRight"
               onPress={() => this.props.navigation.navigate('Carrinho')}>
 

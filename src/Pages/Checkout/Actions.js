@@ -404,18 +404,27 @@ export const finalizarCadastro = props => {
 
   return (dispatch, getState) => {
     const { checkout } = getState();
-
-    if(!checkout.address_id && checkout.factory == '1'){
-      Alert.alert('Atenção', 'Escolha um endereço para entrega');
-      return {
-        type: CHECKOUT_CADASTRO_ERRO
+    
+    if(checkout.factory == '1'){
+      if(!checkout.address_id){
+        Alert.alert('Atenção', 'Escolha um endereço para entrega');
+        return {
+          type: CHECKOUT_CADASTRO_ERRO
+        }
       }
-    }
 
-    if(!checkout.forma_pagamento && checkout.factory == '1'){
-      Alert.alert('Atenção', 'Escolha uma forma de pagamento');
-      return {
-        type: CHECKOUT_CADASTRO_ERRO
+      if(parseInt(checkout.frete) < 0){
+        Alert.alert('Atenção', 'Escolha uma forma de entrega');
+        return {
+          type: CHECKOUT_CADASTRO_ERRO
+        }
+      }
+
+      if(!checkout.forma_pagamento){
+        Alert.alert('Atenção', 'Escolha uma forma de pagamento');
+        return {
+          type: CHECKOUT_CADASTRO_ERRO
+        }
       }
     }
 
