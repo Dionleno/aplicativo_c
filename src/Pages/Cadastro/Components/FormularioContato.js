@@ -55,7 +55,7 @@ class FormularioContato extends Component {
         <Picker
               iosHeader="Operadoras"
               headerBackButtonText="Voltar"
-              mode="dropdown"
+              mode="dialog"
               { ...this.props }
               placeholder="Operadoras"
               selectedValue={this.props.phone_companies.selected}
@@ -70,7 +70,7 @@ class FormularioContato extends Component {
           <Picker
             iosHeader="Tipo"
             headerBackButtonText="Voltar"
-            mode="dropdown"
+            mode="dialog"
             { ...this.props }
             placeholder="Tipo"
             selectedValue={this.props.phone_types.selected}

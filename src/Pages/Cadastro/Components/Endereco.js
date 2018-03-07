@@ -82,13 +82,18 @@ export class Endereco extends Component {
 						<View style={{flex: 1, marginRight:5,paddingVertical: 10}}>
  
 							<View style={styleInput.picker}>
-								<Picker
-									returnKeyType={'next'}
+							    <Picker
+									iosHeader="Cidade"
+									headerBackButtonText="Voltar"
+									mode="dialog"
+									{ ...this.props }
+								    placeholder="Cidade"
+									enabled={this.props.address.state_id != ''}
 									selectedValue={this.props.address.state_id}
 									onValueChange={(itemValue, itemIndex) => { itemValue != 0 ? this.props.changeStateBindCity(itemValue, itemIndex) : ''}}>
-									<Picker.Item key={0} value={0} label='UF' />
 									{serviceStates}
 								</Picker>
+								 
 							</View>
 							 
 						</View>
@@ -98,11 +103,14 @@ export class Endereco extends Component {
  
 							<View style={styleInput.picker}>
 								<Picker
-									returnKeyType={'next'}
+									iosHeader="Cidade"
+									headerBackButtonText="Voltar"
+									mode="dialog"
+									{ ...this.props }
+								    placeholder="Cidade"
 									enabled={this.props.address.state_id != ''}
 									selectedValue={this.props.address.city_id}
 									onValueChange={(itemValue, itemIndex) => this.props.onChangeFieldAddress(itemValue,'city_id')}>
-									<Picker.Item key={0}  value={0} label='Cidade' />
 									{citiesUpdate}
 								</Picker>
 							</View> 
