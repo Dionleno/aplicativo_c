@@ -23,17 +23,17 @@ class PatrocionadorBySite extends Component {
 	render(){
 		return (
 			<View> 
-				<View style={{ flexDirection: 'row', marginBottom: 15, borderColor: '#d2d6e0', borderWidth: 1, borderRadius: 4 }}>
+				<View style={{ flexDirection: 'row', marginBottom: 15, borderColor: '#d2d6e0', borderWidth: 1, borderRadius: 4,height:40,justifyContent:'center' }}>
 					<View style={{flex: 0.60, justifyContent: 'center', paddingLeft: 15}} > 
-						<Text onPress={() => this.refs.inputPatrocinador.focus()} style={{fontSize: 14, color: '#888888'}}>www.contem1gmagic.com/</Text>
+						<Text onPress={() => this.refs.inputPatrocinador.focus()} style={{fontSize: 12, color: '#888888'}}>www.contem1gmagic.com/</Text>
 					</View>
 	
 					<View style={{flex: 0.40}}>
 						<TextInput
 							ref='inputPatrocinador'
 							underlineColorAndroid='transparent' 
-							style={{backgroundColor: '#ffffff', paddingRight: 15, color: '#888888'}}
-							placeholder='link'
+							style={{paddingRight: 15, color: '#888888',height:38}}
+							placeholder='Patrocinador'
 							autoCapitalize='none'
 							value={this.props.findtext} 
 							returnKeyType={'search'}

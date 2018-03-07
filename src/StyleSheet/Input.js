@@ -1,5 +1,4 @@
 const React = require("react-native");
-
 const { StyleSheet, Platform, Dimensions } = React;
  
 export default {
@@ -18,10 +17,10 @@ export default {
     paddingHorizontal: 15,
     flex: 1,
     backgroundColor: '#FFFFFF',
-     borderColor: '#d2d6e0',
+    borderColor: '#d2d6e0',
     borderWidth: 1,
     borderRadius: 4,
-     
+    height: Platform.OS === "ios" ? 40 : 50,
   },
   inputTextError: {
     marginVertical:10,
@@ -38,11 +37,11 @@ export default {
     borderColor: '#d2d6e0',
     borderWidth: 1,
     borderRadius: 4,
-    height: 50,
+    height: Platform.OS === "ios" ? 40 : 50,
     flex: 1
   },
   boxinput:{
     backgroundColor:'#FFFFFF',
-    height:50
+    height: Platform.OS === "ios" ? 40 : 50,
   }
 };

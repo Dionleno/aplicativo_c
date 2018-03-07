@@ -12,7 +12,7 @@ export default {
     marginBottom: 7.5
  },
   titleText: {
-    fontSize: 17,
+    fontSize: Platform.OS === "ios" ? 15 : 17,
     color: '#656D82',
     fontWeight: '500'
   },

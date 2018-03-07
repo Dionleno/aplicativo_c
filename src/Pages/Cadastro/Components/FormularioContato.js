@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Picker } from 'react-native';
-import { Content, Text, Item, Button,CheckBox } from 'native-base';
+import { View } from 'react-native';
+import { Content, Text, Item, Button,CheckBox , Picker} from 'native-base';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TextInputMask } from 'react-native-masked-text';
@@ -51,23 +51,31 @@ class FormularioContato extends Component {
           value={this.props.phone_number}
           onChangeText={value => {this.props.changePhoneNumber(value)}}
         />
-
-        <View style={[styleInput.picker, {marginVertical: 15}]}>
-          <Picker
-            returnKeyType={'next'}
-            selectedValue={this.props.phone_companies.selected}
-            onValueChange={value => {this.props.changePhoneCompany(value)}}>
-            <Picker.Item key="0" value="0" label="Operadora" />
-            {this.pickerPhoneCompanies()}
-          </Picker>
+       <View style={[styleInput.picker, {marginVertical: 15}]}>
+        <Picker
+              iosHeader="Operadoras"
+              headerBackButtonText="Voltar"
+              mode="dropdown"
+              { ...this.props }
+              placeholder="Operadoras"
+              selectedValue={this.props.phone_companies.selected}
+              onValueChange={value => {this.props.changePhoneCompany(value)}}>
+               {this.pickerPhoneCompanies()}
+            </Picker>
+          
         </View>
+ 
 
         <View style={styleInput.picker}>
           <Picker
-            returnKeyType={'next'}
+            iosHeader="Tipo"
+            headerBackButtonText="Voltar"
+            mode="dropdown"
+            { ...this.props }
+            placeholder="Tipo"
             selectedValue={this.props.phone_types.selected}
             onValueChange={value => {this.props.changePhoneType(value)}}>
-            <Picker.Item key="0" value="0" label="Tipo" />
+          
             {this.pickerPhoneTypes()}
           </Picker>
         </View>
