@@ -10,16 +10,17 @@ import { StatusBar, StyleSheet } from 'react-native';
 import {  Header, Left, Button, Body, Title, Right,View} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styleDefault from '../../StyleSheet/Buttons.js';
+import MultPlatform from '../../MultPlatform'
 export default props => {
   let title = props.title || 'Escritório Virtual';
 
   return (
-    <Header searchBar androidStatusBarColor='#000000' style={styles.header}>
+    <Header searchBar androidStatusBarColor="#000000" iosStatusbar="light-content" style={{backgroundColor: MultPlatform.BackgroundColorStatusBar}}>
       <View style={styleDefault.boxBtnMenu}>
         <Button 
           transparent 
           onPress={ props.opendrawer}>
-          <Icon name='menu' style={styles.icon}/>
+          <Icon name='menu' style={[styles.icon,{color:MultPlatform.TextColorStatusBar}]}/>
         </Button>
       </View>
       <Body >
@@ -27,10 +28,10 @@ export default props => {
       </Body>
         <Right>
           <Button transparent onPress={ () => { props.item.navigation.navigate('Carrinho'); }}>
-            <Icon name='notifications' style={styles.icon} />
+            <Icon name='notifications' style={[styles.icon,{color:MultPlatform.TextColorStatusBar}]} />
           </Button>
             <Button transparent onPress={ () => { props.item.navigation.navigate('Carrinho'); }}>
-            <Icon name='shopping-cart' style={styles.icon} />
+            <Icon name='shopping-cart' style={[styles.icon,{color:MultPlatform.TextColorStatusBar}]} />
           </Button>
         </Right>
     </Header>

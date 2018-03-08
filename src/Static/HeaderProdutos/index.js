@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF'
   },
   btnActive: {
-    backgroundColor: "#000000"
+    backgroundColor: "#B0A69B"
   }
 });
 
