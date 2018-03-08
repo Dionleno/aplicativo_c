@@ -27,7 +27,7 @@ import Ano from './Ano';
 import Mes from './Mes';
 import styleButtons from '../../../StyleSheet/Buttons';
 import FormularioCartaoCredito from './FormularioCartaoCredito';
-
+import RadioPlataform from "../../../RadioPlataform"
 const CVV = require('../../../Images/cvv.png');
 
 export class FormularioPagamento extends Component {
@@ -46,19 +46,19 @@ export class FormularioPagamento extends Component {
 
 	setPagamento(tipo) {
 		// Boleto
-		if(tipo === '1'){
-			this.setState({pagamento: {cartao: false, boleto: true}});
+		if (tipo === '1') {
+			this.setState({ pagamento: { cartao: false, boleto: true } });
 		}
 
 		// Cartão
-		if(tipo === '2'){
-			this.setState({pagamento: {cartao: true, boleto: false}});
+		if (tipo === '2') {
+			this.setState({ pagamento: { cartao: true, boleto: false } });
 		}
 
 		this.props.formaPagamento(tipo);
 	}
 
-	renderItemCards = ({item, index}) => (
+	renderItemCards = ({ item, index }) => (
 		<ListItem>
 			<View style={styles.listCard}>
 				<View style={styles.listCardLeft}>
@@ -68,17 +68,17 @@ export class FormularioPagamento extends Component {
 				</View>
 				<View style={styles.listCardRight}>
 					<Button style={styles.listCardButtonExcluir} onPress={() => this.props.removeCard(index)}>
-						<Icon name='close' style={{fontSize: 26, color: 'red'}}/>
+						<Icon name='close' style={{ fontSize: 26, color: 'red' }} />
 					</Button>
 				</View>
 			</View>
 		</ListItem>
 	)
 
-	btnCartao(){
-		if(this.props.total_diff > 0){
+	btnCartao() {
+		if (this.props.total_diff > 0) {
 			return (
-				<View style={{marginHorizontal: 15, marginVertical: 15}}>
+				<View style={{ marginHorizontal: 15, marginVertical: 15 }}>
 					<Button block style={styleButtons.btnPrimaryOutline} onPress={() => this.props.popupDialogCartao.dialog.show()} >
 						<Text style={styleButtons.btnPrimaryOutlineText} >Informar Cartão de Crédito</Text>
 					</Button>
@@ -87,40 +87,40 @@ export class FormularioPagamento extends Component {
 		}
 	}
 
-  cartao() {
-    const { form, setFormValor } = this.props;
+	cartao() {
+		const { form, setFormValor } = this.props;
 
-    if(this.state.pagamento.cartao){
+		if (this.state.pagamento.cartao) {
 			return (
 				<View>
-					<View style={{ marginVertical: 10}}>
-						<FlatList 
+					<View style={{ marginVertical: 10 }}>
+						<FlatList
 							data={this.props.cards_label}
 							extraData={this.state}
 							keyExtractor={(item, index) => index}
 							renderItem={this.renderItemCards}
 						/>
 					</View>
-					
+
 					{this.btnCartao()}
-				
+
 				</View>
 			);
 		}
-  }
+	}
 
-	loadingFormaEntrega(){
-		if(this.props.loadingFormaEntrega){
+	loadingFormaEntrega() {
+		if (this.props.loadingFormaEntrega) {
 			return (<Spinner color='black' />);
 		}
 	}
 
-	infoFormaEntrega(){
+	infoFormaEntrega() {
 		const { formasEntrega } = this.props;
 
-		if(formasEntrega.length == 0){
+		if (formasEntrega.length == 0) {
 			return (
-				<Text style={[styles.radioText, {marginLeft: 15, marginRight: 15}]} >Selecione um endereço acima para listar as formas de entrega</Text>
+				<Text style={[styles.radioText, { marginLeft: 15, marginRight: 15 }]} >Selecione um endereço acima para listar as formas de entrega</Text>
 			);
 		}
 	}
@@ -134,10 +134,12 @@ export class FormularioPagamento extends Component {
 
 				<View style={styles.viewRadioBorder}>
 					<View style={styles.viewRadio}>
-						<Radio
+						<RadioPlataform
+							actionClick={() => this.setPagamento('1')}
 							selected={this.state.pagamento.boleto}
-							style={styles.radio}
-							onPress={() => this.setPagamento('1')} />
+							styles={styles.radioText}
+						/>
+
 						<Text style={styles.radioText}>Boleto</Text>
 					</View>
 					<View style={styles.viewRadioBorderIcon}>
@@ -147,18 +149,19 @@ export class FormularioPagamento extends Component {
 
 				<View style={styles.viewRadioBorder}>
 					<View style={styles.viewRadio}>
-						<Radio
+						<RadioPlataform
+							actionClick={() => this.setPagamento('2')}
 							selected={this.state.pagamento.cartao}
-							style={styles.radio}
-							onPress={() => this.setPagamento('2')} />
+							styles={styles.radioText}
+						/>
 						<Text style={styles.radioText}>Cartão de Crédito</Text>
 					</View>
 					<View style={styles.viewRadioBorderIcon}>
 						<Icon name='credit-card' style={styles.titleOutlineIcon} />
 					</View>
 				</View>
-				
-				{ this.cartao() }
+
+				{this.cartao()}
 			</View>
 		);
 	}

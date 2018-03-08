@@ -4,7 +4,7 @@ import {Container, Header, Left, Button, Body, Title, Right} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { preto } from '../../StyleSheet/Cores';
 import styles from './Style';
-
+import MultPlatform from '../../MultPlatform'
 export default class HeaderCheckout extends Component {
 
   constructor (props) {
@@ -15,10 +15,10 @@ export default class HeaderCheckout extends Component {
 
   render() {
     return (
-      <Header androidStatusBarColor={preto} style={styles.container}>
+      <Header androidStatusBarColor="#000000" iosStatusbar="light-content" style={{backgroundColor: MultPlatform.BackgroundColorStatusBar}}>
         <Left>
           <Button transparent onPress={() => this.props.navigation.goBack()}>
-            <Icon name='keyboard-arrow-left' style={styles.iconBack}/>
+            <Icon name='keyboard-arrow-left' style={{fontSize:25,color: MultPlatform.TextColorStatusBar}}/>
           </Button>
         </Left>
         

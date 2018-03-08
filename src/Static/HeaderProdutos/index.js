@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import styleDefault from '../../StyleSheet/Buttons';
 import IF from '../../Helpers/if';
 import { preto, preto_0 } from '../../StyleSheet/Cores';
-
+import MultPlatform from '../../MultPlatform'
 const AnimatedTI = Animated.createAnimatedComponent(Item);
 
 class HeaderProdutos extends Component {
@@ -25,11 +25,11 @@ class HeaderProdutos extends Component {
     const { state } = this.props.item.navigation;
 
     return (
-      <Header androidStatusBarColor={preto} style={styles.header}>
+      <Header androidStatusBarColor="#000000" iosStatusbar="light-content" style={{backgroundColor: MultPlatform.BackgroundColorStatusBar}}>
   
         <View style={styleDefault.boxBtnMenu}>
           <Button transparent onPress={this.props.opendrawer}>
-            <Icon name='menu' style={styles.icon} />
+            <Icon name='menu' style={[styles.icon,{color:MultPlatform.TextColorStatusBar}]} />
           </Button>
         </View>
         
@@ -39,12 +39,12 @@ class HeaderProdutos extends Component {
           </Body>
           <Right>
             <Button transparent style={this.props.item.visibleType == 1 ? styles.btnActive : {}} onPress={() => { this.props.item.changeDisplayTemplateProduto() }}>
-              <Icon name='format-line-spacing' style={styles.icon} />
+              <Icon name='format-line-spacing' style={[styles.icon,{color:MultPlatform.TextColorStatusBar}]} />
             </Button> 
             <Button 
               transparent 
               onPress={() => this.props.item._onOpenInputSearch(this.props.item) }>
-              <Icon name='search' style={styles.icon} />
+              <Icon name='search' style={[styles.icon,{color:MultPlatform.TextColorStatusBar}]} />
             </Button>
   
           </Right>

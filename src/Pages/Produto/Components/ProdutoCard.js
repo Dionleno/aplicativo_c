@@ -7,7 +7,7 @@ import { MaskService } from 'react-native-masked-text';
 import { SEM_FOTO } from '../../../Helpers/Constants';
 import { withNavigation } from 'react-navigation';
 import { verdeClaro } from '../../../StyleSheet/Cores';
-
+import MultPlatform from '../../../MultPlatform'
 const ProdutoCard  = props => {
     let item = props.item;
     let details = props.item.product_details[0];
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   productTitle: {
     color: '#656D82',
     fontWeight: '400',
-    fontSize: 12,
+    fontSize: MultPlatform.FontSizeTextDefault ,
     textAlign: 'center',
   },
   viewProductTitle: {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextInput, View, Image, FlatList, Picker } from 'react-native';
+import { TextInput, View, Image, FlatList } from 'react-native';
 import {
   Container,
 	Text,
@@ -14,7 +14,8 @@ import {
 	Left,
 	List,
 	ListItem,
-	Spinner
+  Spinner,
+  Picker
 } from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { TextInputMask } from 'react-native-masked-text';
@@ -131,12 +132,17 @@ export class FormularioCartaoCredito extends Component {
           <Text style={styles.formLabel}>Parcelas</Text>
           
           <View style={styleInput.picker}>
-            <Picker
+          <Picker
+              iosHeader="Parcelas"
+              headerBackButtonText="Voltar"
+              mode="dialog"
+              { ...this.props }
+              placeholder="Parcelas"
               selectedValue={this.props.cartao.installment_id}
-              onValueChange={value => this.props.setInstallmentId(value)}
-              iosHeader='Selecione as parcelas' mode='dialog'>
-              {this.parcelas()}
-            </Picker>
+              onValueChange={value => this.props.setInstallmentId(value)}>
+               {this.parcelas()}
+          </Picker>
+           
           </View>
         </View>
       </Content>

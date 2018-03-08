@@ -1,3 +1,5 @@
+import MultPlatform from '../../MultPlatform'
+
 export default {
   view:{
     backgroundColor: 'rgba(255,255,255,0)',
@@ -6,21 +8,22 @@ export default {
 	viewCheckbox: {
 		flex: 0.15,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+   
 	},
 	viewImage: {
-    flex: 0.25
+    flex: 0.25,
   },
   textStyle: {
     flex: 0.60,
   },
   imageStyle: {
-    flex: 1,
+    flex: 0.8
   },
 	textProductName: {
 		textAlign: 'left',
 		alignSelf: 'stretch',
-		fontSize: 16
+		fontSize: MultPlatform.FontSizeTextTitle
 	},
 	textPrice: {
 		color: '#2e2f30',

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Picker, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import styleInput from '../../../StyleSheet/Input';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {cartaoMes} from '../Actions';
-
+import {Picker} from "native-base"
 class Mes extends Component {
 
   constructor(props) {
@@ -33,10 +33,14 @@ class Mes extends Component {
   render() {
     return (
       <View style={styleInput.picker}>
-        <Picker
+       <Picker
+          iosHeader="Mês"
+          headerBackButtonText="Voltar"
+          mode="dialog"
+          { ...this.props }
+          placeholder="Mês"
           selectedValue={this.props.cartao.mes}
-          onValueChange={value => this.props.cartaoMes(value)}
-          iosHeader='Selecione um mês' mode='dialog'>
+          onValueChange={value => this.props.cartaoMes(value)}>
           { this.pickerItem() }
         </Picker>
       </View>

@@ -82,7 +82,6 @@ export class CarrinhoItem extends Component {
 							{this.opacity(stock)}
 							<Image
 								defaultSource={require('../../../Images/icon.jpg')}
-								resizeMode='cover'
 								source={{ uri: media.url }} 
 								style={styles.imageStyle} />
 						</View>

@@ -20,6 +20,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { MaskService } from 'react-native-masked-text';
 import { listarEnderecosEntrega, listarFormasEntrega, selecionarFrete, setAddressId } from '../Actions';
+import RadioPlataform from '../../../RadioPlataform'
 
 export class FormularioEntrega extends Component {
 
@@ -68,16 +69,16 @@ export class FormularioEntrega extends Component {
       <CardItem>
         <Body>
           <View style={styles.viewRadioEndereco} >
-            <Radio 
-              onPress={() => this.checkItemEndereco(index)}
-              selected={this.state.checked.endereco[index]}
-              style={styles.radio}
-            />
+                <RadioPlataform 
+                  actionClick={() => this.checkItemEndereco(index)}
+                  selected={this.state.checked.endereco[index]}
+                  styles={styles.radio}
+                 /> 
             <Text style={styles.radioText} >{item.description}</Text>
           </View>
 
-          <Text style={[styles.radioText, {marginLeft: 30}]}>{item.street} - {item.number}</Text>
-          <Text style={[styles.radioText, {marginLeft: 30}]}>CEP {item.zip}</Text>
+          <Text style={[styles.radioText, {marginLeft: 30,fontSize:12}]}>{item.street} - {item.number}</Text>
+          <Text style={[styles.radioText, {marginLeft: 30,fontSize:12}]}>CEP {item.zip}</Text>
         </Body>
       </CardItem>
     </Card>
@@ -92,11 +93,12 @@ export class FormularioEntrega extends Component {
 
     return (
       <ListItem style={styles.viewRadio}>
-        <Radio
-          onPress={() => this.checkItemFrete(index)} 
-          selected={this.state.checked.entrega[index]} 
-          style={styles.radio}
-        />
+         <RadioPlataform 
+                  actionClick={() => this.checkItemFrete(index)}
+                  selected={this.state.checked.entrega[index]}
+                  styles={styles.radio}
+                 /> 
+         
         <Text style={styles.radioText}>{(item.type).toUpperCase()} - {price}</Text>
       </ListItem>
     );

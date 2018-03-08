@@ -5,7 +5,7 @@ import { Container, Header, Left, Button, Body, Title, Right} from 'native-base'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
 import { excluir } from '../../Pages/Carrinho/Actions';
-
+import MultPlatform from '../../MultPlatform'
 export class HeaderCarrinho extends Component {
 
 	constructor (props) {
@@ -14,11 +14,10 @@ export class HeaderCarrinho extends Component {
 
 	render() {
 		return (
-			<Header style={styles.container}>
-				<StatusBar backgroundColor='#000000' />
+			<Header androidStatusBarColor="#000000" iosStatusbar="light-content" style={{backgroundColor: MultPlatform.BackgroundColorStatusBar}}>
 				<Left>
 					<Button transparent onPress={() => {this.props.navigation.goBack()}}>
-						<Icon name='keyboard-arrow-left' style={{fontSize:22,color:'#FFFFFF'}}/>
+						<Icon name='keyboard-arrow-left' style={{fontSize:22,color: MultPlatform.TextColorStatusBar}}/>
 					</Button>
 				</Left>
 			
@@ -28,7 +27,7 @@ export class HeaderCarrinho extends Component {
 				
 				<Right>
 					<Button transparent onPress={() => this.props.excluir(this.props.navigation)}>
-						<Icon name="delete" style={{fontSize:22,color:'#FFFFFF'}} />
+						<Icon name="delete" style={{fontSize:22,color: MultPlatform.TextColorStatusBar}} />
 					</Button>
 				</Right>
 			</Header>
