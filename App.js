@@ -5,8 +5,8 @@
  */
  
 import React, { Component } from 'react';
-import { Platform } from 'react-native';
-
+import { Platform , View} from 'react-native';
+import {Text} from "native-base"
 /*
 * @Importar as depencias do redux
 * @createStore para criar o armazenamento de todas as propriedades de estado

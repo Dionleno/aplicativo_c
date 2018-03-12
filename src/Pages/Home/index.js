@@ -28,9 +28,10 @@ const imageWidth = dimensions.width;
 export class Home extends Component {
   constructor(props) {
     super(props);
-    this.isLogin()
   }
-
+componentDidMount = () =>{
+	this.props.changeLoadingLogado(false)
+}
   isLogin = async() => {
   	const Userinfo = await AsyncStorage.getItem(USER_INFO);
   	if (Userinfo) {
@@ -50,14 +51,16 @@ export class Home extends Component {
     return (
 
 			<Container padder>
-
-				<SpinnerOverlay 
+ 
+<SpinnerOverlay 
 					visible={this.props.login.loading_login_logado} 
 					overlayColor="rgba(255, 255, 255, 1)" 
 					textContent={"Aguarde..."} 
 					color="#000" 
 					textStyle={{color: '#000'}}
 				/>
+ 
+				
 
 				<ImageBackground style={styles.BackgroundView} source={require('../../Images/banner2.jpg')}>
 
