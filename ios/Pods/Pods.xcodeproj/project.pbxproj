@@ -1,0 +1,789 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		010A67A28F0A7AE4272BE4487BE8DC8E /* ADYEncrypter.m in Sources */ = {isa = PBXBuildFile; fileRef = B097DE44E570087B3FFA1C6DCC3AB7A3 /* ADYEncrypter.m */; };
+		0D3F566855537B1475633E6B81B01696 /* ADYCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F383A9B0867A22C3D09E72451C924 /* ADYCard.m */; };
+		0E5C8157380D63ABC00CE778835BB8BA /* ADYEncrypter.h in Headers */ = {isa = PBXBuildFile; fileRef = BBBC0BFD0B72C1CE6D9DE89863557A7C /* ADYEncrypter.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		42515B5043B878338E7249CCF108E608 /* ADYRSACryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 15376CA4EE793D27B1613FD598E65435 /* ADYRSACryptor.m */; };
+		42D63669E5B734C37904C91F4C6D3E7E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C085E02FF89804F50ADDA04F5A586E94 /* Security.framework */; };
+		54ACE084F59CCAA2D46560BE483292BB /* NSString+AdyenUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 3686AF188E16A52C753E6DEA8A3791DF /* NSString+AdyenUtil.m */; };
+		56078209A221A29C70C837C5C6D4EF61 /* NSString+AdyenURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CCD8597A5887F7EC2AC09D5BD763B4 /* NSString+AdyenURLEncoding.m */; };
+		5634417062529422B32279C01A24E1AD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C10A31CD5CFA3EFE266394471B152E /* Foundation.framework */; };
+		5AF7633AB93343A38C7745F139002895 /* ADYCard.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A49251AC3E2E9F06BF180ABABD79E23 /* ADYCard.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		5F49E682FF4CC484805126203CEC3E15 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C10A31CD5CFA3EFE266394471B152E /* Foundation.framework */; };
+		6110C04CD7BE6E01423F45BBF51EF221 /* ADYAESCCMCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8749CDFF5B8DC6C798E82B1E9A0870 /* ADYAESCCMCryptor.m */; };
+		68130C8EE46B81A3B10B12C94A773217 /* AdyenCSE-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C285F465B937C8D319DB6F8577837D54 /* AdyenCSE-dummy.m */; };
+		77F040DC5CD5B70093B1ADA27F9E8563 /* Pods-appWithRedux-tvOSTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF8392D992D5A7257AE47A533FA3B4 /* Pods-appWithRedux-tvOSTests-dummy.m */; };
+		91F41289F3F47322B21C0EE1015A193A /* NSString+AdyenURLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = FE20B62114CD83C612DF9E3E86F1C605 /* NSString+AdyenURLEncoding.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		9AE57BB51F23B2003AFB995418514CEA /* ADYRSACryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = B9CF2B1800E350B6FCE8C0ABFC1CFD60 /* ADYRSACryptor.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		A30A6745C7B663EECCC69CBD6A81C2F5 /* NSDictionary+AdyenUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 139EEEA731AD35F87FF7287A3AAC9CB3 /* NSDictionary+AdyenUtil.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		A3BCF7E0BFAC055BFE1382FA79CEE552 /* NSDictionary+AdyenUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = DACBDA80B95EDB407A91F0AA6B5A7D5C /* NSDictionary+AdyenUtil.m */; };
+		AF4F85BEC4C6920A9216B8BF962EBED8 /* Pods-appWithReduxTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 614675BAE75C1740842EBAA774BFB18F /* Pods-appWithReduxTests-dummy.m */; };
+		BEE9AE1235EA4BE9F9E8A4B3F4FF8D99 /* NSString+AdyenUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E3FF7EA38C673DF7608D34A264E972B /* NSString+AdyenUtil.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		CA779CEEAE0FAC6767491260580A77CE /* Pods-appWithRedux-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 68387B91B1D818F25A20671FE4E25340 /* Pods-appWithRedux-dummy.m */; };
+		DAA65A0698ADA65CB783C9C424BB4BB6 /* ADYCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 3252F6B33FF41881F49372A6493B550E /* ADYCryptor.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		DD080E8033997893529D87C7C7A72B6B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C10A31CD5CFA3EFE266394471B152E /* Foundation.framework */; };
+		DD8F8400D6291EC2B313B15CD0CF7BE9 /* AdyenCSE.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D162DD4043CBBD47FD7B231E0B292F4 /* AdyenCSE.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		F3B1092DE08FED189C58F3637DB5C4D1 /* ADYAESCCMCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 487AC540AAB5C6138226B4B98B88820E /* ADYAESCCMCryptor.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		FE1A60FD94505B4961D8D0A0042CC195 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C10A31CD5CFA3EFE266394471B152E /* Foundation.framework */; };
+		FFF2CEC2B4F206A022B55D00053ADAAF /* ADYCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = A47948C1FEE491804E00DC7043086A20 /* ADYCryptor.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		743EC0B2CF0C2B82C82F901B6138C662 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DE833C571C36C41ED3C52226532B8F9;
+			remoteInfo = AdyenCSE;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0A49251AC3E2E9F06BF180ABABD79E23 /* ADYCard.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ADYCard.h; path = AdyenCSE/ADYCard.h; sourceTree = "<group>"; };
+		0DDBAE5C2F8617C9110414C8C284E94B /* Pods-appWithReduxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-appWithReduxTests.release.xcconfig"; sourceTree = "<group>"; };
+		0E3FF7EA38C673DF7608D34A264E972B /* NSString+AdyenUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSString+AdyenUtil.h"; path = "AdyenCSE/NSString+AdyenUtil.h"; sourceTree = "<group>"; };
+		11C10A31CD5CFA3EFE266394471B152E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		139EEEA731AD35F87FF7287A3AAC9CB3 /* NSDictionary+AdyenUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+AdyenUtil.h"; path = "AdyenCSE/NSDictionary+AdyenUtil.h"; sourceTree = "<group>"; };
+		1448620FE8C91E681BB8A7283CE1EEB9 /* Pods-appWithRedux-tvOSTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-appWithRedux-tvOSTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		15376CA4EE793D27B1613FD598E65435 /* ADYRSACryptor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ADYRSACryptor.m; path = AdyenCSE/ADYRSACryptor.m; sourceTree = "<group>"; };
+		1641C5A3D72FA63A123B6234ED545D50 /* Pods-appWithRedux-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-appWithRedux-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		16CE10C3E100E992164A3F3F2A651F1E /* Pods-appWithRedux-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-appWithRedux-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		1C3B1F02F336310A22D36482BC908F83 /* libAdyenCSE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libAdyenCSE.a; path = libAdyenCSE.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1EB48EA0AB3EF4F9A496B5C0A2FF88B4 /* Pods-appWithRedux-tvOSTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-appWithRedux-tvOSTests-resources.sh"; sourceTree = "<group>"; };
+		2AC782AA2ABCE1255E400DDA3B0BC605 /* Pods-appWithReduxTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-appWithReduxTests-resources.sh"; sourceTree = "<group>"; };
+		2ADF8392D992D5A7257AE47A533FA3B4 /* Pods-appWithRedux-tvOSTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-appWithRedux-tvOSTests-dummy.m"; sourceTree = "<group>"; };
+		2E0F383A9B0867A22C3D09E72451C924 /* ADYCard.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ADYCard.m; path = AdyenCSE/ADYCard.m; sourceTree = "<group>"; };
+		3252F6B33FF41881F49372A6493B550E /* ADYCryptor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ADYCryptor.h; path = AdyenCSE/ADYCryptor.h; sourceTree = "<group>"; };
+		3686AF188E16A52C753E6DEA8A3791DF /* NSString+AdyenUtil.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSString+AdyenUtil.m"; path = "AdyenCSE/NSString+AdyenUtil.m"; sourceTree = "<group>"; };
+		3CA904C9ED0B22B9AC7D9D541855DA7C /* AdyenCSE.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AdyenCSE.xcconfig; sourceTree = "<group>"; };
+		487AC540AAB5C6138226B4B98B88820E /* ADYAESCCMCryptor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ADYAESCCMCryptor.h; path = AdyenCSE/ADYAESCCMCryptor.h; sourceTree = "<group>"; };
+		614675BAE75C1740842EBAA774BFB18F /* Pods-appWithReduxTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-appWithReduxTests-dummy.m"; sourceTree = "<group>"; };
+		61BAFD8767E126CBAF5491A6923701D3 /* Pods-appWithRedux-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-appWithRedux-resources.sh"; sourceTree = "<group>"; };
+		68387B91B1D818F25A20671FE4E25340 /* Pods-appWithRedux-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-appWithRedux-dummy.m"; sourceTree = "<group>"; };
+		6BD777BF68A9153A415FDBBC1E611E29 /* Pods-appWithReduxTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-appWithReduxTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6D162DD4043CBBD47FD7B231E0B292F4 /* AdyenCSE.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AdyenCSE.h; path = AdyenCSE/AdyenCSE.h; sourceTree = "<group>"; };
+		6DC05D79CFDD2481B25820F6B425CB1E /* AdyenCSE-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AdyenCSE-prefix.pch"; sourceTree = "<group>"; };
+		7EBD0060C1FAD3B23789F3981D9B480C /* Pods-appWithReduxTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-appWithReduxTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		89CCD8597A5887F7EC2AC09D5BD763B4 /* NSString+AdyenURLEncoding.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSString+AdyenURLEncoding.m"; path = "AdyenCSE/NSString+AdyenURLEncoding.m"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		975C5A7E27B3BB8EE350799149DBF95E /* Pods-appWithRedux-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-appWithRedux-acknowledgements.plist"; sourceTree = "<group>"; };
+		9B8749CDFF5B8DC6C798E82B1E9A0870 /* ADYAESCCMCryptor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ADYAESCCMCryptor.m; path = AdyenCSE/ADYAESCCMCryptor.m; sourceTree = "<group>"; };
+		9BBC2572629B71693294719E9EB10115 /* Pods-appWithRedux-tvOSTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-appWithRedux-tvOSTests-frameworks.sh"; sourceTree = "<group>"; };
+		9C4EEBD5385751F7A7FA183E29B923F0 /* libPods-appWithReduxTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-appWithReduxTests.a"; path = "libPods-appWithReduxTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A47948C1FEE491804E00DC7043086A20 /* ADYCryptor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ADYCryptor.m; path = AdyenCSE/ADYCryptor.m; sourceTree = "<group>"; };
+		A6B7D99BEA0542563598D849278D185A /* libPods-appWithRedux-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-appWithRedux-tvOSTests.a"; path = "libPods-appWithRedux-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B097DE44E570087B3FFA1C6DCC3AB7A3 /* ADYEncrypter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ADYEncrypter.m; path = AdyenCSE/ADYEncrypter.m; sourceTree = "<group>"; };
+		B9CF2B1800E350B6FCE8C0ABFC1CFD60 /* ADYRSACryptor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ADYRSACryptor.h; path = AdyenCSE/ADYRSACryptor.h; sourceTree = "<group>"; };
+		BBBC0BFD0B72C1CE6D9DE89863557A7C /* ADYEncrypter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ADYEncrypter.h; path = AdyenCSE/ADYEncrypter.h; sourceTree = "<group>"; };
+		BF7D1EEBCF69A5913A97E4220135EBEF /* Pods-appWithRedux-tvOSTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-appWithRedux-tvOSTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		C085E02FF89804F50ADDA04F5A586E94 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		C285F465B937C8D319DB6F8577837D54 /* AdyenCSE-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AdyenCSE-dummy.m"; sourceTree = "<group>"; };
+		D4E22F7693165878B1E74F426A1C009E /* libPods-appWithRedux.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-appWithRedux.a"; path = "libPods-appWithRedux.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DACBDA80B95EDB407A91F0AA6B5A7D5C /* NSDictionary+AdyenUtil.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+AdyenUtil.m"; path = "AdyenCSE/NSDictionary+AdyenUtil.m"; sourceTree = "<group>"; };
+		DC1F522A8DA6091EA522A8FC31CB5005 /* Pods-appWithRedux.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-appWithRedux.debug.xcconfig"; sourceTree = "<group>"; };
+		DFEA1DF9E7F84E73CB96E83423A5EFEE /* Pods-appWithRedux-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-appWithRedux-frameworks.sh"; sourceTree = "<group>"; };
+		E2F617CB2306A4E8EFD0721DD10A1EE4 /* Pods-appWithRedux.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-appWithRedux.release.xcconfig"; sourceTree = "<group>"; };
+		E434A64AF86F1C9C909FD455FD44531E /* Pods-appWithReduxTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-appWithReduxTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		F829CD6E9CC5878E86E13236395EC33B /* Pods-appWithRedux-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-appWithRedux-acknowledgements.markdown"; sourceTree = "<group>"; };
+		FAF9F6F431EC5F156E581759FF76F01A /* Pods-appWithReduxTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-appWithReduxTests-frameworks.sh"; sourceTree = "<group>"; };
+		FE20B62114CD83C612DF9E3E86F1C605 /* NSString+AdyenURLEncoding.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSString+AdyenURLEncoding.h"; path = "AdyenCSE/NSString+AdyenURLEncoding.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6E9E3F1109F726E35464731A0D370559 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE1A60FD94505B4961D8D0A0042CC195 /* Foundation.framework in Frameworks */,
+				42D63669E5B734C37904C91F4C6D3E7E /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9A1BE7882C19C2C8F37360EE5803E52 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD080E8033997893529D87C7C7A72B6B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F7A7F68EEB1E56B4C8F2C485069228D1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5634417062529422B32279C01A24E1AD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FE9915AB577389408DE583A6F813C38F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5F49E682FF4CC484805126203CEC3E15 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4F990579C2E52276FD3C28227B49D60B /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4ACC041EA050C3803D42A088CED12AC7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D8722332C1DA06EF4B326A492F4EF2CE /* AdyenCSE */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		4F990579C2E52276FD3C28227B49D60B /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				11C10A31CD5CFA3EFE266394471B152E /* Foundation.framework */,
+				C085E02FF89804F50ADDA04F5A586E94 /* Security.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		62FEF7E90837B903341305343C4D7429 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				F92AEDFB17AE4CE0ED3D96898C93D276 /* Pods-appWithRedux */,
+				65B309E55762A6E2AEE3C9C69F160B3A /* Pods-appWithRedux-tvOSTests */,
+				64608ED87AD05E28E7762A5907F2B5B9 /* Pods-appWithReduxTests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		64608ED87AD05E28E7762A5907F2B5B9 /* Pods-appWithReduxTests */ = {
+			isa = PBXGroup;
+			children = (
+				7EBD0060C1FAD3B23789F3981D9B480C /* Pods-appWithReduxTests-acknowledgements.markdown */,
+				E434A64AF86F1C9C909FD455FD44531E /* Pods-appWithReduxTests-acknowledgements.plist */,
+				614675BAE75C1740842EBAA774BFB18F /* Pods-appWithReduxTests-dummy.m */,
+				FAF9F6F431EC5F156E581759FF76F01A /* Pods-appWithReduxTests-frameworks.sh */,
+				2AC782AA2ABCE1255E400DDA3B0BC605 /* Pods-appWithReduxTests-resources.sh */,
+				6BD777BF68A9153A415FDBBC1E611E29 /* Pods-appWithReduxTests.debug.xcconfig */,
+				0DDBAE5C2F8617C9110414C8C284E94B /* Pods-appWithReduxTests.release.xcconfig */,
+			);
+			name = "Pods-appWithReduxTests";
+			path = "Target Support Files/Pods-appWithReduxTests";
+			sourceTree = "<group>";
+		};
+		65B309E55762A6E2AEE3C9C69F160B3A /* Pods-appWithRedux-tvOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				1448620FE8C91E681BB8A7283CE1EEB9 /* Pods-appWithRedux-tvOSTests-acknowledgements.markdown */,
+				BF7D1EEBCF69A5913A97E4220135EBEF /* Pods-appWithRedux-tvOSTests-acknowledgements.plist */,
+				2ADF8392D992D5A7257AE47A533FA3B4 /* Pods-appWithRedux-tvOSTests-dummy.m */,
+				9BBC2572629B71693294719E9EB10115 /* Pods-appWithRedux-tvOSTests-frameworks.sh */,
+				1EB48EA0AB3EF4F9A496B5C0A2FF88B4 /* Pods-appWithRedux-tvOSTests-resources.sh */,
+				1641C5A3D72FA63A123B6234ED545D50 /* Pods-appWithRedux-tvOSTests.debug.xcconfig */,
+				16CE10C3E100E992164A3F3F2A651F1E /* Pods-appWithRedux-tvOSTests.release.xcconfig */,
+			);
+			name = "Pods-appWithRedux-tvOSTests";
+			path = "Target Support Files/Pods-appWithRedux-tvOSTests";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
+				4ACC041EA050C3803D42A088CED12AC7 /* Pods */,
+				AD6EF00DD4EF266121CBD5849BE99DC7 /* Products */,
+				62FEF7E90837B903341305343C4D7429 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		AD6EF00DD4EF266121CBD5849BE99DC7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1C3B1F02F336310A22D36482BC908F83 /* libAdyenCSE.a */,
+				D4E22F7693165878B1E74F426A1C009E /* libPods-appWithRedux.a */,
+				A6B7D99BEA0542563598D849278D185A /* libPods-appWithRedux-tvOSTests.a */,
+				9C4EEBD5385751F7A7FA183E29B923F0 /* libPods-appWithReduxTests.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D7D979414DFB286801A6007D83433D6B /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				3CA904C9ED0B22B9AC7D9D541855DA7C /* AdyenCSE.xcconfig */,
+				C285F465B937C8D319DB6F8577837D54 /* AdyenCSE-dummy.m */,
+				6DC05D79CFDD2481B25820F6B425CB1E /* AdyenCSE-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/AdyenCSE";
+			sourceTree = "<group>";
+		};
+		D8722332C1DA06EF4B326A492F4EF2CE /* AdyenCSE */ = {
+			isa = PBXGroup;
+			children = (
+				487AC540AAB5C6138226B4B98B88820E /* ADYAESCCMCryptor.h */,
+				9B8749CDFF5B8DC6C798E82B1E9A0870 /* ADYAESCCMCryptor.m */,
+				0A49251AC3E2E9F06BF180ABABD79E23 /* ADYCard.h */,
+				2E0F383A9B0867A22C3D09E72451C924 /* ADYCard.m */,
+				3252F6B33FF41881F49372A6493B550E /* ADYCryptor.h */,
+				A47948C1FEE491804E00DC7043086A20 /* ADYCryptor.m */,
+				BBBC0BFD0B72C1CE6D9DE89863557A7C /* ADYEncrypter.h */,
+				B097DE44E570087B3FFA1C6DCC3AB7A3 /* ADYEncrypter.m */,
+				6D162DD4043CBBD47FD7B231E0B292F4 /* AdyenCSE.h */,
+				B9CF2B1800E350B6FCE8C0ABFC1CFD60 /* ADYRSACryptor.h */,
+				15376CA4EE793D27B1613FD598E65435 /* ADYRSACryptor.m */,
+				139EEEA731AD35F87FF7287A3AAC9CB3 /* NSDictionary+AdyenUtil.h */,
+				DACBDA80B95EDB407A91F0AA6B5A7D5C /* NSDictionary+AdyenUtil.m */,
+				FE20B62114CD83C612DF9E3E86F1C605 /* NSString+AdyenURLEncoding.h */,
+				89CCD8597A5887F7EC2AC09D5BD763B4 /* NSString+AdyenURLEncoding.m */,
+				0E3FF7EA38C673DF7608D34A264E972B /* NSString+AdyenUtil.h */,
+				3686AF188E16A52C753E6DEA8A3791DF /* NSString+AdyenUtil.m */,
+				D7D979414DFB286801A6007D83433D6B /* Support Files */,
+			);
+			name = AdyenCSE;
+			path = AdyenCSE;
+			sourceTree = "<group>";
+		};
+		F92AEDFB17AE4CE0ED3D96898C93D276 /* Pods-appWithRedux */ = {
+			isa = PBXGroup;
+			children = (
+				F829CD6E9CC5878E86E13236395EC33B /* Pods-appWithRedux-acknowledgements.markdown */,
+				975C5A7E27B3BB8EE350799149DBF95E /* Pods-appWithRedux-acknowledgements.plist */,
+				68387B91B1D818F25A20671FE4E25340 /* Pods-appWithRedux-dummy.m */,
+				DFEA1DF9E7F84E73CB96E83423A5EFEE /* Pods-appWithRedux-frameworks.sh */,
+				61BAFD8767E126CBAF5491A6923701D3 /* Pods-appWithRedux-resources.sh */,
+				DC1F522A8DA6091EA522A8FC31CB5005 /* Pods-appWithRedux.debug.xcconfig */,
+				E2F617CB2306A4E8EFD0721DD10A1EE4 /* Pods-appWithRedux.release.xcconfig */,
+			);
+			name = "Pods-appWithRedux";
+			path = "Target Support Files/Pods-appWithRedux";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		98D15CE5A38ACB340CB51243035D9028 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3B1092DE08FED189C58F3637DB5C4D1 /* ADYAESCCMCryptor.h in Headers */,
+				5AF7633AB93343A38C7745F139002895 /* ADYCard.h in Headers */,
+				DAA65A0698ADA65CB783C9C424BB4BB6 /* ADYCryptor.h in Headers */,
+				0E5C8157380D63ABC00CE778835BB8BA /* ADYEncrypter.h in Headers */,
+				DD8F8400D6291EC2B313B15CD0CF7BE9 /* AdyenCSE.h in Headers */,
+				9AE57BB51F23B2003AFB995418514CEA /* ADYRSACryptor.h in Headers */,
+				A30A6745C7B663EECCC69CBD6A81C2F5 /* NSDictionary+AdyenUtil.h in Headers */,
+				91F41289F3F47322B21C0EE1015A193A /* NSString+AdyenURLEncoding.h in Headers */,
+				BEE9AE1235EA4BE9F9E8A4B3F4FF8D99 /* NSString+AdyenUtil.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		7B0080C8D43AB04554D928D641F21780 /* Pods-appWithReduxTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D214DAC8BC33CC0D45542E121FE3F7B /* Build configuration list for PBXNativeTarget "Pods-appWithReduxTests" */;
+			buildPhases = (
+				76EE34F53FC53662FCF7D248A9C3AD15 /* Sources */,
+				FE9915AB577389408DE583A6F813C38F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-appWithReduxTests";
+			productName = "Pods-appWithReduxTests";
+			productReference = 9C4EEBD5385751F7A7FA183E29B923F0 /* libPods-appWithReduxTests.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		8DE833C571C36C41ED3C52226532B8F9 /* AdyenCSE */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9B9669384472DEC9F79FBB82C6F6D90 /* Build configuration list for PBXNativeTarget "AdyenCSE" */;
+			buildPhases = (
+				DC40F130C42EE01273CB3E52D247800C /* Sources */,
+				6E9E3F1109F726E35464731A0D370559 /* Frameworks */,
+				98D15CE5A38ACB340CB51243035D9028 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AdyenCSE;
+			productName = AdyenCSE;
+			productReference = 1C3B1F02F336310A22D36482BC908F83 /* libAdyenCSE.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B8AD9FD385514C4A5F795C3E4DB9A146 /* Pods-appWithRedux */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6897C94D1E0C9B49EC6A768C3843D6BA /* Build configuration list for PBXNativeTarget "Pods-appWithRedux" */;
+			buildPhases = (
+				20FBDFC958BFFB2D24071C59724768A8 /* Sources */,
+				E9A1BE7882C19C2C8F37360EE5803E52 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EB8E3A06BD5B3FD101CA70112BC5C796 /* PBXTargetDependency */,
+			);
+			name = "Pods-appWithRedux";
+			productName = "Pods-appWithRedux";
+			productReference = D4E22F7693165878B1E74F426A1C009E /* libPods-appWithRedux.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		E2C64DF9623977541D093C15BE48ED58 /* Pods-appWithRedux-tvOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 589AB7219D5317F278DFAE80FC90BA18 /* Build configuration list for PBXNativeTarget "Pods-appWithRedux-tvOSTests" */;
+			buildPhases = (
+				0CA48D629BB0DC5E61F021A731573057 /* Sources */,
+				F7A7F68EEB1E56B4C8F2C485069228D1 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-appWithRedux-tvOSTests";
+			productName = "Pods-appWithRedux-tvOSTests";
+			productReference = A6B7D99BEA0542563598D849278D185A /* libPods-appWithRedux-tvOSTests.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = AD6EF00DD4EF266121CBD5849BE99DC7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DE833C571C36C41ED3C52226532B8F9 /* AdyenCSE */,
+				B8AD9FD385514C4A5F795C3E4DB9A146 /* Pods-appWithRedux */,
+				E2C64DF9623977541D093C15BE48ED58 /* Pods-appWithRedux-tvOSTests */,
+				7B0080C8D43AB04554D928D641F21780 /* Pods-appWithReduxTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0CA48D629BB0DC5E61F021A731573057 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77F040DC5CD5B70093B1ADA27F9E8563 /* Pods-appWithRedux-tvOSTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		20FBDFC958BFFB2D24071C59724768A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA779CEEAE0FAC6767491260580A77CE /* Pods-appWithRedux-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		76EE34F53FC53662FCF7D248A9C3AD15 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF4F85BEC4C6920A9216B8BF962EBED8 /* Pods-appWithReduxTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC40F130C42EE01273CB3E52D247800C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6110C04CD7BE6E01423F45BBF51EF221 /* ADYAESCCMCryptor.m in Sources */,
+				0D3F566855537B1475633E6B81B01696 /* ADYCard.m in Sources */,
+				FFF2CEC2B4F206A022B55D00053ADAAF /* ADYCryptor.m in Sources */,
+				010A67A28F0A7AE4272BE4487BE8DC8E /* ADYEncrypter.m in Sources */,
+				68130C8EE46B81A3B10B12C94A773217 /* AdyenCSE-dummy.m in Sources */,
+				42515B5043B878338E7249CCF108E608 /* ADYRSACryptor.m in Sources */,
+				A3BCF7E0BFAC055BFE1382FA79CEE552 /* NSDictionary+AdyenUtil.m in Sources */,
+				56078209A221A29C70C837C5C6D4EF61 /* NSString+AdyenURLEncoding.m in Sources */,
+				54ACE084F59CCAA2D46560BE483292BB /* NSString+AdyenUtil.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EB8E3A06BD5B3FD101CA70112BC5C796 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AdyenCSE;
+			target = 8DE833C571C36C41ED3C52226532B8F9 /* AdyenCSE */;
+			targetProxy = 743EC0B2CF0C2B82C82F901B6138C662 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0A6F7E1213CF4B4524575D550925F5AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0DDBAE5C2F8617C9110414C8C284E94B /* Pods-appWithReduxTests.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		13671F7DC9877BFC31100B1B281CA690 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E2F617CB2306A4E8EFD0721DD10A1EE4 /* Pods-appWithRedux.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1CBCA75DE8B4F3BC049B8F0B18CEE1E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BD777BF68A9153A415FDBBC1E611E29 /* Pods-appWithReduxTests.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3EC1E9D853292CF8D98DD8AFB7093A6C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC1F522A8DA6091EA522A8FC31CB5005 /* Pods-appWithRedux.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3F31B68B8D04E2545F7A2FAA7ACF5741 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3CA904C9ED0B22B9AC7D9D541855DA7C /* AdyenCSE.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/AdyenCSE/AdyenCSE-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		49B5A78DBE571998053070754D3695E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		8A436D71C4A75C4A1D1177CB99D9863A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1641C5A3D72FA63A123B6234ED545D50 /* Pods-appWithRedux-tvOSTests.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C9E8DE609AEECDEFD1ED5FB1110EBF4D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16CE10C3E100E992164A3F3F2A651F1E /* Pods-appWithRedux-tvOSTests.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DC18C1C6CBBE628469D5B5C666659534 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3CA904C9ED0B22B9AC7D9D541855DA7C /* AdyenCSE.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/AdyenCSE/AdyenCSE-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DD369323FD85CB26347C0D75C75D837F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D214DAC8BC33CC0D45542E121FE3F7B /* Build configuration list for PBXNativeTarget "Pods-appWithReduxTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1CBCA75DE8B4F3BC049B8F0B18CEE1E1 /* Debug */,
+				0A6F7E1213CF4B4524575D550925F5AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD369323FD85CB26347C0D75C75D837F /* Debug */,
+				49B5A78DBE571998053070754D3695E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		589AB7219D5317F278DFAE80FC90BA18 /* Build configuration list for PBXNativeTarget "Pods-appWithRedux-tvOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A436D71C4A75C4A1D1177CB99D9863A /* Debug */,
+				C9E8DE609AEECDEFD1ED5FB1110EBF4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6897C94D1E0C9B49EC6A768C3843D6BA /* Build configuration list for PBXNativeTarget "Pods-appWithRedux" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3EC1E9D853292CF8D98DD8AFB7093A6C /* Debug */,
+				13671F7DC9877BFC31100B1B281CA690 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9B9669384472DEC9F79FBB82C6F6D90 /* Build configuration list for PBXNativeTarget "AdyenCSE" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC18C1C6CBBE628469D5B5C666659534 /* Debug */,
+				3F31B68B8D04E2545F7A2FAA7ACF5741 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

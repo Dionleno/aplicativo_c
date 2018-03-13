@@ -45,6 +45,7 @@ export class FormularioCartaoCredito extends Component {
   }
 
   parcelas() {
+   
 	  return this.props.parcelas.map(item => <Picker.Item key={item.key} label={item.label} value={item.key} />);
   }
 
@@ -136,7 +137,6 @@ export class FormularioCartaoCredito extends Component {
               iosHeader="Parcelas"
               headerBackButtonText="Voltar"
               mode="dialog"
-              { ...this.props }
               placeholder="Parcelas"
               selectedValue={this.props.cartao.installment_id}
               onValueChange={value => this.props.setInstallmentId(value)}>

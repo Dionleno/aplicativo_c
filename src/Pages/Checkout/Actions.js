@@ -210,10 +210,13 @@ export const calcularParcelas = value => {
     });
 
     total = total.replace('|', '');
-
+   
     RequestAuth('carts/installments/' + total, 'GET')
     .then(response => response.json())
-    .then(parcelas =>  dispatch(setParcelas(parcelas)))
+    .then(parcelas =>  {
+      
+      dispatch(setParcelas(parcelas))
+    })
     .catch(error => console.log(error));
   }
 }
@@ -250,6 +253,7 @@ export const cadastrarCartao = (popupDialogCartao) => {
       checkout.cartao.ano.toString()
     )
     .then(encrypt => {
+       
       dispatch(
         addCard(
           {
@@ -470,7 +474,7 @@ export const enviarCadastroParaApi = (props, encrypt = '') => {
         data.cards = checkout.cards;
       }
     }
-
+    console.log('carrinho');
     RequestAuth('carts', 'GET')
       .then(response => response.json())
       .then(response => {
@@ -491,10 +495,12 @@ export const enviarCadastroParaApi = (props, encrypt = '') => {
           props.navigation.navigate('Carrinho');
           return;
         }
-
+       console.log('checkout');
+       console.log(data);
         RequestAuth('carts/checkout', 'POST', data)
           .then(response => response.json())
           .then(response => {
+            console.log(response);
             if(response.error){
               Alert.alert('Atenção', response.error.message);
               console.log(response);

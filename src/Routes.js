@@ -35,7 +35,7 @@ import HomeEv from './Ev/Home';
 
 // Paginas internas
 import Interna from './Pages/Interna';
-
+import Teste from './Pages/Home/teste'
 // Paginas estaticas
 import SideBar from './Static/SideBar';
 
@@ -69,6 +69,7 @@ const transitionConfig = () => {
 const NavigatorRouter = StackNavigator({
   Produto: {screen: Produto},
   Home: {screen: Home},
+  Teste: {screen: Teste},
   Login: {screen:Login},
   Logado:{screen:Logado},
   Patrocinador: {screen: Patrocinador},
@@ -90,7 +91,7 @@ const NavigatorRouter = StackNavigator({
   HomeEv:{screen:HomeEv}
 }, {
   headerMode: 'none',
-  initialRouteName: 'Home',
+  initialRouteName: 'Checkout',
   transitionConfig,
   navigationOptions : {}
 });

@@ -1,2 +1,7 @@
-import { NativeModules } from 'react-native';
-module.exports = NativeModules.AdyenCse;
+import { Platform,NativeModules } from 'react-native';
+
+if(Platform.OS === 'ios'){
+    module.exports = NativeModules.AdyenIOS;
+}else{
+    module.exports = NativeModules.AdyenCse;
+}
